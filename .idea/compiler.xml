@@ -9,5 +9,8 @@
         <module name="mollie" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mollie" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
