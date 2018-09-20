@@ -148,6 +148,8 @@
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier">
             <property name="publicMemberPattern" value="^(IS_RESPONSE_LIST|serialVersionUID)$" />
+            <property name="packageAllowed" value="true" />
+            <property name="protectedAllowed" value="true" />
         </module>
 
         <!-- Miscellaneous other checks.                   -->
