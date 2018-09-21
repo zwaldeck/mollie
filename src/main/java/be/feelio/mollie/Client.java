@@ -1,5 +1,6 @@
 package be.feelio.mollie;
 
+import be.feelio.mollie.handler.ChargebackHandler;
 import be.feelio.mollie.handler.MethodHandler;
 import be.feelio.mollie.handler.PaymentHandler;
 import be.feelio.mollie.handler.RefundHandler;
@@ -18,8 +19,8 @@ public class Client {
     @Getter
     private final String apiKey;
 
-    public Client(String version, String apiKey) {
-        this.endpoint = "https://api.mollie.com/" + version;
+    public Client(String apiKey) {
+        this.endpoint = "https://api.mollie.com/v2";
         this.apiKey = apiKey;
 
         initUniRest();
@@ -35,6 +36,10 @@ public class Client {
 
     public RefundHandler refunds() {
         return new RefundHandler(endpoint);
+    }
+
+    public ChargebackHandler chargebacks() {
+        return new ChargebackHandler(endpoint);
     }
 
     private void initUniRest() {

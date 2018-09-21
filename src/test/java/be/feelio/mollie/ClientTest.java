@@ -8,9 +8,9 @@ class ClientTest {
 
     @Test
     void constructor() {
-        Client client = new Client("v1", "apiKey");
+        Client client = new Client("apiKey");
 
-        assertEquals("https://api.mollie.com/v1", client.getEndpoint());
+        assertEquals("https://api.mollie.com/v2", client.getEndpoint());
         assertEquals("apiKey", client.getApiKey());
     }
 

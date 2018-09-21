@@ -2,10 +2,6 @@
 
 [![Build Status](https://travis-ci.org/Feel-IO/mollie.svg?branch=master)](https://travis-ci.org/Feel-IO/mollie)  [ ![Download](https://api.bintray.com/packages/feel-io/Mollie/mollie/images/download.svg) ](https://bintray.com/feel-io/Mollie/mollie/_latestVersion)  
 
-## Version
-
-0.0.1
-
 ## License
 
 The source code is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
@@ -36,9 +32,9 @@ This library requires Java 8.
     - [X] Cancel payment refund    
     - [X] List payment refunds
     
-- [ ] **Chargebacks**
-    - [ ] Get chargeback
-    - [ ] List chargebacks
+- [X] **Chargebacks**
+    - [X] Get chargeback
+    - [X] List chargebacks
     
 - [ ] **Captures**
     - [ ] Get capute
