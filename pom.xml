@@ -184,4 +184,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-feel-io-Mollie</id>
+            <name>feel-io-Mollie</name>
+            <url>https://api.bintray.com/maven/feel-io/Mollie/mollie/;publish=1</url>
+        </repository>
+    </distributionManagement>
+
 </project>
