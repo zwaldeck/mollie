@@ -6,7 +6,7 @@ import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.json.common.Amount;
 import be.feelio.mollie.json.common.Pagination;
 import be.feelio.mollie.json.request.PaymentRequest;
-import be.feelio.mollie.json.response.ChargebackListResponse;
+import be.feelio.mollie.json.response.CaptureListResponse;
 import be.feelio.mollie.json.response.PaymentResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,24 +16,17 @@ import java.util.Optional;
 import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChargebackHandlerTest {
+class CaptureHandlerTest {
 
     private Client client;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         client = new ClientBuilder().withApiKey(API_KEY).build();
     }
 
     @Test
-    void getChargebacks() throws MollieException {
-        Pagination<ChargebackListResponse> response = client.chargebacks().getChargebacks();
-
-        assertNotNull(response);
-    }
-
-    @Test
-    void getChargebacks_withPaymentId() throws MollieException {
+    void getCaptures() throws MollieException {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
@@ -47,7 +40,7 @@ class ChargebackHandlerTest {
 
         assertNotNull(payment);
 
-        Pagination<ChargebackListResponse> response = client.chargebacks().getChargebacks(payment.getId());
+        Pagination<CaptureListResponse> response = client.captures().getCaptures(payment.getId());
 
         assertNotNull(response);
     }

@@ -36,9 +36,9 @@ This library requires Java 8.
     - [X] Get chargeback
     - [X] List chargebacks
     
-- [ ] **Captures**
-    - [ ] Get capute
-    - [ ] List captures
+- [X] **Captures**
+    - [X] Get capute
+    - [X] List captures
     
 - [ ] **Orders**
     - [ ] Create order    

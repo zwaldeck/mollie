@@ -1,9 +1,6 @@
 package be.feelio.mollie;
 
-import be.feelio.mollie.handler.ChargebackHandler;
-import be.feelio.mollie.handler.MethodHandler;
-import be.feelio.mollie.handler.PaymentHandler;
-import be.feelio.mollie.handler.RefundHandler;
+import be.feelio.mollie.handler.*;
 import be.feelio.mollie.util.ObjectMapperService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.Unirest;
@@ -40,6 +37,10 @@ public class Client {
 
     public ChargebackHandler chargebacks() {
         return new ChargebackHandler(endpoint);
+    }
+
+    public CaptureHandler captures() {
+        return new CaptureHandler(endpoint);
     }
 
     private void initUniRest() {
