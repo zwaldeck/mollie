@@ -1,5 +1,7 @@
 # Mollie API with Java 8+
 
+[![Build Status](https://travis-ci.org/Feel-IO/mollie.svg?branch=master)](https://travis-ci.org/Feel-IO/mollie)  [ ![Download](https://api.bintray.com/packages/feel-io/Mollie/mollie/images/download.svg) ](https://bintray.com/feel-io/Mollie/mollie/_latestVersion)  
+
 ## Version
 
 0.0.1
