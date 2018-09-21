@@ -1,5 +1,6 @@
 package be.feelio.mollie;
 
+import be.feelio.mollie.handler.MethodHandler;
 import be.feelio.mollie.handler.PaymentHandler;
 import be.feelio.mollie.util.ObjectMapperService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,6 +26,10 @@ public class Client {
 
     public PaymentHandler payments() {
         return new PaymentHandler(endpoint);
+    }
+
+    public MethodHandler methods() {
+        return new MethodHandler(endpoint);
     }
 
     private void initUniRest() {

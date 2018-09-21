@@ -24,9 +24,9 @@ This library requires Java 8.
     - [X] Cancel payment
     - [X] List payment
     
-- [ ] **Methods**
-    - [ ] List payment methods
-    - [ ] Get payment method
+- [X] **Methods**
+    - [X] List payment methods
+    - [X] Get payment method
     
 - [ ] **Refunds**
     - [ ] Create payment refund    

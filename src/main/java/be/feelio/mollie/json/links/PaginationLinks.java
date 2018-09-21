@@ -1,9 +1,12 @@
-package be.feelio.mollie.json.common;
+package be.feelio.mollie.json.links;
 
+import be.feelio.mollie.json.common.Link;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -12,9 +15,10 @@ import lombok.NoArgsConstructor;
 public class PaginationLinks {
 
     private Link self;
-    private Link previous;
 
-    private Link next;
+    private Optional<Link> previous;
+
+    private Optional<Link> next;
 
     private Link documentation;
 }

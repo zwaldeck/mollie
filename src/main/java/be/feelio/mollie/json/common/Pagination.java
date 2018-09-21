@@ -1,5 +1,6 @@
 package be.feelio.mollie.json.common;
 
+import be.feelio.mollie.json.links.PaginationLinks;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
