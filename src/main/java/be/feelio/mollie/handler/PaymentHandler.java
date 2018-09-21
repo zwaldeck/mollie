@@ -6,6 +6,7 @@ import be.feelio.mollie.json.request.PaymentRequest;
 import be.feelio.mollie.json.response.PaymentListResponse;
 import be.feelio.mollie.json.response.PaymentResponse;
 import be.feelio.mollie.util.ObjectMapperService;
+import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -38,21 +39,13 @@ public class PaymentHandler extends AbstractHandler {
     }
 
     public PaymentResponse getPayment(String paymentId) throws MollieException {
-        return getPayment(paymentId, false, false);
+        return getPayment(paymentId, QueryParams.EMPTY);
     }
 
-    public PaymentResponse getPayment(String paymentId, boolean withRefunds, boolean withChargebacks)
+    public PaymentResponse getPayment(String paymentId, QueryParams queryParams)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId;
-
-            if (withRefunds && withChargebacks) {
-                url += "?embed=refunds,chargebacks";
-            } else if (withRefunds) {
-                url += "?embed=refunds";
-            } else if (withChargebacks) {
-                url += "?embed=chargebacks";
-            }
+            String url = baseUrl + "/payments/" + paymentId + queryParams.toString();
 
             HttpResponse<String> response = Unirest.get(url).asString();
 
@@ -77,28 +70,13 @@ public class PaymentHandler extends AbstractHandler {
     }
 
     public Pagination<PaymentListResponse> listPayments() throws MollieException {
-        return listPayments(null, -1);
+        return listPayments(QueryParams.EMPTY);
     }
 
-    public Pagination<PaymentListResponse> listPayments(String from) throws MollieException {
-        return listPayments(from, -1);
-    }
 
-    public Pagination<PaymentListResponse> listPayments(int limit) throws MollieException {
-        return listPayments(null, limit);
-    }
-
-    public Pagination<PaymentListResponse> listPayments(String from, int limit) throws MollieException {
+    public Pagination<PaymentListResponse> listPayments(QueryParams queryParams) throws MollieException {
         try {
-            String url = baseUrl + "/payments";
-
-            if (from != null && !from.isEmpty() && limit > 0) {
-                url += "?limit=" + limit + "&from=" + from;
-            } else if (from != null && !from.isEmpty()) {
-                url += "?from=" + from;
-            } else if (limit > 0) {
-                url += "?limit=" + limit;
-            }
+            String url = baseUrl + "/payments" + queryParams.toString();
 
             HttpResponse<String> response = Unirest.get(url).asString();
 

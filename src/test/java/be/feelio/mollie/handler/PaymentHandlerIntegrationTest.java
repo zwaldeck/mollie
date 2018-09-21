@@ -8,6 +8,7 @@ import be.feelio.mollie.json.common.Pagination;
 import be.feelio.mollie.json.request.PaymentRequest;
 import be.feelio.mollie.json.response.PaymentListResponse;
 import be.feelio.mollie.json.response.PaymentResponse;
+import be.feelio.mollie.util.QueryParams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -82,26 +83,6 @@ public class PaymentHandlerIntegrationTest {
     }
 
     @Test
-    void getPayment_success_withChargeBacksAndRefunds() throws MollieException {
-        PaymentRequest request = PaymentRequest.builder()
-                .amount(Amount.builder()
-                        .currency("EUR")
-                        .value("10.00")
-                        .build())
-                .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
-                .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
-                .build();
-        PaymentResponse response = client.payments().createPayment(request);
-
-        assertNotNull(response);
-
-        response = client.payments().getPayment(response.getId(), true, true);
-
-        assertNotNull(response);
-    }
-
-    @Test
     @Disabled
         // TODO enable when we have a cancelable payment method
     void cancelPayment_success() throws MollieException {
@@ -149,7 +130,10 @@ public class PaymentHandlerIntegrationTest {
 
         assertNotNull(response);
 
-        Pagination<PaymentListResponse> responseList = client.payments().listPayments(response.getId());
+        QueryParams params = new QueryParams();
+        params.put("from", response.getId());
+
+        Pagination<PaymentListResponse> responseList = client.payments().listPayments(params);
 
         assertNotNull(response);
         assertTrue(responseList.getCount() > 0);
@@ -172,7 +156,11 @@ public class PaymentHandlerIntegrationTest {
 
         assertNotNull(response);
 
-        Pagination<PaymentListResponse> responseList = client.payments().listPayments(response.getId(), 10);
+        QueryParams params = new QueryParams();
+        params.put("from", response.getId());
+        params.put("limit", "10");
+
+        Pagination<PaymentListResponse> responseList = client.payments().listPayments(params);
 
         assertNotNull(response);
         assertTrue(responseList.getCount() <= 10);
