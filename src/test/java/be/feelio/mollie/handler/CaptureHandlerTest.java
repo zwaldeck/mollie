@@ -40,7 +40,7 @@ class CaptureHandlerTest {
 
         assertNotNull(payment);
 
-        Pagination<CaptureListResponse> response = client.captures().getCaptures(payment.getId());
+        Pagination<CaptureListResponse> response = client.captures().listCaptures(payment.getId());
 
         assertNotNull(response);
     }

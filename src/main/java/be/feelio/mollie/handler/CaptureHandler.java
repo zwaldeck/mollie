@@ -41,11 +41,11 @@ public class CaptureHandler extends AbstractHandler {
         }
     }
 
-    public Pagination<CaptureListResponse> getCaptures(String paymentId) throws MollieException {
-        return getCaptures(paymentId, QueryParams.EMPTY);
+    public Pagination<CaptureListResponse> listCaptures(String paymentId) throws MollieException {
+        return listCaptures(paymentId, QueryParams.EMPTY);
     }
 
-    public Pagination<CaptureListResponse> getCaptures(String paymentId, QueryParams params) throws MollieException {
+    public Pagination<CaptureListResponse> listCaptures(String paymentId, QueryParams params) throws MollieException {
         try {
             HttpResponse<String> response = Unirest.get(baseUrl + "/payments/" + paymentId +
                     "/captures" + params.toString()).asString();

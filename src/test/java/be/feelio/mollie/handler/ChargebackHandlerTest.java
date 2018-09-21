@@ -27,7 +27,7 @@ class ChargebackHandlerTest {
 
     @Test
     void getChargebacks() throws MollieException {
-        Pagination<ChargebackListResponse> response = client.chargebacks().getChargebacks();
+        Pagination<ChargebackListResponse> response = client.chargebacks().listChargebacks();
 
         assertNotNull(response);
     }
@@ -47,7 +47,7 @@ class ChargebackHandlerTest {
 
         assertNotNull(payment);
 
-        Pagination<ChargebackListResponse> response = client.chargebacks().getChargebacks(payment.getId());
+        Pagination<ChargebackListResponse> response = client.chargebacks().listChargebacks(payment.getId());
 
         assertNotNull(response);
     }

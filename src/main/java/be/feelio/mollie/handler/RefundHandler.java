@@ -68,11 +68,11 @@ public class RefundHandler extends AbstractHandler {
         }
     }
 
-    public Pagination<RefundListResponse> getRefunds() throws MollieException {
-        return getRefunds(QueryParams.EMPTY);
+    public Pagination<RefundListResponse> listRefunds() throws MollieException {
+        return listRefunds(QueryParams.EMPTY);
     }
 
-    public Pagination<RefundListResponse> getRefunds(QueryParams params) throws MollieException {
+    public Pagination<RefundListResponse> listRefunds(QueryParams params) throws MollieException {
         try {
             HttpResponse<String> response = Unirest.get(baseUrl + "/refunds" + params.toString())
                     .asString();
@@ -87,11 +87,11 @@ public class RefundHandler extends AbstractHandler {
         }
     }
 
-    public Pagination<RefundListResponse> getRefunds(String paymentId) throws MollieException {
-        return getRefunds(paymentId, QueryParams.EMPTY);
+    public Pagination<RefundListResponse> listRefunds(String paymentId) throws MollieException {
+        return listRefunds(paymentId, QueryParams.EMPTY);
     }
 
-    public Pagination<RefundListResponse> getRefunds(String paymentId, QueryParams params) throws MollieException {
+    public Pagination<RefundListResponse> listRefunds(String paymentId, QueryParams params) throws MollieException {
         try {
             HttpResponse<String> response = Unirest.get(baseUrl + "/payments/" + paymentId +
                     "/refunds" + params.toString())

@@ -36,7 +36,7 @@ public class ChargebackHandler extends AbstractHandler {
         }
     }
 
-    public Pagination<ChargebackListResponse> getChargebacks() throws MollieException {
+    public Pagination<ChargebackListResponse> listChargebacks() throws MollieException {
         try {
             HttpResponse<String> response = Unirest.get(baseUrl + "/chargebacks").asString();
 
@@ -50,7 +50,7 @@ public class ChargebackHandler extends AbstractHandler {
         }
     }
 
-    public Pagination<ChargebackListResponse> getChargebacks(String paymentId) throws MollieException {
+    public Pagination<ChargebackListResponse> listChargebacks(String paymentId) throws MollieException {
         try {
             HttpResponse<String> response = Unirest.get(baseUrl + "/payments/" + paymentId + "/chargebacks")
                     .asString();

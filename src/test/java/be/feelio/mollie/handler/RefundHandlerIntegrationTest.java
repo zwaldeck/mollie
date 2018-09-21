@@ -72,14 +72,14 @@ class RefundHandlerIntegrationTest {
 
         assertNotNull(payment);
 
-        Pagination<RefundListResponse> refunds = client.refunds().getRefunds(payment.getId());
+        Pagination<RefundListResponse> refunds = client.refunds().listRefunds(payment.getId());
 
         assertNotNull(refunds);
     }
 
     @Test
     void getRefunds_all() throws MollieException {
-        Pagination<RefundListResponse> refunds = client.refunds().getRefunds();
+        Pagination<RefundListResponse> refunds = client.refunds().listRefunds();
 
         assertNotNull(refunds);
     }
