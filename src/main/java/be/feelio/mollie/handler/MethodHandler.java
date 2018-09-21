@@ -4,7 +4,6 @@ import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.json.common.Pagination;
 import be.feelio.mollie.json.response.MethodListResponse;
 import be.feelio.mollie.json.response.MethodResponse;
-import be.feelio.mollie.json.response.PaymentListResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
