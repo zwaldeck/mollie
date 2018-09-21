@@ -21,8 +21,14 @@ public class RefundHandler extends AbstractHandler {
     }
 
     public RefundResponse createRefund(String paymentId, RefundRequest body) throws MollieException {
+        return createRefund(paymentId, body, QueryParams.EMPTY);
+    }
+
+    public RefundResponse createRefund(String paymentId, RefundRequest body, QueryParams params)
+            throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.post(baseUrl + "/payments/" + paymentId + "/refunds")
+            HttpResponse<String> response = Unirest.post(baseUrl + "/payments/" + paymentId +
+                    "/refunds" + params.toString())
                     .body(body)
                     .asString();
 
@@ -46,10 +52,14 @@ public class RefundHandler extends AbstractHandler {
             throw new MollieException(ex);
         }
     }
-
     public void cancelRefund(String paymentId, String refundId) throws MollieException {
+        cancelRefund(paymentId, refundId, QueryParams.EMPTY);
+    }
+
+    public void cancelRefund(String paymentId, String refundId, QueryParams params) throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.delete(baseUrl + "/payments/" + paymentId + "/refunds/" + refundId)
+            HttpResponse<String> response = Unirest.delete(baseUrl + "/payments/" + paymentId +
+                    "/refunds/" + refundId + params.toString())
                     .asString();
 
             validateResponse(response);

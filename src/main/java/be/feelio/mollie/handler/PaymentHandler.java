@@ -25,8 +25,12 @@ public class PaymentHandler extends AbstractHandler {
     }
 
     public PaymentResponse createPayment(PaymentRequest body) throws MollieException {
+        return createPayment(body, QueryParams.EMPTY);
+    }
+
+    public PaymentResponse createPayment(PaymentRequest body, QueryParams params) throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.post(baseUrl + "/payments")
+            HttpResponse<String> response = Unirest.post(baseUrl + "/payments" + params.toString())
                     .body(body)
                     .asString();
 
