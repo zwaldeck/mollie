@@ -28,11 +28,11 @@ This library requires Java 8.
     - [X] List payment methods
     - [X] Get payment method
     
-- [ ] **Refunds**
-    - [ ] Create payment refund    
-    - [ ] Get payment refund    
-    - [ ] Cancel payment refund    
-    - [ ] List payment refunds
+- [X] **Refunds**
+    - [X] Create payment refund    
+    - [X] Get payment refund    
+    - [X] Cancel payment refund    
+    - [X] List payment refunds
     
 - [ ] **Chargebacks**
     - [ ] Get chargeback

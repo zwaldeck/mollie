@@ -2,6 +2,7 @@ package be.feelio.mollie;
 
 import be.feelio.mollie.handler.MethodHandler;
 import be.feelio.mollie.handler.PaymentHandler;
+import be.feelio.mollie.handler.RefundHandler;
 import be.feelio.mollie.util.ObjectMapperService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.Unirest;
@@ -30,6 +31,10 @@ public class Client {
 
     public MethodHandler methods() {
         return new MethodHandler(endpoint);
+    }
+
+    public RefundHandler refunds() {
+        return new RefundHandler(endpoint);
     }
 
     private void initUniRest() {
