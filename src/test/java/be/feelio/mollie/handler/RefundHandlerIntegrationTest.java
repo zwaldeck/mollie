@@ -65,7 +65,7 @@ class RefundHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse payment = client.payments().createPayment(request);

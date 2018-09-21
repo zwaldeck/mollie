@@ -20,7 +20,7 @@ public class PaymentRequest {
 
     private String description;
 
-    private String redirectUrl;
+    private Optional<String> redirectUrl;
 
     private Optional<String> webhookUrl;
 

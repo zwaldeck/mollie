@@ -43,6 +43,10 @@ public class Client {
         return new CaptureHandler(endpoint);
     }
 
+    public CustomerHandler customers() {
+        return new CustomerHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.setDefaultHeader("Authorization", "Bearer " + apiKey);
         Unirest.setDefaultHeader("Content-Type", "application/json");

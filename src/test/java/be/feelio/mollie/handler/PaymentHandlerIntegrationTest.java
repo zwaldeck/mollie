@@ -35,7 +35,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -51,7 +51,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         MollieException ex = assertThrows(MollieException.class, () -> client.payments().createPayment(request));
@@ -70,7 +70,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -93,7 +93,7 @@ public class PaymentHandlerIntegrationTest {
                         .build())
                 .description("My first payment")
                 .method(Optional.of("paysafecard"))
-                .redirectUrl("https://webshop.example.org/order/12345/")
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -123,7 +123,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -149,7 +149,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
