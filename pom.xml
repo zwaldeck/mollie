@@ -6,16 +6,16 @@
 
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>0.6.1</version>
+    <version>0.6.3</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
+    <url>https://github.com/Feel-IO/mollie</url>
 
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -31,7 +31,7 @@
     <scm>
         <connection>scm:git:git://github.com/Feel-IO/mollie.git</connection>
         <developerConnection>scm:git:ssh://github.com/Feel-IO/mollie.git</developerConnection>
-        <url>https://github.com/Feel-IO/mollie</url>
+        <url>https://github.com/Feel-IO/mollie/tree/master</url>
     </scm>
 
     <properties>
@@ -201,6 +201,20 @@
                 <executions>
                     <execution>
                         <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
