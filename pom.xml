@@ -6,7 +6,7 @@
 
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
@@ -19,7 +19,18 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Wout Schoovaerts</name>
+            <email>wout@feelio.be</email>
+            <organization>Feel-IO</organization>
+            <organizationUrl>https://feelio.be</organizationUrl>
+        </developer>
+    </developers>
+
     <scm>
+        <connection>scm:git:git://github.com/Feel-IO/mollie.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Feel-IO/mollie.git</developerConnection>
         <url>https://github.com/Feel-IO/mollie</url>
     </scm>
 
@@ -181,6 +192,20 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
