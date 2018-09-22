@@ -65,11 +65,11 @@ This library requires Java 8.
     - [ ] Create customer payment          
     - [ ] List customer payments
      
-- [ ] **Mandates**
-    - [ ] Create mandate    
-    - [ ] Get mandate
-    - [ ] Revoke mandate
-    - [ ] List Customers     
+- [X] **Mandates**
+    - [X] Create mandate    
+    - [X] Get mandate
+    - [X] Revoke mandate
+    - [X] List Customers     
       
 - [ ] **Subscriptions**
     - [ ] Create subscription
