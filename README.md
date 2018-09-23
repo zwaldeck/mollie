@@ -73,14 +73,14 @@ PaymentResponse payment = client.payments().getPayment("my-payment-id");
     - [ ] Update Shipment    
     - [ ] List Shipments
      
-- [ ] **Customers**
-    - [ ] Create Customer    
-    - [ ] Get Customer    
-    - [ ] Update Customer    
-    - [ ] Cancel Customer    
-    - [ ] List Customers          
-    - [ ] Create customer payment          
-    - [ ] List customer payments
+- [X] **Customers**
+    - [X] Create Customer    
+    - [X] Get Customer    
+    - [X] Update Customer    
+    - [X] Cancel Customer    
+    - [X] List Customers          
+    - [X] Create customer payment          
+    - [X] List customer payments
      
 - [X] **Mandates**
     - [X] Create mandate    
