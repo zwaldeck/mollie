@@ -134,8 +134,8 @@ public class SubscriptionHandler extends AbstractHandler {
     public Pagination<PaymentListResponse> listSubscriptionPayments(String customerId, String subscriptionId,
                                                                     QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments"
-                    + params.toString();
+            String url = baseUrl + "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments" +
+                    params.toString();
 
             log.info("Executing 'GET {}'", url);
             HttpResponse<String> response = Unirest.get(url)
