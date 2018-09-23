@@ -11,6 +11,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -18,6 +20,7 @@ import java.io.IOException;
 // TODO support QR codes
 public class PaymentHandler extends AbstractHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(PaymentHandler.class);
 
     public PaymentHandler(String baseUrl) {
         super(baseUrl);
@@ -30,14 +33,19 @@ public class PaymentHandler extends AbstractHandler {
 
     public PaymentResponse createPayment(PaymentRequest body, QueryParams params) throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.post(baseUrl + "/payments" + params.toString())
+            String url = baseUrl + "/payments" + params.toString();
+
+            log.info("Executing 'POST {}'", url);
+            HttpResponse<String> response = Unirest.post(url)
                     .body(body)
                     .asString();
 
             validateResponse(response);
+            log.info("Successful response 'POST {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
@@ -51,24 +59,32 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String url = baseUrl + "/payments/" + paymentId + queryParams.toString();
 
+            log.info("Executing 'GET {}'", url);
             HttpResponse<String> response = Unirest.get(url).asString();
 
             validateResponse(response);
+            log.info("Successful response 'GET {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
 
     public PaymentResponse cancelPayment(String paymentId) throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.delete(baseUrl + "/payments/" + paymentId).asString();
+            String url = baseUrl + "/payments/" + paymentId;
+
+            log.info("Executing 'DELETE {}'", url);
+            HttpResponse<String> response = Unirest.delete(url).asString();
 
             validateResponse(response);
+            log.info("Successful response 'DELETE {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
@@ -82,14 +98,17 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String url = baseUrl + "/payments" + queryParams.toString();
 
+            log.info("Executing 'GET {}'", url);
             HttpResponse<String> response = Unirest.get(url).asString();
 
             validateResponse(response);
+            log.info("Successful response 'GET {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PaymentListResponse>>() {
                     });
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }

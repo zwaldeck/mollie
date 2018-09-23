@@ -11,10 +11,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class MandateHandler extends AbstractHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(MandateHandler.class);
 
     public MandateHandler(String baseUrl) {
         super(baseUrl);
@@ -27,15 +31,19 @@ public class MandateHandler extends AbstractHandler {
     public MandateResponse createMandate(String customerId, MandateRequest body, QueryParams params)
             throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.post(baseUrl + "/customers/" + customerId +
-                    "/mandates" + params.toString())
+            String url = baseUrl + "/customers/" + customerId + "/mandates" + params.toString();
+
+            log.info("Executing 'POST {}'", url);
+            HttpResponse<String> response = Unirest.post(url)
                     .body(body)
                     .asString();
 
             validateResponse(response);
+            log.info("Successful response 'POST {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), MandateResponse.class);
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
@@ -47,14 +55,18 @@ public class MandateHandler extends AbstractHandler {
     public MandateResponse getMandate(String customerId, String mandateId, QueryParams params)
             throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.get(baseUrl + "/customers/" + customerId +
-                    "/mandates/" + mandateId + params.toString())
+            String url = baseUrl + "/customers/" + customerId + "/mandates/" + mandateId + params.toString();
+
+            log.info("Executing 'GET {}'", url);
+            HttpResponse<String> response = Unirest.get(url)
                     .asString();
 
             validateResponse(response);
+            log.info("Successful response 'GET {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), MandateResponse.class);
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
@@ -66,12 +78,17 @@ public class MandateHandler extends AbstractHandler {
     public void revokeMandate(String customerId, String mandateId, QueryParams params)
             throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.delete(baseUrl + "/customers/" + customerId +
-                    "/mandates/" + mandateId + params.toString())
+            String url = baseUrl + "/customers/" + customerId + "/mandates/" + mandateId + params.toString();
+
+            log.info("Executing 'DELETE {}'", url);
+            HttpResponse<String> response = Unirest.delete(url)
                     .asString();
 
             validateResponse(response);
+            log.info("Successful response 'DELETE {}'", url);
+
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
@@ -83,16 +100,20 @@ public class MandateHandler extends AbstractHandler {
 
     public Pagination<MandateListResponse> listMandates(String customerId, QueryParams params) throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.get(baseUrl + "/customers/" + customerId +
-                    "/mandates" + params.toString())
+            String url = baseUrl + "/customers/" + customerId + "/mandates" + params.toString();
+
+            log.info("Executing 'GET {}'", url);
+            HttpResponse<String> response = Unirest.get(url)
                     .asString();
 
             validateResponse(response);
+            log.info("Successful response 'GET {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<MandateListResponse>>() {
                     });
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }

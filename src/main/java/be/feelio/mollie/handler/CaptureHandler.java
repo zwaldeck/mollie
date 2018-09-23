@@ -12,10 +12,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class CaptureHandler extends AbstractHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(CaptureHandler.class);
 
     public CaptureHandler(String baseUrl) {
         super(baseUrl);
@@ -28,15 +32,20 @@ public class CaptureHandler extends AbstractHandler {
     public CaptureResponse getCapture(String paymentId, String captureId, QueryParams params)
             throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.get(baseUrl + "/payments/" + paymentId +
-                    "/captures/" + captureId + params.toString()).asString();
+            String url = baseUrl + "/payments/" + paymentId +
+                    "/captures/" + captureId + params.toString();
+
+            log.info("Executing 'GET {}'", url);
+            HttpResponse<String> response = Unirest.get(url).asString();
 
             validateResponse(response);
+            log.info("Successful response 'GET {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<ChargebackResponse>() {
                     });
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
@@ -47,15 +56,20 @@ public class CaptureHandler extends AbstractHandler {
 
     public Pagination<CaptureListResponse> listCaptures(String paymentId, QueryParams params) throws MollieException {
         try {
-            HttpResponse<String> response = Unirest.get(baseUrl + "/payments/" + paymentId +
-                    "/captures" + params.toString()).asString();
+            String url = baseUrl + "/payments/" + paymentId +
+                    "/captures" + params.toString();
+
+            log.info("Executing 'GET {}'", url);
+            HttpResponse<String> response = Unirest.get(url).asString();
 
             validateResponse(response);
+            log.info("Successful response 'GET {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {
                     });
         } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
