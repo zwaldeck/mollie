@@ -51,6 +51,10 @@ public class Client {
         return new MandateHandler(endpoint);
     }
 
+    public SubscriptionHandler subscriptions() {
+        return new SubscriptionHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.setDefaultHeader("Authorization", "Bearer " + apiKey);
         Unirest.setDefaultHeader("Content-Type", "application/json");

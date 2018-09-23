@@ -71,12 +71,12 @@ This library requires Java 8.
     - [X] Revoke mandate
     - [X] List Customers     
       
-- [ ] **Subscriptions**
-    - [ ] Create subscription
-    - [ ] Get subscription
-    - [ ] Update subscription   
-    - [ ] Cancel subscription
-    - [ ] List subscriptions
+- [X] **Subscriptions**
+    - [X] Create subscription
+    - [X] Get subscription
+    - [X] Update subscription   
+    - [X] Cancel subscription
+    - [X] List subscriptions
      
 - [ ] **Connect**
     - [ ] Authorize

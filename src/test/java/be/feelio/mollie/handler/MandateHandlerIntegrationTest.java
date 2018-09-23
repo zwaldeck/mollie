@@ -19,7 +19,7 @@ import java.util.Optional;
 import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MandateHandlerTest {
+class MandateHandlerIntegrationTest {
 
     private Client client;
 
