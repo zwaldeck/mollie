@@ -12,6 +12,23 @@ This library requires Java 8.
 
 ## Usage
 
+1. Add dependency to your project (For example maven:)
+```
+<dependency>
+    <groupId>be.feelio</groupId>
+    <artifactId>mollie</artifactId>
+    <version>0.8.0</version>
+</dependency>
+```
+2. Build a client and use it (For getting a payment)
+```
+Client client = new ClientBuilder()
+                       .withApiKey("test_hW7trRMaJphr8feGzMNtd5SwShQSwg")
+                       .build();
+                       
+PaymentResponse payment = client.payments().getPayment("my-payment-id");
+```
+
 ## Features
 
 - [ ] Mollie Connect / OAuth
