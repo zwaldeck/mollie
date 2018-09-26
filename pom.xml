@@ -6,7 +6,7 @@
 
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>0.8.2</version>
+    <version>1.0.0</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
