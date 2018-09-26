@@ -19,6 +19,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * Handles the Customer API <a href="https://docs.mollie.com/reference/v2/customers-api/create-customer">Mollie docs</a>
+ *
+ * @author Wout Schoovaerts
+ */
 public class CustomerHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerHandler.class);
@@ -27,10 +32,25 @@ public class CustomerHandler extends AbstractHandler {
         super(baseUrl);
     }
 
+    /**
+     * Creates a simple minimal representation of a customer in the Mollie API to use for the Mollie Checkout and Recurring features.
+     *
+     * @param body CustomerRequest object
+     * @return CustomerResponse object
+     * @throws MollieException when something went wrong
+     */
     public CustomerResponse createCustomer(CustomerRequest body) throws MollieException {
         return createCustomer(body, QueryParams.EMPTY);
     }
 
+    /**
+     * Creates a simple minimal representation of a customer in the Mollie API to use for the Mollie Checkout and Recurring features.
+     *
+     * @param body   CustomerRequest object
+     * @param params A map of query parameters
+     * @return CustomerResponse object
+     * @throws MollieException when something went wrong
+     */
     public CustomerResponse createCustomer(CustomerRequest body, QueryParams params) throws MollieException {
         try {
             String url = baseUrl + "/customers" + params.toString();
@@ -50,10 +70,25 @@ public class CustomerHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve a single customer by its ID.
+     *
+     * @param customerId a customer id
+     * @return CustomerResponse object
+     * @throws MollieException when something went wrong
+     */
     public CustomerResponse getCustomer(String customerId) throws MollieException {
         return getCustomer(customerId, QueryParams.EMPTY);
     }
 
+    /**
+     * Retrieve a single customer by its ID.
+     *
+     * @param customerId a customer id
+     * @param params     A map of query parameters
+     * @return CustomerResponse object
+     * @throws MollieException when something went wrong
+     */
     public CustomerResponse getCustomer(String customerId, QueryParams params) throws MollieException {
         try {
             String url = baseUrl + "/customers/" + customerId + params.toString();
@@ -72,10 +107,25 @@ public class CustomerHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Update an existing customer.
+     *
+     * @param body CustomerRequest object
+     * @return CustomerResponse object
+     * @throws MollieException when something went wrong
+     */
     public CustomerResponse updateCustomer(String customerId, CustomerRequest body) throws MollieException {
         return updateCustomer(customerId, body, QueryParams.EMPTY);
     }
 
+    /**
+     * Update an existing customer.
+     *
+     * @param body   CustomerRequest object
+     * @param params A map of query parameters
+     * @return CustomerResponse object
+     * @throws MollieException when something went wrong
+     */
     public CustomerResponse updateCustomer(String customerId, CustomerRequest body, QueryParams params)
             throws MollieException {
         try {
@@ -96,10 +146,23 @@ public class CustomerHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
+     *
+     * @param customerId a customer id
+     * @throws MollieException when something went wrong
+     */
     public void deleteCustomer(String customerId) throws MollieException {
         deleteCustomer(customerId, QueryParams.EMPTY);
     }
 
+    /**
+     * Delete a customer. All mandates and subscriptions created for this customer will be canceled as well.
+     *
+     * @param customerId a customer id
+     * @param params     A map of query parameters
+     * @throws MollieException when something went wrong
+     */
     public void deleteCustomer(String customerId, QueryParams params) throws MollieException {
         try {
             String url = baseUrl + "/customers/" + customerId + params.toString();
@@ -117,11 +180,28 @@ public class CustomerHandler extends AbstractHandler {
         }
     }
 
-    public Pagination<CustomerListResponse> getCustomers() throws MollieException {
-        return getCustomers(QueryParams.EMPTY);
+    /**
+     * Retrieve all customers created.
+     * <p>
+     * The results are paginated.
+     *
+     * @return paginated list of CustomerResponse objects
+     * @throws MollieException when something went wrong
+     */
+    public Pagination<CustomerListResponse> listCustomers() throws MollieException {
+        return listCustomers(QueryParams.EMPTY);
     }
 
-    public Pagination<CustomerListResponse> getCustomers(QueryParams params) throws MollieException {
+    /**
+     * Retrieve all customers created.
+     * <p>
+     * The results are paginated.
+     *
+     * @param params A map of query parameters
+     * @return paginated list of CustomerResponse objects
+     * @throws MollieException when something went wrong
+     */
+    public Pagination<CustomerListResponse> listCustomers(QueryParams params) throws MollieException {
         try {
             String url = baseUrl + "/customers" + params.toString();
 
@@ -141,10 +221,31 @@ public class CustomerHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Creates a payment for the customer.
+     * <p>
+     * Linking customers to payments enables a number of Mollie Checkout features
+     *
+     * @param customerId a customer id
+     * @param body       PaymentRequest object
+     * @return PaymentResponse object
+     * @throws MollieException when something went wrong
+     */
     public PaymentResponse createCustomerPayment(String customerId, PaymentRequest body) throws MollieException {
         return createCustomerPayment(customerId, body, QueryParams.EMPTY);
     }
 
+    /**
+     * Creates a payment for the customer.
+     * <p>
+     * Linking customers to payments enables a number of Mollie Checkout features
+     *
+     * @param customerId a customer id
+     * @param body       PaymentRequest object
+     * @param params     A map of query parameters
+     * @return PaymentResponse object
+     * @throws MollieException when something went wrong
+     */
     public PaymentResponse createCustomerPayment(String customerId, PaymentRequest body, QueryParams params)
             throws MollieException {
         try {
@@ -165,15 +266,29 @@ public class CustomerHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve all payments linked to the customer.
+     *
+     * @param customerId a customer id
+     * @return paginated list of PaymentResponse objects
+     * @throws MollieException when something went wrong
+     */
     public Pagination<PaymentListResponse> listCustomerPayments(String customerId) throws MollieException {
         return listCustomerPayments(customerId, QueryParams.EMPTY);
     }
 
-
-    public Pagination<PaymentListResponse> listCustomerPayments(String customerId, QueryParams queryParams)
+    /**
+     * Retrieve all payments linked to the customer.
+     *
+     * @param customerId a customer id
+     * @param params     A map of query parameters
+     * @return paginated list of PaymentResponse objects
+     * @throws MollieException when something went wrong
+     */
+    public Pagination<PaymentListResponse> listCustomerPayments(String customerId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/payments" + queryParams.toString();
+            String url = baseUrl + "/customers/" + customerId + "/payments" + params.toString();
 
             log.info("Executing 'GET {}'", url);
             HttpResponse<String> response = Unirest.get(url).asString();

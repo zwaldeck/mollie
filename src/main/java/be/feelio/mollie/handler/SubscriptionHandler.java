@@ -18,6 +18,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * Handles the Subscriptions API <a href="https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription">Mollie docs</a>
+ *
+ * @author Wout Schoovaerts
+ */
 public class SubscriptionHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(SubscriptionHandler.class);
@@ -26,10 +31,27 @@ public class SubscriptionHandler extends AbstractHandler {
         super(baseUrl);
     }
 
+    /**
+     * With subscriptions, you can schedule recurring payments to take place at regular intervals.
+     *
+     * @param customerId a customer id
+     * @param body       SubscriptionRequest object
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse createSubscription(String customerId, SubscriptionRequest body) throws MollieException {
         return createSubscription(customerId, body, QueryParams.EMPTY);
     }
 
+    /**
+     * With subscriptions, you can schedule recurring payments to take place at regular intervals.
+     *
+     * @param customerId a customer id
+     * @param body       SubscriptionRequest object
+     * @param params     A map of query parameters
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse createSubscription(String customerId, SubscriptionRequest body, QueryParams params)
             throws MollieException {
         try {
@@ -51,10 +73,27 @@ public class SubscriptionHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve a subscription by its ID and its customer’s ID.
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse getSubscription(String customerId, String subscriptionId) throws MollieException {
         return getSubscription(customerId, subscriptionId, QueryParams.EMPTY);
     }
 
+    /**
+     * Retrieve a subscription by its ID and its customer’s ID.
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @param params         A map of query parameters
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse getSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
         try {
@@ -75,10 +114,27 @@ public class SubscriptionHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Cancel a subscription
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse cancelSubscription(String customerId, String subscriptionId) throws MollieException {
         return cancelSubscription(customerId, subscriptionId, QueryParams.EMPTY);
     }
 
+    /**
+     * Cancel a subscription
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @param params         A map of query parameters
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse cancelSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
         try {
@@ -99,11 +155,26 @@ public class SubscriptionHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve all subscriptions of a customer.
+     *
+     * @param customerId a customer id
+     * @return paginated list of Subscription objects
+     * @throws MollieException when something went wrong
+     */
     public Pagination<SubscriptionListResponse> listSubscriptions(String customerId) throws MollieException {
         return listSubscriptions(customerId, QueryParams.EMPTY);
     }
 
 
+    /**
+     * Retrieve all subscriptions of a customer.
+     *
+     * @param customerId a customer id
+     * @param params     A map of query parameters
+     * @return paginated list of Subscription objects
+     * @throws MollieException when something went wrong
+     */
     public Pagination<SubscriptionListResponse> listSubscriptions(String customerId, QueryParams params)
             throws MollieException {
         try {
@@ -125,12 +196,28 @@ public class SubscriptionHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve all payments of a specific subscriptions of a customer.
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @return paginated list of PaymentResponse objects
+     * @throws MollieException when something went wrong
+     */
     public Pagination<PaymentListResponse> listSubscriptionPayments(String customerId, String subscriptionId)
             throws MollieException {
         return listSubscriptionPayments(customerId, subscriptionId, QueryParams.EMPTY);
     }
 
-
+    /**
+     * Retrieve all payments of a specific subscriptions of a customer.
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @param params         A map of query parameters
+     * @return paginated list of PaymentResponse objects
+     * @throws MollieException when something went wrong
+     */
     public Pagination<PaymentListResponse> listSubscriptionPayments(String customerId, String subscriptionId,
                                                                     QueryParams params) throws MollieException {
         try {
@@ -153,11 +240,34 @@ public class SubscriptionHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Update a subscription.
+     * <p>
+     * You cannot update a canceled subscription.
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @param body           UpdateSubscriptionRequest object
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse updateSubscription(String customerId, String subscriptionId,
                                                    UpdateSubscriptionRequest body) throws MollieException {
         return updateSubscription(customerId, subscriptionId, body, QueryParams.EMPTY);
     }
 
+    /**
+     * Update a subscription.
+     * <p>
+     * You cannot update a canceled subscription.
+     *
+     * @param customerId     a customer id
+     * @param subscriptionId a subscription id
+     * @param body           UpdateSubscriptionRequest object
+     * @param params         A map of query parameters
+     * @return SubscriptionResponse object
+     * @throws MollieException when something went wrong
+     */
     public SubscriptionResponse updateSubscription(String customerId, String subscriptionId,
                                                    UpdateSubscriptionRequest body, QueryParams params)
             throws MollieException {

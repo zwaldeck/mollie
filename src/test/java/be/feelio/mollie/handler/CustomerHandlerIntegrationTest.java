@@ -74,7 +74,7 @@ class CustomerHandlerIntegrationTest {
 
     @Test
     void getCustomers() throws MollieException {
-        Pagination<CustomerListResponse> response = client.customers().getCustomers();
+        Pagination<CustomerListResponse> response = client.customers().listCustomers();
 
         assertNotNull(response);
     }

@@ -23,34 +23,74 @@ public class Client {
         initUniRest();
     }
 
+    /**
+     * Handles payment actions
+     *
+     * @return PaymentHandler object
+     */
     public PaymentHandler payments() {
         return new PaymentHandler(endpoint);
     }
 
+    /**
+     * Handles method actions
+     *
+     * @return MethodHandler object
+     */
     public MethodHandler methods() {
         return new MethodHandler(endpoint);
     }
 
+    /**
+     * Handles refund actions
+     *
+     * @return RefundHandler object
+     */
     public RefundHandler refunds() {
         return new RefundHandler(endpoint);
     }
 
+    /**
+     * Handles charge back actions
+     *
+     * @return ChargebackHandler object
+     */
     public ChargebackHandler chargebacks() {
         return new ChargebackHandler(endpoint);
     }
 
+    /**
+     * Handles capture actions
+     *
+     * @return CaptureHandler object
+     */
     public CaptureHandler captures() {
         return new CaptureHandler(endpoint);
     }
 
+    /**
+     * Handles customer actions
+     *
+     * @return CustomerHandler object
+     */
     public CustomerHandler customers() {
         return new CustomerHandler(endpoint);
     }
 
+    /**
+     * Handles mandate actions
+     *
+     * @return MandateHandler object
+     */
     public MandateHandler mandates() {
         return new MandateHandler(endpoint);
     }
 
+    /**
+     * Handles subscription actions
+     *
+     * @return MethodHandler object
+     */
     public SubscriptionHandler subscriptions() {
         return new SubscriptionHandler(endpoint);
     }

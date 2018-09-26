@@ -1,6 +1,7 @@
 # Mollie API with Java 8+
 
-[![Build Status](https://travis-ci.org/Feel-IO/mollie.svg?branch=master)](https://travis-ci.org/Feel-IO/mollie)  [ ![Download](https://api.bintray.com/packages/feel-io/Mollie/mollie/images/download.svg) ](https://bintray.com/feel-io/Mollie/mollie/_latestVersion)  
+[![Build Status](https://travis-ci.org/Feel-IO/mollie.svg?branch=master)](https://travis-ci.org/Feel-IO/mollie)  [ ![Download](https://api.bintray.com/packages/feel-io/Mollie/mollie/images/download.svg) ](https://bintray.com/feel-io/Mollie/mollie/_latestVersion) [![Javadocs](https://www.javadoc.io/badge/be.feelio/mollie.svg?color=red)](https://www.javadoc.io/doc/be.feelio/mollie)
+  
 
 ## License
 
@@ -28,6 +29,14 @@ Client client = new ClientBuilder()
                        
 PaymentResponse payment = client.payments().getPayment("my-payment-id");
 ```
+
+## V2 Roadmap
+
+Version 2 of this library will contain oAuth support and the apis that are only supported with oAuth will be included.
+
+Maybe: Orders & Shipments API when they are not in BETA anymore
+
+V2 development happens on branch V2
 
 ## Features
 

@@ -18,6 +18,12 @@ import java.io.IOException;
 
 // TODO support Mollie Connect/OAuth parameters
 // TODO support QR codes
+
+/**
+ * Handles the Payments API <a href="https://docs.mollie.com/reference/v2/payments-api/create-payment">Mollie docs</a>
+ *
+ * @author Wout Schoovaerts
+ */
 public class PaymentHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentHandler.class);
@@ -27,10 +33,25 @@ public class PaymentHandler extends AbstractHandler {
 
     }
 
+    /**
+     * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
+     *
+     * @param body PaymentRequest can be build with the builder pattern
+     * @return The payment response from mollie
+     * @throws MollieException when there went something wrong
+     */
     public PaymentResponse createPayment(PaymentRequest body) throws MollieException {
         return createPayment(body, QueryParams.EMPTY);
     }
 
+    /**
+     * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
+     *
+     * @param body   PaymentRequest can be build with the builder pattern
+     * @param params A map of query parameters
+     * @return The payment response from mollie
+     * @throws MollieException when there went something wrong
+     */
     public PaymentResponse createPayment(PaymentRequest body, QueryParams params) throws MollieException {
         try {
             String url = baseUrl + "/payments" + params.toString();
@@ -50,14 +71,29 @@ public class PaymentHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve a single payment object by its payment token.
+     *
+     * @param paymentId payment token
+     * @return The payment response from mollie
+     * @throws MollieException when there went something wrong
+     */
     public PaymentResponse getPayment(String paymentId) throws MollieException {
         return getPayment(paymentId, QueryParams.EMPTY);
     }
 
-    public PaymentResponse getPayment(String paymentId, QueryParams queryParams)
+    /**
+     * Retrieve a single payment object by its payment token.
+     *
+     * @param paymentId payment token
+     * @param params    A map of query parameters
+     * @return The payment response from mollie
+     * @throws MollieException when there went something wrong
+     */
+    public PaymentResponse getPayment(String paymentId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + queryParams.toString();
+            String url = baseUrl + "/payments/" + paymentId + params.toString();
 
             log.info("Executing 'GET {}'", url);
             HttpResponse<String> response = Unirest.get(url).asString();
@@ -72,9 +108,36 @@ public class PaymentHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Some payment methods are cancellable for an amount of time, usually until the next day.
+     * Or as long as the payment status is open.
+     * Payments may be canceled manually from the Dashboard, or automatically by using this endpoint.
+     * <p>
+     * The isCancelable property on the Payment object will indicate if the payment can be canceled.
+     *
+     * @param paymentId payment token
+     * @return The payment response from mollie
+     * @throws MollieException when there went something wrong
+     */
     public PaymentResponse cancelPayment(String paymentId) throws MollieException {
+        return cancelPayment(paymentId, QueryParams.EMPTY);
+    }
+
+    /**
+     * Some payment methods are cancellable for an amount of time, usually until the next day.
+     * Or as long as the payment status is open.
+     * Payments may be canceled manually from the Dashboard, or automatically by using this endpoint.
+     * <p>
+     * The isCancelable property on the Payment object will indicate if the payment can be canceled.
+     *
+     * @param paymentId payment token
+     * @param params    A map of query parameters
+     * @return The payment response from mollie
+     * @throws MollieException when there went something wrong
+     */
+    public PaymentResponse cancelPayment(String paymentId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId;
+            String url = baseUrl + "/payments/" + paymentId + params.toString();
 
             log.info("Executing 'DELETE {}'", url);
             HttpResponse<String> response = Unirest.delete(url).asString();
@@ -89,14 +152,31 @@ public class PaymentHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve all payments created with the current website profile, ordered from newest to oldest.
+     * <p>
+     * The results are paginated.
+     *
+     * @return paginated payment response list
+     * @throws MollieException when there went something wrong
+     */
     public Pagination<PaymentListResponse> listPayments() throws MollieException {
         return listPayments(QueryParams.EMPTY);
     }
 
 
-    public Pagination<PaymentListResponse> listPayments(QueryParams queryParams) throws MollieException {
+    /**
+     * Retrieve all payments created with the current website profile, ordered from newest to oldest.
+     * <p>
+     * The results are paginated.
+     *
+     * @param params A map of query parameters
+     * @return paginated payment response list
+     * @throws MollieException when there went something wrong
+     */
+    public Pagination<PaymentListResponse> listPayments(QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments" + queryParams.toString();
+            String url = baseUrl + "/payments" + params.toString();
 
             log.info("Executing 'GET {}'", url);
             HttpResponse<String> response = Unirest.get(url).asString();
