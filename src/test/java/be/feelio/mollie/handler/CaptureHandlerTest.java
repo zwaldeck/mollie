@@ -3,11 +3,11 @@ package be.feelio.mollie.handler;
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Amount;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.PaymentRequest;
-import be.feelio.mollie.json.response.CaptureListResponse;
-import be.feelio.mollie.json.response.PaymentResponse;
+import be.feelio.mollie.data.common.Amount;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.request.PaymentRequest;
+import be.feelio.mollie.data.response.CaptureListResponse;
+import be.feelio.mollie.data.response.PaymentResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

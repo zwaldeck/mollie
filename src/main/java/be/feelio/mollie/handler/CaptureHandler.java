@@ -1,16 +1,15 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.response.CaptureListResponse;
-import be.feelio.mollie.json.response.CaptureResponse;
-import be.feelio.mollie.json.response.ChargebackListResponse;
-import be.feelio.mollie.json.response.ChargebackResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.response.CaptureListResponse;
+import be.feelio.mollie.data.response.CaptureResponse;
+import be.feelio.mollie.data.response.ChargebackListResponse;
+import be.feelio.mollie.data.response.ChargebackResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

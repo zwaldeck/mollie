@@ -36,7 +36,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .get(url)
-                .header("Content-Type", "application/json")
+                .header("Content-Type", "application/data")
                 .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
                 .asString();
 
@@ -57,7 +57,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .post(url)
-                .header("Content-Type", "application/json")
+                .header("Content-Type", "application/data")
                 .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
                 .body(body)
                 .asString();
@@ -79,7 +79,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .patch(url)
-                .header("Content-Type", "application/json")
+                .header("Content-Type", "application/data")
                 .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
                 .body(body)
                 .asString();
@@ -101,7 +101,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .get(url)
-                .header("Content-Type", "application/json")
+                .header("Content-Type", "application/data")
                 .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
                 .asString();
 

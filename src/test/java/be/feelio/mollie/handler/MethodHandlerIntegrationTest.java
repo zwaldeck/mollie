@@ -3,9 +3,9 @@ package be.feelio.mollie.handler;
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.response.MethodListResponse;
-import be.feelio.mollie.json.response.MethodResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.response.MethodListResponse;
+import be.feelio.mollie.data.response.MethodResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
