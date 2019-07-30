@@ -25,13 +25,30 @@ public class Client {
         initUniRest();
     }
 
+    /**
+     * Set the access token, the requests will use the access token instead of the api key
+     *
+     * @param accessToken The access token (Generated or Organization token)
+     */
     public void setAccessToken(String accessToken) {
         // TODO: Check valid access token
         Config.getInstance().setAccessToken(accessToken);
     }
 
+    /**
+     * Removes the access token, the requests will start using the api key again
+     */
     public void revokeAccessToken() {
         Config.getInstance().setAccessToken(null);
+    }
+
+    /**
+     * Handles connect actions
+     *
+     * @return ConnectHandler object
+     */
+    public ConnectHandler connect() {
+        return new ConnectHandler();
     }
 
     /**
