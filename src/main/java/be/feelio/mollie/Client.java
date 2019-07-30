@@ -1,6 +1,7 @@
 package be.feelio.mollie;
 
 import be.feelio.mollie.handler.*;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import kong.unirest.ObjectMapper;
@@ -14,14 +15,23 @@ public class Client {
     @Getter
     private final String endpoint;
 
-    @Getter
-    private final String apiKey;
 
     public Client(String apiKey) {
         this.endpoint = "https://api.mollie.com/v2";
-        this.apiKey = apiKey;
+
+        // TODO: Check valid api key
+        Config.getInstance().setApiKey(apiKey);
 
         initUniRest();
+    }
+
+    public void setAccessToken(String accessToken) {
+        // TODO: Check valid access token
+        Config.getInstance().setAccessToken(accessToken);
+    }
+
+    public void revokeAccessToken() {
+        Config.getInstance().setAccessToken(null);
     }
 
     /**

@@ -27,7 +27,7 @@ public class CaptureHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(CaptureHandler.class);
 
     public CaptureHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -58,14 +58,9 @@ public class CaptureHandler extends AbstractHandler {
     public CaptureResponse getCapture(String paymentId, String captureId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId +
-                    "/captures/" + captureId + params.toString();
+            String uri = "/payments/" + paymentId + "/captures/" + captureId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<ChargebackResponse>() {
@@ -101,14 +96,9 @@ public class CaptureHandler extends AbstractHandler {
      */
     public Pagination<CaptureListResponse> listCaptures(String paymentId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId +
-                    "/captures" + params.toString();
+            String uri = "/payments/" + paymentId + "/captures";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {

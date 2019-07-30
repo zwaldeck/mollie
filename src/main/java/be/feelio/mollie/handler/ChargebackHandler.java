@@ -25,7 +25,7 @@ public class ChargebackHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(ChargebackHandler.class);
 
     public ChargebackHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -52,14 +52,9 @@ public class ChargebackHandler extends AbstractHandler {
     public ChargebackResponse getChargeback(String paymentId, String chargebackId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId +
-                    "/chargebacks/" + chargebackId + params.toString();
+            String uri = "/payments/" + paymentId + "/chargebacks/" + chargebackId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<ChargebackResponse>() {
@@ -93,13 +88,9 @@ public class ChargebackHandler extends AbstractHandler {
      */
     public Pagination<ChargebackListResponse> listChargebacks(QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/chargebacks" + params.toString();
+            String uri = "/chargebacks";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {
@@ -137,15 +128,9 @@ public class ChargebackHandler extends AbstractHandler {
     public Pagination<ChargebackListResponse> listChargebacks(String paymentId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + "/chargebacks" + params.toString();
+            String uri = "/payments/" + paymentId + "/chargebacks";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {

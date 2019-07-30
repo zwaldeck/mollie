@@ -29,7 +29,7 @@ public class CustomerHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(CustomerHandler.class);
 
     public CustomerHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -53,15 +53,9 @@ public class CustomerHandler extends AbstractHandler {
      */
     public CustomerResponse createCustomer(CustomerRequest body, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/customers" + params.toString();
+            String uri = "/customers";
 
-            log.info("Executing 'POST {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
-                    .body(body)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'POST {}'", url);
+            HttpResponse<String> response = post(uri, body, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), CustomerResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -91,14 +85,9 @@ public class CustomerHandler extends AbstractHandler {
      */
     public CustomerResponse getCustomer(String customerId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + params.toString();
+            String uri = "/customers/" + customerId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), CustomerResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -129,15 +118,9 @@ public class CustomerHandler extends AbstractHandler {
     public CustomerResponse updateCustomer(String customerId, CustomerRequest body, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + params.toString();
+            String uri = "/customers/" + customerId;
 
-            log.info("Executing 'PATCH {}'", url);
-            HttpResponse<String> response = Unirest.patch(url)
-                    .body(body)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'PATCH {}'", url);
+            HttpResponse<String> response = patch(uri, body, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), CustomerResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -165,14 +148,9 @@ public class CustomerHandler extends AbstractHandler {
      */
     public void deleteCustomer(String customerId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + params.toString();
+            String uri = "/customers/" + customerId;
 
-            log.info("Executing 'DELETE {}'", url);
-            HttpResponse<String> response = Unirest.delete(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'DELETE {}'", url);
+            HttpResponse<String> response = delete(uri, params);
 
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
@@ -203,14 +181,9 @@ public class CustomerHandler extends AbstractHandler {
      */
     public Pagination<CustomerListResponse> listCustomers(QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/customers" + params.toString();
+            String uri = "/customers";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<CustomerListResponse>>() {
@@ -249,15 +222,9 @@ public class CustomerHandler extends AbstractHandler {
     public PaymentResponse createCustomerPayment(String customerId, PaymentRequest body, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/payments" + params.toString();
+            String uri = "/customers/" + customerId + "/payments";
 
-            log.info("Executing 'POST {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
-                    .body(body)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'POST {}'", url);
+            HttpResponse<String> response = post(uri, body, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -288,13 +255,9 @@ public class CustomerHandler extends AbstractHandler {
     public Pagination<PaymentListResponse> listCustomerPayments(String customerId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/payments" + params.toString();
+            String uri = "/customers/" + customerId + "/payments";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PaymentListResponse>>() {

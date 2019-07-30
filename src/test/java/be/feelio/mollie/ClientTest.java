@@ -11,7 +11,6 @@ class ClientTest {
         Client client = new Client("apiKey");
 
         assertEquals("https://api.mollie.com/v2", client.getEndpoint());
-        assertEquals("apiKey", client.getApiKey());
     }
 
 }

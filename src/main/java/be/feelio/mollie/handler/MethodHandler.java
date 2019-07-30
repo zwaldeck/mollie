@@ -25,7 +25,7 @@ public class MethodHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(MethodHandler.class);
 
     public MethodHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -59,13 +59,9 @@ public class MethodHandler extends AbstractHandler {
      */
     public Pagination<MethodListResponse> listMethods(QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/methods" + params.toString();
+            String uri = "/methods";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<MethodListResponse>>() {
@@ -97,13 +93,9 @@ public class MethodHandler extends AbstractHandler {
      */
     public MethodResponse getMethod(String methodId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/methods/" + methodId + params.toString();
+            String uri = "/methods/" + methodId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<MethodResponse>() {
