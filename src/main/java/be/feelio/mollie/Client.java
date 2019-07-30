@@ -21,6 +21,7 @@ public class Client {
 
         // TODO: Check valid api key
         Config.getInstance().setApiKey(apiKey);
+        Config.getInstance().setAccessToken(null);
 
         initUniRest();
     }
