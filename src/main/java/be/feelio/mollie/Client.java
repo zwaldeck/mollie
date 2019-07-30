@@ -3,7 +3,8 @@ package be.feelio.mollie;
 import be.feelio.mollie.handler.*;
 import be.feelio.mollie.util.ObjectMapperService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mashape.unirest.http.Unirest;
+import kong.unirest.ObjectMapper;
+import kong.unirest.Unirest;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -96,9 +97,8 @@ public class Client {
     }
 
     private void initUniRest() {
-        Unirest.setDefaultHeader("Authorization", "Bearer " + apiKey);
-        Unirest.setDefaultHeader("Content-Type", "application/json");
-        Unirest.setObjectMapper(new com.mashape.unirest.http.ObjectMapper() {
+        Unirest.config()
+            .setObjectMapper(new ObjectMapper() {
 
             @Override
             public <T> T readValue(String value, Class<T> type) {

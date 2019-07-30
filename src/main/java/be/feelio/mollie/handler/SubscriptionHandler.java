@@ -10,9 +10,9 @@ import be.feelio.mollie.json.response.SubscriptionResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

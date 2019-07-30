@@ -4,7 +4,7 @@ import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mashape.unirest.http.HttpResponse;
+import kong.unirest.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
