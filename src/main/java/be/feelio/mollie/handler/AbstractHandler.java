@@ -50,7 +50,8 @@ public abstract class AbstractHandler {
         return post(uri, body, QueryParams.EMPTY);
     }
 
-    protected HttpResponse<String> post(String uri, Object body, QueryParams params) throws IOException, MollieException {
+    protected HttpResponse<String> post(String uri, Object body, QueryParams params)
+            throws IOException, MollieException {
         String url = baseUrl + uri + params.toString();
 
         log.info("Executing 'POST {}'", url);
@@ -72,7 +73,8 @@ public abstract class AbstractHandler {
         return patch(uri, body, QueryParams.EMPTY);
     }
 
-    protected HttpResponse<String> patch(String uri, Object body, QueryParams params) throws IOException, MollieException {
+    protected HttpResponse<String> patch(String uri, Object body, QueryParams params)
+            throws IOException, MollieException {
         String url = baseUrl + uri + params.toString();
 
         log.info("Executing 'PATCH {}'", url);

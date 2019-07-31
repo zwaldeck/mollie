@@ -6,6 +6,7 @@ import be.feelio.mollie.data.enums.ApprovalPrompt;
 import be.feelio.mollie.data.enums.GrantType;
 import be.feelio.mollie.data.enums.ResponseType;
 import be.feelio.mollie.data.request.AuthorizeRequest;
+import be.feelio.mollie.data.request.RevokeTokenRequest;
 import be.feelio.mollie.data.request.TokenRequest;
 import be.feelio.mollie.data.response.TokenResponse;
 import be.feelio.mollie.exception.MollieException;
@@ -74,6 +75,20 @@ class ConnectHandlerTest {
 
         MollieException ex = assertThrows(MollieException.class, () -> client.connect().generateTokens("",
                 "", request, QueryParams.EMPTY));
+
+        String expectedMsg = "Error response from mollie";
+        assertEquals(expectedMsg, ex.getMessage());
+    }
+
+    @Test
+    void removeTokens() throws MollieException {
+        RevokeTokenRequest request = RevokeTokenRequest.builder()
+                .tokenTypeHint(GrantType.AUTHORIZATION_CODE)
+                .token("token")
+                .build();
+
+        MollieException ex = assertThrows(MollieException.class, () -> client.connect()
+                .revokeToken("", "", request, QueryParams.EMPTY));
 
         String expectedMsg = "Error response from mollie";
         assertEquals(expectedMsg, ex.getMessage());

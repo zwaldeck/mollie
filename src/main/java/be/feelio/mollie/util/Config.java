@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
-public class Config {
+public final class Config {
 
     @Getter
     private static Config instance = new Config();

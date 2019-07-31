@@ -1,8 +1,5 @@
 package be.feelio.mollie.util;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringJoiner;

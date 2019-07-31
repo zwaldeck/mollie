@@ -1,13 +1,13 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.data.request.AuthorizeRequest;
+import be.feelio.mollie.data.request.RevokeTokenRequest;
 import be.feelio.mollie.data.request.TokenRequest;
 import be.feelio.mollie.data.response.TokenResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import be.feelio.mollie.util.UrlUtils;
-import kong.unirest.HttpRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
@@ -28,7 +28,13 @@ public class ConnectHandler extends AbstractHandler {
         return "https://www.mollie.com/oauth2/authorize" + convertAuthorizeRequestToQueryParams(request).toString();
     }
 
-    public TokenResponse generateTokens(String clientId, String clientSecret, TokenRequest body, QueryParams params) throws MollieException {
+    public TokenResponse generateTokens(String clientId, String clientSecret, TokenRequest body)
+            throws MollieException {
+        return generateTokens(clientId, clientSecret, body, QueryParams.EMPTY);
+    }
+
+    public TokenResponse generateTokens(String clientId, String clientSecret, TokenRequest body, QueryParams params)
+            throws MollieException {
         try {
             String url = "https://api.mollie.com/oauth2/tokens" + params.toString();
 
@@ -44,6 +50,31 @@ public class ConnectHandler extends AbstractHandler {
             log.info("Successful response 'POST {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), TokenResponse.class);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    public void revokeToken(String clientId, String clientSecret, RevokeTokenRequest body) throws MollieException {
+        revokeToken(clientId, clientSecret, body, QueryParams.EMPTY);
+    }
+
+    public void revokeToken(String clientId, String clientSecret, RevokeTokenRequest body, QueryParams params)
+            throws MollieException {
+        try {
+            String url = "https://api.mollie.com/oauth2/tokens" + params.toString();
+
+            log.info("Executing 'DELETE {}'", url);
+            HttpResponse<String> response = Unirest.post(url)
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .basicAuth(clientId, clientSecret)
+                    .body(getRevokeTokenBody(body))
+                    .asString();
+
+
+            validateResponse(response);
+            log.info("Successful response 'DELETE {}'", url);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -71,5 +102,10 @@ public class ConnectHandler extends AbstractHandler {
         sb.append("&redirect_uri=").append(UrlUtils.urlEncode(request.getRedirectUri()));
 
         return sb.toString();
+    }
+
+    private String getRevokeTokenBody(RevokeTokenRequest request) {
+        return "token_type_hint=" + UrlUtils.urlEncode(request.getTokenTypeHint().name().toLowerCase()) +
+                "&token=" + UrlUtils.urlEncode(request.getToken());
     }
 }
