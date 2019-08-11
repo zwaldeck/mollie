@@ -8,16 +8,14 @@ import be.feelio.mollie.data.enums.ResponseType;
 import be.feelio.mollie.data.request.AuthorizeRequest;
 import be.feelio.mollie.data.request.RevokeTokenRequest;
 import be.feelio.mollie.data.request.TokenRequest;
-import be.feelio.mollie.data.response.TokenResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.QueryParams;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
+import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
 //https://www.mollie.com/oauth2/authorize?client_id=*client_id*&state=random&scope=payments.read&response_type=code&approval_prompt=auto

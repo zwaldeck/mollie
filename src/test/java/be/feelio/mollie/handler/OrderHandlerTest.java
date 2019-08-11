@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
+import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderHandlerTest {

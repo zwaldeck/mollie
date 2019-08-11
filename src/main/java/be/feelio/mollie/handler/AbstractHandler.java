@@ -54,8 +54,6 @@ public abstract class AbstractHandler {
             throws IOException, MollieException {
         String url = baseUrl + uri + params.toString();
 
-        String bodyAsString = ObjectMapperService.getInstance().getMapper().writeValueAsString(body);
-
         log.info("Executing 'POST {}'", url);
 
         HttpResponse<String> response = Unirest

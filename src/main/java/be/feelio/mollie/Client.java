@@ -142,6 +142,15 @@ public class Client {
         return new SubscriptionHandler(endpoint);
     }
 
+    /**
+     * Handles permission actions
+     *
+     * @return PermissionHandler object
+     */
+    public PermissionHandler permissions() {
+        return new PermissionHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.config()
             .setObjectMapper(new ObjectMapper() {

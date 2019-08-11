@@ -19,11 +19,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
-import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
+import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShipmentHandlerTest {
