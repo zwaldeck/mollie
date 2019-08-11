@@ -1,9 +1,20 @@
 package be.feelio.mollie.data.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.apache.commons.lang3.StringUtils;
 
 public enum Permission {
 
+    BALANCE_REPORTS_READ,
+    APIKEYS_READ,
+    APIKEYS_WRITE,
+    BALANCES_READ,
+    BALANCES_WRITE,
+    BANKACCOUNTS_READ,
+    BANKACCOUNTS_WRITE,
+    MEMBERSHIPS_READ,
+    TRANSFERS_READ,
+    TRANSFERS_WRITE,
     PAYMENTS_READ,
     PAYMENTS_WRITE,
     REFUNDS_READ,
@@ -30,6 +41,9 @@ public enum Permission {
 
     @JsonValue
     public String getValue() {
-        return this.name().toLowerCase().replace("_", ".");
+        String result = StringUtils.reverse(this.name().toLowerCase());
+        result = result.replaceFirst("_", ".");
+        result = StringUtils.reverse(result);
+        return result.replace("_", ".");
     }
 }

@@ -151,6 +151,15 @@ public class Client {
         return new PermissionHandler(endpoint);
     }
 
+    /**
+     * Handles organization actions
+     *
+     * @return OrganizationHandler object
+     */
+    public OrganizationHandler organizations() {
+        return new OrganizationHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.config()
             .setObjectMapper(new ObjectMapper() {
