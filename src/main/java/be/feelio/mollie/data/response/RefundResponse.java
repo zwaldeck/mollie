@@ -1,8 +1,8 @@
 package be.feelio.mollie.data.response;
 
 import be.feelio.mollie.data.common.Amount;
-import be.feelio.mollie.data.common.OrderLine;
 import be.feelio.mollie.data.links.RefundLinks;
+import be.feelio.mollie.data.order.OrderLineResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +31,7 @@ public class RefundResponse {
 
     private String status;
 
-    private Optional<List<OrderLine>> lines;
+    private Optional<List<OrderLineResponse>> lines;
 
     private String paymentId;
 

@@ -98,6 +98,15 @@ public class Client {
     }
 
     /**
+     * Handles order actions
+     *
+     * @return OrderHandler object
+     */
+    public OrderHandler orders() {
+        return new OrderHandler(endpoint);
+    }
+
+    /**
      * Handles customer actions
      *
      * @return CustomerHandler object

@@ -46,7 +46,7 @@ public class PaymentHandler extends AbstractHandler {
     /**
      * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
      *
-     * @param body   PaymentRequest can be build with the builder pattern
+     * @param body   Pa ymentRequest can be build with the builder pattern
      * @param params A map of query parameters
      * @return The payment response from mollie
      * @throws MollieException when there went something wrong

@@ -54,6 +54,8 @@ public abstract class AbstractHandler {
             throws IOException, MollieException {
         String url = baseUrl + uri + params.toString();
 
+        String bodyAsString = ObjectMapperService.getInstance().getMapper().writeValueAsString(body);
+
         log.info("Executing 'POST {}'", url);
 
         HttpResponse<String> response = Unirest
@@ -102,9 +104,28 @@ public abstract class AbstractHandler {
         log.info("Executing 'DELETE {}'", url);
 
         HttpResponse<String> response = Unirest
-                .get(url)
+                .delete(url)
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .asString();
+
+        validateResponse(response);
+        log.info("Successful response 'DELETE {}'", url);
+
+        return response;
+    }
+
+    protected HttpResponse<String> delete(String uri, Object body, QueryParams params)
+            throws IOException, MollieException {
+        String url = baseUrl + uri + params.toString();
+
+        log.info("Executing 'DELETE {}'", url);
+
+        HttpResponse<String> response = Unirest
+                .delete(url)
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .body(body)
                 .asString();
 
         validateResponse(response);
