@@ -107,6 +107,15 @@ public class Client {
     }
 
     /**
+     * Handles shipment actions
+     *
+     * @return ShipmentHandler object
+     */
+    public ShipmentHandler shipments() {
+        return new ShipmentHandler(endpoint);
+    }
+
+    /**
      * Handles customer actions
      *
      * @return CustomerHandler object

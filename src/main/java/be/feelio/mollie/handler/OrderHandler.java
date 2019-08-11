@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class OrderHandler extends AbstractHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(MethodHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(OrderHandler.class);
 
     public OrderHandler(String baseUrl) {
         super(baseUrl, log);
