@@ -160,6 +160,15 @@ public class Client {
         return new OrganizationHandler(endpoint);
     }
 
+    /**
+     * Handles profile actions
+     *
+     * @return ProfileHandler object
+     */
+    public ProfileHandler profiles() {
+        return new ProfileHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.config()
             .setObjectMapper(new ObjectMapper() {

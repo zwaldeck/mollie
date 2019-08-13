@@ -46,6 +46,24 @@ public abstract class AbstractHandler {
         return response;
     }
 
+    protected HttpResponse<String> postWithoutBody(String uri, QueryParams params)
+            throws IOException, MollieException {
+        String url = baseUrl + uri + params.toString();
+
+        log.info("Executing 'POST {}'", url);
+
+        HttpResponse<String> response = Unirest
+                .post(url)
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .asString();
+
+        validateResponse(response);
+        log.info("Successful response 'POST {}'", url);
+
+        return response;
+    }
+
     protected HttpResponse<String> post(String uri, Object body) throws IOException, MollieException {
         return post(uri, body, QueryParams.EMPTY);
     }
