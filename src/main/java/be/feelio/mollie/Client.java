@@ -178,6 +178,15 @@ public class Client {
         return new OnboardingHandler(endpoint);
     }
 
+    /**
+     * Handles settlements actions
+     *
+     * @return SettlementHandler object
+     */
+    public SettlementHandler settlements() {
+        return new SettlementHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.config()
             .setObjectMapper(new ObjectMapper() {
