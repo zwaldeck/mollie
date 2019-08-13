@@ -169,6 +169,15 @@ public class Client {
         return new ProfileHandler(endpoint);
     }
 
+    /**
+     * Handles on boarding actions
+     *
+     * @return OnboardingHandler object
+     */
+    public OnboardingHandler onboarding() {
+        return new OnboardingHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.config()
             .setObjectMapper(new ObjectMapper() {
