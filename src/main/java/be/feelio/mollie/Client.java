@@ -196,6 +196,15 @@ public class Client {
         return new InvoiceHandler(endpoint);
     }
 
+    /**
+     * Handles miscellaneous actions
+     *
+     * @return MiscellaneousHandler object
+     */
+    public MiscellaneousHandler miscellaneous() {
+        return new MiscellaneousHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.config()
             .setObjectMapper(new ObjectMapper() {

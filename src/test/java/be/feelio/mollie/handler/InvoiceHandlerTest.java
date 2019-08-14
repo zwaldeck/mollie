@@ -7,6 +7,7 @@ import be.feelio.mollie.data.response.InvoiceResponse;
 import be.feelio.mollie.data.response.InvoicesListResponse;
 import be.feelio.mollie.exception.MollieException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
@@ -26,6 +27,7 @@ class InvoiceHandlerTest {
     }
 
     @Test
+    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
     void getInvoices() throws MollieException {
         Pagination<InvoicesListResponse> invoices = client.invoices().getInvoices();
 
@@ -33,6 +35,7 @@ class InvoiceHandlerTest {
     }
 
     @Test
+    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
     void getInvoice() throws MollieException {
         Pagination<InvoicesListResponse> invoices = client.invoices().getInvoices();
 
