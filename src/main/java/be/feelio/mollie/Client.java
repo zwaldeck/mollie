@@ -187,6 +187,15 @@ public class Client {
         return new SettlementHandler(endpoint);
     }
 
+    /**
+     * Handles invoices actions
+     *
+     * @return InvoiceHandler object
+     */
+    public InvoiceHandler invoices() {
+        return new InvoiceHandler(endpoint);
+    }
+
     private void initUniRest() {
         Unirest.config()
             .setObjectMapper(new ObjectMapper() {
