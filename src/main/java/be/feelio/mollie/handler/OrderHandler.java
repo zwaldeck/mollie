@@ -1,11 +1,13 @@
 package be.feelio.mollie.handler;
 
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.order.OrderPaymentRequest;
 import be.feelio.mollie.data.request.*;
 import be.feelio.mollie.data.response.*;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
+import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
 import org.slf4j.Logger;
@@ -55,17 +57,19 @@ public class OrderHandler extends AbstractHandler {
         }
     }
 
-    public OrderListResponse getOrders() throws MollieException {
+    public Pagination<OrderListResponse> getOrders() throws MollieException {
         return getOrders(QueryParams.EMPTY);
     }
 
-    public OrderListResponse getOrders(QueryParams params) throws MollieException {
+    public Pagination<OrderListResponse> getOrders(QueryParams params) throws MollieException {
         try {
             String uri = "/orders";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<OrderListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -178,18 +182,20 @@ public class OrderHandler extends AbstractHandler {
         }
     }
 
-    public OrderRefundListResponse getOrderRefunds(String orderId) throws MollieException {
+    public Pagination<OrderRefundListResponse> getOrderRefunds(String orderId) throws MollieException {
         return getOrderRefunds(orderId, QueryParams.EMPTY);
     }
 
-    public OrderRefundListResponse getOrderRefunds(String orderId, QueryParams params) throws MollieException {
+    public Pagination<OrderRefundListResponse> getOrderRefunds(String orderId, QueryParams params)
+            throws MollieException {
         try {
             String uri = "/orders/" + orderId + "/refunds";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OrderRefundListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<OrderRefundListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

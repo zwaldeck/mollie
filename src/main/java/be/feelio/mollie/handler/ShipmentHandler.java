@@ -1,5 +1,6 @@
 package be.feelio.mollie.handler;
 
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.request.ShipmentRequest;
 import be.feelio.mollie.data.request.ShipmentUpdateRequest;
 import be.feelio.mollie.data.response.ShipmentListResponse;
@@ -7,6 +8,7 @@ import be.feelio.mollie.data.response.ShipmentResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
+import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
 import org.slf4j.Logger;
@@ -58,19 +60,20 @@ public class ShipmentHandler extends AbstractHandler {
         }
     }
 
-    public ShipmentListResponse getShipments(String orderId) throws MollieException {
+    public Pagination<ShipmentListResponse> getShipments(String orderId) throws MollieException {
         return getShipments(orderId, QueryParams.EMPTY);
     }
 
-    public ShipmentListResponse getShipments(String orderId, QueryParams params)
+    public Pagination<ShipmentListResponse> getShipments(String orderId, QueryParams params)
             throws MollieException {
         try {
             String uri = "/orders/" + orderId + "/shipments";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), ShipmentListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<ShipmentListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

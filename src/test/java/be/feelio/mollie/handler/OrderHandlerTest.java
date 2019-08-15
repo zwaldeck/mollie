@@ -3,6 +3,7 @@ package be.feelio.mollie.handler;
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
 import be.feelio.mollie.data.common.Amount;
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.enums.Locale;
 import be.feelio.mollie.data.enums.OrderStatus;
 import be.feelio.mollie.data.enums.PaymentMethod;
@@ -57,7 +58,7 @@ class OrderHandlerTest {
 
         assertNotNull(order);
 
-        OrderListResponse orders = client.orders().getOrders();
+        Pagination<OrderListResponse> orders = client.orders().getOrders();
 
         assertNotNull(orders);
         assertTrue(orders.getCount() > 0);
@@ -167,7 +168,7 @@ class OrderHandlerTest {
 
         assertNotNull(order);
 
-        OrderRefundListResponse response = client.orders().getOrderRefunds(order.getId());
+        Pagination<OrderRefundListResponse> response = client.orders().getOrderRefunds(order.getId());
 
         assertNotNull(response);
     }

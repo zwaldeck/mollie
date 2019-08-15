@@ -1,12 +1,11 @@
 package be.feelio.mollie.data.response;
 
-import be.feelio.mollie.data.order.OrderRefundListEmbedded;
-import be.feelio.mollie.data.order.OrderRefundListLinks;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,11 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderRefundListResponse {
 
-    private int count;
+    private List<RefundResponse> refunds;
 
-    @JsonProperty("_embedded")
-    private OrderRefundListEmbedded embedded;
 
-    @JsonProperty("_links")
-    private OrderRefundListLinks links;
+    private List<PaymentResponse> payments;
 }

@@ -39,18 +39,19 @@ public class SettlementHandler extends AbstractHandler {
         }
     }
 
-    public SettlementListResponse getSettlements() throws MollieException {
+    public Pagination<SettlementListResponse> getSettlements() throws MollieException {
         return getSettlements(QueryParams.EMPTY);
     }
 
-    public SettlementListResponse getSettlements(QueryParams params) throws MollieException {
+    public Pagination<SettlementListResponse> getSettlements(QueryParams params) throws MollieException {
         try {
             String uri = "/settlements";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SettlementListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<SettlementListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -93,55 +94,60 @@ public class SettlementHandler extends AbstractHandler {
         }
     }
 
-    public PaymentListResponse getSettlementPayments(String settlementId) throws MollieException {
+    public Pagination<PaymentListResponse> getSettlementPayments(String settlementId) throws MollieException {
         return getSettlementPayments(settlementId, QueryParams.EMPTY);
     }
 
-    public PaymentListResponse getSettlementPayments(String settlementId, QueryParams params) throws MollieException {
+    public Pagination<PaymentListResponse> getSettlementPayments(String settlementId, QueryParams params)
+            throws MollieException {
         try {
             String uri = "/settlements/" + settlementId + "/payments";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), PaymentListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<PaymentListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
 
-    public RefundListResponse getSettlementRefund(String settlementId) throws MollieException {
+    public Pagination<RefundListResponse> getSettlementRefund(String settlementId) throws MollieException {
         return getSettlementRefund(settlementId, QueryParams.EMPTY);
     }
 
-    public RefundListResponse getSettlementRefund(String settlementId, QueryParams params) throws MollieException {
+    public Pagination<RefundListResponse> getSettlementRefund(String settlementId, QueryParams params)
+            throws MollieException {
         try {
             String uri = "/settlements/" + settlementId + "/refunds";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), RefundListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<RefundListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
         }
     }
 
-    public ChargebackListResponse getSettlementChargebacks(String settlementId) throws MollieException {
+    public Pagination<ChargebackListResponse> getSettlementChargebacks(String settlementId) throws MollieException {
         return getSettlementChargebacks(settlementId, QueryParams.EMPTY);
     }
 
-    public ChargebackListResponse getSettlementChargebacks(String settlementId, QueryParams params)
+    public Pagination<ChargebackListResponse> getSettlementChargebacks(String settlementId, QueryParams params)
             throws MollieException {
         try {
             String uri = "/settlements/" + settlementId + "/chargebacks";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), ChargebackListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<ChargebackListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

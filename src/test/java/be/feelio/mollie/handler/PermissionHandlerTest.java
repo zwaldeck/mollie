@@ -2,6 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.enums.Permission;
 import be.feelio.mollie.data.response.PermissionListResponse;
 import be.feelio.mollie.data.response.PermissionResponse;
@@ -38,7 +39,7 @@ class PermissionHandlerTest {
     @Test
     @Disabled // This test works if you fill in an organisation token and remove the @Disabled
     void getPermissions() throws MollieException {
-        PermissionListResponse response = client.permissions().getPermissions();
+        Pagination<PermissionListResponse> response = client.permissions().getPermissions();
 
         assertNotNull(response);
     }

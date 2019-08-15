@@ -2,6 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.enums.PaymentMethod;
 import be.feelio.mollie.data.request.ProfileRequest;
 import be.feelio.mollie.data.response.MethodResponse;
@@ -106,7 +107,7 @@ class ProfileHandlerTest {
 
         assertNotNull(response);
 
-        ProfileListResponse profiles = client.profiles().getProfiles();
+        Pagination<ProfileListResponse> profiles = client.profiles().getProfiles();
 
         assertNotNull(profiles);
         assertTrue(profiles.getCount() > 0);

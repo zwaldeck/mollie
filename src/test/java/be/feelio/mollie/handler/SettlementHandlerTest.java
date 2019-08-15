@@ -2,6 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.response.SettlementListResponse;
 import be.feelio.mollie.data.response.SettlementResponse;
 import be.feelio.mollie.exception.MollieException;
@@ -28,7 +29,7 @@ class SettlementHandlerTest {
     @Test
     @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
     void getSettlement() throws MollieException {
-        SettlementListResponse list = client.settlements().getSettlements();
+        Pagination<SettlementListResponse> list = client.settlements().getSettlements();
 
         assertNotNull(list);
 
@@ -41,7 +42,7 @@ class SettlementHandlerTest {
     @Test
     @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
     void getSettlements() throws MollieException {
-        SettlementListResponse response = client.settlements().getSettlements();
+        Pagination<SettlementListResponse> response = client.settlements().getSettlements();
 
         assertNotNull(response);
     }

@@ -1,5 +1,6 @@
 package be.feelio.mollie.handler;
 
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.enums.PaymentMethod;
 import be.feelio.mollie.data.request.ProfileRequest;
 import be.feelio.mollie.data.response.MethodResponse;
@@ -8,6 +9,7 @@ import be.feelio.mollie.data.response.ProfileResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
+import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
 import org.slf4j.Logger;
@@ -159,18 +161,19 @@ public class ProfileHandler extends AbstractHandler {
         }
     }
 
-    public ProfileListResponse getProfiles() throws MollieException {
+    public Pagination<ProfileListResponse> getProfiles() throws MollieException {
         return getProfiles(QueryParams.EMPTY);
     }
 
-    public ProfileListResponse getProfiles(QueryParams params) throws MollieException {
+    public Pagination<ProfileListResponse> getProfiles(QueryParams params) throws MollieException {
         try {
             String uri = "/profiles";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), ProfileListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<ProfileListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

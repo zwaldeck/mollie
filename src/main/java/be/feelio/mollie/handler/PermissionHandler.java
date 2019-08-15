@@ -1,11 +1,13 @@
 package be.feelio.mollie.handler;
 
+import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.enums.Permission;
 import be.feelio.mollie.data.response.PermissionListResponse;
 import be.feelio.mollie.data.response.PermissionResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
+import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
 import org.slf4j.Logger;
@@ -39,18 +41,19 @@ public class PermissionHandler extends AbstractHandler {
         }
     }
 
-    public PermissionListResponse getPermissions() throws MollieException {
+    public Pagination<PermissionListResponse> getPermissions() throws MollieException {
         return getPermissions(QueryParams.EMPTY);
     }
 
-    public PermissionListResponse getPermissions(QueryParams params) throws MollieException {
+    public Pagination<PermissionListResponse> getPermissions(QueryParams params) throws MollieException {
         try {
             String uri = "/permissions";
 
             HttpResponse<String> response = get(uri, params);
 
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), PermissionListResponse.class);
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<PermissionListResponse>>() {
+                    });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
