@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 @Data
@@ -26,7 +27,7 @@ public class CustomerResponse {
 
     private String email;
 
-    private String locale;
+    private Locale locale;
 
     private Map<String, Object> metadata;
 

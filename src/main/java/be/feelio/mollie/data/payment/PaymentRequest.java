@@ -2,6 +2,8 @@ package be.feelio.mollie.data.payment;
 
 import be.feelio.mollie.data.common.AddressRequest;
 import be.feelio.mollie.data.common.Amount;
+import be.feelio.mollie.data.common.ApplicationFee;
+import be.feelio.mollie.data.common.Locale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,17 +27,19 @@ public class PaymentRequest {
 
     private Optional<String> webhookUrl;
 
-    private Optional<String> locale;
+    private Optional<Locale> locale;
 
-    private Optional<String> method;
+    private Optional<PaymentMethod> method;
 
     private Map<String, Object> metadata;
 
-    private Optional<String> sequenceType;
+    private Optional<SequenceType> sequenceType;
 
     private Optional<String> customerId;
 
     private Optional<String> mandateId;
+
+    // payment method specific parameters
 
     private Optional<String> billingEmail;
 
@@ -57,6 +61,8 @@ public class PaymentRequest {
 
     private Optional<String> consumerAccount;
 
-    // TODO support Mollie Connect/OAuth parameters
-    // TODO support QR codes
+    // OAuth params
+    private Optional<String> profileId;
+
+    private Optional<ApplicationFee> applicationFee;
 }

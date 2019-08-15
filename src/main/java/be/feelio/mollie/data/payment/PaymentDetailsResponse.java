@@ -18,8 +18,6 @@ public class PaymentDetailsResponse {
 
     // we make everything optional because we cannot now what payment method is used
 
-    //  TODO support for QR code
-
     private Optional<String> cardNumber;
 
     private Optional<String> cardFingerprint;
@@ -91,5 +89,7 @@ public class PaymentDetailsResponse {
     private Optional<String> batchReference;
 
     private Optional<String> fileReference;
+
+    private Optional<QrCode> qrCode;
 
 }

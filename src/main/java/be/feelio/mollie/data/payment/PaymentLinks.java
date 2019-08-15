@@ -12,7 +12,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PaymentLinksResponse {
+public class PaymentLinks {
 
     private Link self;
 

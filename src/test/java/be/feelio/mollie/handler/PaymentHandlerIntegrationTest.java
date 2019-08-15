@@ -2,6 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.payment.PaymentMethod;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Amount;
 import be.feelio.mollie.data.common.Pagination;
@@ -92,7 +93,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .method(Optional.of("paysafecard"))
+                .method(Optional.of(PaymentMethod.PAY_SAFE_CARD))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();

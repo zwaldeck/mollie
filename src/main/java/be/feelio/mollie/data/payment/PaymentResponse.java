@@ -2,6 +2,7 @@ package be.feelio.mollie.data.payment;
 
 import be.feelio.mollie.data.common.Amount;
 import be.feelio.mollie.data.common.ApplicationFee;
+import be.feelio.mollie.data.common.Locale;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,8 @@ public class PaymentResponse {
 
     private boolean isCancelable;
 
+    private Optional<Date> authorizedAt;
+
     private Optional<Date> paidAt;
 
     private Optional<Date> canceledAt;
@@ -46,17 +49,19 @@ public class PaymentResponse {
 
     private Optional<Amount> amountRemaining;
 
+    private Optional<Amount> amountCaptured;
+
     private String description;
 
     private String redirectUrl;
 
     private Optional<String> webhookUrl;
 
-    private String method;
+    private PaymentMethod method;
 
     private Map<String, Object> metadata;
 
-    private String locale;
+    private Locale locale;
 
     private Optional<String> countryCode;
 
@@ -68,7 +73,7 @@ public class PaymentResponse {
 
     private Optional<String> customerId;
 
-    private String sequenceType;
+    private SequenceType sequenceType;
 
     private Optional<String> mandateId;
 
@@ -79,7 +84,10 @@ public class PaymentResponse {
     private Optional<ApplicationFee> applicationFee;
 
     @JsonProperty("_links")
-    private PaymentLinksResponse links;
+    private PaymentLinks links;
 
     private PaymentDetailsResponse details;
+
+    @JsonProperty("_embedded")
+    private PaymentEmbedded embedded;
 }

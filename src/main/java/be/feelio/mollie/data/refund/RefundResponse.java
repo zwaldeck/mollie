@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,13 @@ public class RefundResponse {
 
     private Amount amount;
 
+    private Optional<String> settlementId;
+
     private Optional<Amount> settlementAmount;
 
     private String description;
+
+    private HashMap<String, Object> metedata;
 
     private String status;
 
@@ -38,6 +43,9 @@ public class RefundResponse {
     private Optional<String> orderId;
 
     private Date createdAt;
+
+    @JsonProperty("_embedded")
+    private Optional<RefundEmbedded> embedded;
 
     @JsonProperty("_links")
     private RefundLinks links;

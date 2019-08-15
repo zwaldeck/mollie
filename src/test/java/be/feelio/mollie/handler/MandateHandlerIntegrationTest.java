@@ -2,6 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Locale;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.customer.CustomerRequest;
@@ -87,7 +88,7 @@ class MandateHandlerIntegrationTest {
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
                 .email(Optional.of("name" + rand + "@feelio.be"))
-                .locale(Optional.of("nl_BE"))
+                .locale(Optional.of(Locale.nl_BE))
                 .build();
 
         return client.customers().createCustomer(customerRequest);

@@ -2,7 +2,6 @@ package be.feelio.mollie.data.chargeback;
 
 import be.feelio.mollie.data.common.Amount;
 import be.feelio.mollie.data.links.ChargebackLinks;
-import be.feelio.mollie.data.payment.PaymentResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +16,8 @@ import java.util.Optional;
 @NoArgsConstructor
 @Builder
 public class ChargebackResponse {
+
+    private String resource;
 
     private String id;
 
@@ -33,5 +34,6 @@ public class ChargebackResponse {
     @JsonProperty("_links")
     private ChargebackLinks links;
 
-    private Optional<PaymentResponse> payment;
+    @JsonProperty("_embedded")
+    private Optional<ChargebackEmbedded> embedded;
 }

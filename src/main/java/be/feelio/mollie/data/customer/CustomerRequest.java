@@ -1,5 +1,6 @@
 package be.feelio.mollie.data.customer;
 
+import be.feelio.mollie.data.common.Locale;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class CustomerRequest {
 
     private Optional<String> email;
 
-    private Optional<String> locale;
+    private Optional<Locale> locale;
 
     private Map<String, Object> metadata;
 }

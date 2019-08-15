@@ -2,6 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Locale;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Amount;
 import be.feelio.mollie.data.common.Pagination;
@@ -129,7 +130,7 @@ class SubscriptionHandlerIntegrationTest {
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
                 .email(Optional.of("name" + rand + "@feelio.be"))
-                .locale(Optional.of("nl_BE"))
+                .locale(Optional.of(Locale.nl_BE))
                 .build();
 
         CustomerResponse customer = client.customers().createCustomer(customerRequest);
@@ -154,7 +155,7 @@ class SubscriptionHandlerIntegrationTest {
                         .currency("EUR")
                         .value("25.00")
                         .build())
-                .times(OptionalInt.of(4))
+                .times(Optional.of(4))
                 .interval("3 months")
                 .description("Quarterly payment")
                 .webhookUrl(Optional.of("https://webshop.example.org/subscriptions/webhook/"))

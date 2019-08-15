@@ -1,5 +1,6 @@
 package be.feelio.mollie.data.method;
 
+import be.feelio.mollie.data.common.Amount;
 import be.feelio.mollie.data.common.Image;
 import be.feelio.mollie.data.links.MethodLinks;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -20,10 +20,13 @@ public class MethodResponse {
     private String resource;
     private String id;
     private String description;
+    private Amount minimumAmount;
+    private Amount maximumAmount;
     private Image image;
 
     @JsonProperty("_links")
     private MethodLinks links;
 
-    private Optional<List<MethodResponse>> issuers;
+    private List<SimpleMethodResponse> issuers;
+    private List<MethodPricing> pricing;
 }

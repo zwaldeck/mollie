@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @Data
@@ -17,4 +18,6 @@ public class RefundRequest {
     private Amount amount;
 
     private Optional<String> description;
+
+    private HashMap<String, Object> metadata;
 }

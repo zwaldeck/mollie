@@ -19,7 +19,9 @@ public class MandateResponse {
 
     private String id;
 
-    private String status;
+    private MandateStatus status;
+
+    private MandatePaymentMethod method;
 
     private MandateDetailsResponse details;
 

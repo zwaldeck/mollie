@@ -24,6 +24,8 @@ public class MandateDetailsResponse {
 
     private Optional<String> cardNumber;
 
+    private Optional<String> cardLabel;
+
     private Optional<String> cardFingerprint;
 
     private Optional<Date> cardExpiryDate;

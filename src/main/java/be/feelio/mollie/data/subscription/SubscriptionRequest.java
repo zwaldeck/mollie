@@ -1,6 +1,8 @@
 package be.feelio.mollie.data.subscription;
 
 import be.feelio.mollie.data.common.Amount;
+import be.feelio.mollie.data.common.ApplicationFee;
+import be.feelio.mollie.data.mandate.MandatePaymentMethod;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +12,6 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class SubscriptionRequest {
 
     private Amount amount;
 
-    private OptionalInt times;
+    private Optional<Integer> times;
 
     private String interval;
 
@@ -29,9 +30,15 @@ public class SubscriptionRequest {
 
     private String description;
 
-    private Optional<String> method;
+    private MandatePaymentMethod method;
+
+    private Optional<String> mandateId;
 
     private Optional<String> webhookUrl;
 
     private Map<String, Object> metadata;
+
+    private Optional<String> profileId;
+
+    private Optional<ApplicationFee> applicationFee;
 }
