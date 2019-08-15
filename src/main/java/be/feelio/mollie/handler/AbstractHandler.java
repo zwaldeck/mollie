@@ -30,6 +30,10 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> get(String uri, QueryParams params) throws IOException, MollieException {
+        if (Config.getInstance().shouldAddTestMode() && !params.containsKey("testmode")) {
+            params.put("testmode", "true");
+        }
+
         String url = baseUrl + uri + params.toString();
 
         log.info("Executing 'GET {}'", url);

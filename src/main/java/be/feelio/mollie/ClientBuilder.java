@@ -4,6 +4,7 @@ public final class ClientBuilder {
 
     private String apiKey;
     private String organizationToken;
+    private boolean testMode = false;
 
     public ClientBuilder withApiKey(String key) {
         this.apiKey = key;
@@ -12,6 +13,11 @@ public final class ClientBuilder {
 
     public ClientBuilder withOrganizationToken(String token) {
         this.organizationToken = token;
+        return this;
+    }
+
+    public ClientBuilder withTestMode(boolean shouldBeTestMode) {
+        this.testMode = shouldBeTestMode;
         return this;
     }
 
@@ -24,6 +30,10 @@ public final class ClientBuilder {
 
         if (organizationToken != null) {
             client.setAccessToken(organizationToken);
+        }
+
+        if (testMode) {
+            client.enableTestMode();
         }
 
         return client;

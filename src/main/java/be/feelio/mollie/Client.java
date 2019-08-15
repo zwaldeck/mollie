@@ -2,13 +2,8 @@ package be.feelio.mollie;
 
 import be.feelio.mollie.handler.*;
 import be.feelio.mollie.util.Config;
-import be.feelio.mollie.util.ObjectMapperService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import kong.unirest.ObjectMapper;
 import kong.unirest.Unirest;
 import lombok.Getter;
-
-import java.io.IOException;
 
 public class Client {
 
@@ -22,6 +17,7 @@ public class Client {
         // TODO: Check valid api key
         Config.getInstance().setApiKey(apiKey);
         Config.getInstance().setAccessToken(null);
+        Config.getInstance().setTestMode(false);
 
         initUniRest();
     }
@@ -41,6 +37,20 @@ public class Client {
      */
     public void revokeAccessToken() {
         Config.getInstance().setAccessToken(null);
+    }
+
+    /**
+     * Enable test mode if you are using an access token
+     */
+    public void enableTestMode() {
+        Config.getInstance().setTestMode(true);
+    }
+
+    /**
+     * Disable test mode if you are using an access token
+     */
+    public void disableTestMode() {
+        Config.getInstance().setTestMode(false);
     }
 
     /**
@@ -207,25 +217,6 @@ public class Client {
 
     private void initUniRest() {
         Unirest.config()
-            .setObjectMapper(new ObjectMapper() {
-
-            @Override
-            public <T> T readValue(String value, Class<T> type) {
-                try {
-                    return ObjectMapperService.getInstance().getMapper().readValue(value, type);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            public String writeValue(Object value) {
-                try {
-                    return ObjectMapperService.getInstance().getMapper().writeValueAsString(value);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+            .setObjectMapper(new OAuthAwareObjectMapper());
     }
 }

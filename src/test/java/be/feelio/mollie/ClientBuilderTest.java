@@ -29,4 +29,16 @@ class ClientBuilderTest {
         assertNotNull(client);
         assertEquals("org-token", Config.getInstance().getBearerToken());
     }
+
+    @Test
+    void build_withTestMode() {
+        Client client = new ClientBuilder()
+                .withApiKey("my-api-key")
+                .withOrganizationToken("org-token")
+                .withTestMode(true)
+                .build();
+
+        assertNotNull(client);
+        assertTrue(Config.getInstance().isTestMode());
+    }
 }

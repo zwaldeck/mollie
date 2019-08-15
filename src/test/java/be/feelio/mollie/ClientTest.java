@@ -37,4 +37,21 @@ class ClientTest {
         assertNull(Config.getInstance().getAccessToken());
     }
 
+    @Test
+    void enableTestMode() {
+        Client client = new Client("apiKey");
+        client.enableTestMode();
+
+        assertTrue(Config.getInstance().isTestMode());
+    }
+
+    @Test
+    void disableTestMode() {
+        Client client = new Client("apiKey");
+        client.enableTestMode();
+        client.disableTestMode();
+
+        assertFalse(Config.getInstance().isTestMode());
+    }
+
 }
