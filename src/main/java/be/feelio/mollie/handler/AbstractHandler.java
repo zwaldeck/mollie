@@ -11,6 +11,7 @@ import kong.unirest.Unirest;
 import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractHandler {
@@ -119,6 +120,11 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> delete(String uri, QueryParams params) throws IOException, MollieException {
+        Map<String, Object> body = new HashMap<>();
+        if (Config.getInstance().shouldAddTestMode()) {
+            body.put("testmode", "true");
+        }
+
         String url = baseUrl + uri + params.toString();
 
         log.info("Executing 'DELETE {}'", url);
@@ -127,6 +133,7 @@ public abstract class AbstractHandler {
                 .delete(url)
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .body(body)
                 .asString();
 
         validateResponse(response);
