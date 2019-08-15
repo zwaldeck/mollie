@@ -1,7 +1,7 @@
 package be.feelio.mollie.data.order;
 
 import be.feelio.mollie.data.common.ApplicationFee;
-import be.feelio.mollie.data.enums.PaymentMethod;
+import be.feelio.mollie.data.payment.PaymentMethod;
 import be.feelio.mollie.serializer.PaymentMethodSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;

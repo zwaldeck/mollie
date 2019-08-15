@@ -1,7 +1,7 @@
 package be.feelio.mollie.handler;
 
-import be.feelio.mollie.data.request.OnboardingRequest;
-import be.feelio.mollie.data.response.OnboardingResponse;
+import be.feelio.mollie.data.onboarding.OnboardingRequest;
+import be.feelio.mollie.data.onboarding.OnboardingResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;

@@ -2,10 +2,10 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.response.CaptureListResponse;
-import be.feelio.mollie.data.response.CaptureResponse;
-import be.feelio.mollie.data.response.ChargebackListResponse;
-import be.feelio.mollie.data.response.ChargebackResponse;
+import be.feelio.mollie.data.capture.CaptureListResponse;
+import be.feelio.mollie.data.capture.CaptureResponse;
+import be.feelio.mollie.data.chargeback.ChargebackListResponse;
+import be.feelio.mollie.data.chargeback.ChargebackResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;

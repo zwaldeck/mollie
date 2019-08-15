@@ -1,9 +1,9 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.enums.Permission;
-import be.feelio.mollie.data.response.PermissionListResponse;
-import be.feelio.mollie.data.response.PermissionResponse;
+import be.feelio.mollie.data.permission.Permission;
+import be.feelio.mollie.data.permission.PermissionListResponse;
+import be.feelio.mollie.data.permission.PermissionResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;

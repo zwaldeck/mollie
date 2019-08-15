@@ -1,8 +1,6 @@
 package be.feelio.mollie.data.order;
 
 import be.feelio.mollie.data.common.Amount;
-import be.feelio.mollie.data.enums.OrderLineType;
-import be.feelio.mollie.data.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

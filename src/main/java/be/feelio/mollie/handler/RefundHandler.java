@@ -2,9 +2,9 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.request.RefundRequest;
-import be.feelio.mollie.data.response.RefundListResponse;
-import be.feelio.mollie.data.response.RefundResponse;
+import be.feelio.mollie.data.refund.RefundRequest;
+import be.feelio.mollie.data.refund.RefundListResponse;
+import be.feelio.mollie.data.refund.RefundResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;

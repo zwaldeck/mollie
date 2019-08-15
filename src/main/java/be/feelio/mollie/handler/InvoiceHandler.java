@@ -1,8 +1,8 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.response.InvoiceResponse;
-import be.feelio.mollie.data.response.InvoicesListResponse;
+import be.feelio.mollie.data.invoice.InvoiceResponse;
+import be.feelio.mollie.data.invoice.InvoicesListResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;

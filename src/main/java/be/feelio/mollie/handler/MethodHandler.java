@@ -2,8 +2,8 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.response.MethodListResponse;
-import be.feelio.mollie.data.response.MethodResponse;
+import be.feelio.mollie.data.method.MethodListResponse;
+import be.feelio.mollie.data.method.MethodResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;

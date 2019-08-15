@@ -1,6 +1,6 @@
 package be.feelio.mollie.serializer;
 
-import be.feelio.mollie.data.enums.PaymentMethod;
+import be.feelio.mollie.data.payment.PaymentMethod;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;

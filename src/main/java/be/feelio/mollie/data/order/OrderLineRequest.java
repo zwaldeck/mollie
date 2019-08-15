@@ -1,7 +1,6 @@
 package be.feelio.mollie.data.order;
 
 import be.feelio.mollie.data.common.Amount;
-import be.feelio.mollie.data.enums.OrderLineType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package be.feelio.mollie.handler;
 
-import be.feelio.mollie.data.response.ApplePaySessionResponse;
+import be.feelio.mollie.data.miscellaneous.ApplePaySessionResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;

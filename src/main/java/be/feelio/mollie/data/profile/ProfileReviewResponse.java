@@ -1,6 +1,5 @@
 package be.feelio.mollie.data.profile;
 
-import be.feelio.mollie.data.enums.ProfileReviewStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

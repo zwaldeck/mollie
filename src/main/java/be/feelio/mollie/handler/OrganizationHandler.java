@@ -1,6 +1,6 @@
 package be.feelio.mollie.handler;
 
-import be.feelio.mollie.data.response.OrganizationResponse;
+import be.feelio.mollie.data.organization.OrganizationResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;

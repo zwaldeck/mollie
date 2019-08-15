@@ -5,9 +5,9 @@ import be.feelio.mollie.ClientBuilder;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Amount;
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.request.PaymentRequest;
-import be.feelio.mollie.data.response.CaptureListResponse;
-import be.feelio.mollie.data.response.PaymentResponse;
+import be.feelio.mollie.data.payment.PaymentRequest;
+import be.feelio.mollie.data.capture.CaptureListResponse;
+import be.feelio.mollie.data.payment.PaymentResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

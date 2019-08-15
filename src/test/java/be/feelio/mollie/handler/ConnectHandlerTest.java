@@ -2,12 +2,12 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
-import be.feelio.mollie.data.enums.ApprovalPrompt;
-import be.feelio.mollie.data.enums.GrantType;
-import be.feelio.mollie.data.enums.ResponseType;
-import be.feelio.mollie.data.request.AuthorizeRequest;
-import be.feelio.mollie.data.request.RevokeTokenRequest;
-import be.feelio.mollie.data.request.TokenRequest;
+import be.feelio.mollie.data.connect.ApprovalPrompt;
+import be.feelio.mollie.data.connect.GrantType;
+import be.feelio.mollie.data.connect.ResponseType;
+import be.feelio.mollie.data.connect.AuthorizeRequest;
+import be.feelio.mollie.data.connect.RevokeTokenRequest;
+import be.feelio.mollie.data.connect.TokenRequest;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.QueryParams;
 import org.junit.jupiter.api.BeforeEach;

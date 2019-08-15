@@ -1,7 +1,7 @@
 package be.feelio.mollie.data.order;
 
-import be.feelio.mollie.data.response.PaymentResponse;
-import be.feelio.mollie.data.response.RefundResponse;
+import be.feelio.mollie.data.payment.PaymentResponse;
+import be.feelio.mollie.data.refund.RefundResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

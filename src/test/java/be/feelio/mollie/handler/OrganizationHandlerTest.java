@@ -2,7 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
-import be.feelio.mollie.data.response.OrganizationResponse;
+import be.feelio.mollie.data.organization.OrganizationResponse;
 import be.feelio.mollie.exception.MollieException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;

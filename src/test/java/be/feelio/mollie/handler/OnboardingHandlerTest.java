@@ -3,7 +3,7 @@ package be.feelio.mollie.handler;
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
 import be.feelio.mollie.data.onboarding.OnboardingProfileRequest;
-import be.feelio.mollie.data.request.OnboardingRequest;
+import be.feelio.mollie.data.onboarding.OnboardingRequest;
 import be.feelio.mollie.exception.MollieException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;

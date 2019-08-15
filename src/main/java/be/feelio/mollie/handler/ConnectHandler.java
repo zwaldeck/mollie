@@ -1,9 +1,9 @@
 package be.feelio.mollie.handler;
 
-import be.feelio.mollie.data.request.AuthorizeRequest;
-import be.feelio.mollie.data.request.RevokeTokenRequest;
-import be.feelio.mollie.data.request.TokenRequest;
-import be.feelio.mollie.data.response.TokenResponse;
+import be.feelio.mollie.data.connect.AuthorizeRequest;
+import be.feelio.mollie.data.connect.RevokeTokenRequest;
+import be.feelio.mollie.data.connect.TokenRequest;
+import be.feelio.mollie.data.connect.TokenResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;

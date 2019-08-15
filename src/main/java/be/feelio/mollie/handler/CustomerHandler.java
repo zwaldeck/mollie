@@ -2,12 +2,12 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.request.CustomerRequest;
-import be.feelio.mollie.data.request.PaymentRequest;
-import be.feelio.mollie.data.response.CustomerListResponse;
-import be.feelio.mollie.data.response.CustomerResponse;
-import be.feelio.mollie.data.response.PaymentListResponse;
-import be.feelio.mollie.data.response.PaymentResponse;
+import be.feelio.mollie.data.customer.CustomerRequest;
+import be.feelio.mollie.data.payment.PaymentRequest;
+import be.feelio.mollie.data.customer.CustomerListResponse;
+import be.feelio.mollie.data.customer.CustomerResponse;
+import be.feelio.mollie.data.payment.PaymentListResponse;
+import be.feelio.mollie.data.payment.PaymentResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;

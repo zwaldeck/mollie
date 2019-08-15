@@ -1,10 +1,10 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.request.ShipmentRequest;
-import be.feelio.mollie.data.request.ShipmentUpdateRequest;
-import be.feelio.mollie.data.response.ShipmentListResponse;
-import be.feelio.mollie.data.response.ShipmentResponse;
+import be.feelio.mollie.data.shipment.ShipmentRequest;
+import be.feelio.mollie.data.shipment.ShipmentUpdateRequest;
+import be.feelio.mollie.data.shipment.ShipmentListResponse;
+import be.feelio.mollie.data.shipment.ShipmentResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;

@@ -1,9 +1,9 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.order.OrderPaymentRequest;
-import be.feelio.mollie.data.request.*;
-import be.feelio.mollie.data.response.*;
+import be.feelio.mollie.data.order.*;
+import be.feelio.mollie.data.payment.PaymentResponse;
+import be.feelio.mollie.data.refund.RefundResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;

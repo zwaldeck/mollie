@@ -1,11 +1,11 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.data.common.Pagination;
-import be.feelio.mollie.data.enums.PaymentMethod;
-import be.feelio.mollie.data.request.ProfileRequest;
-import be.feelio.mollie.data.response.MethodResponse;
-import be.feelio.mollie.data.response.ProfileListResponse;
-import be.feelio.mollie.data.response.ProfileResponse;
+import be.feelio.mollie.data.payment.PaymentMethod;
+import be.feelio.mollie.data.profile.ProfileRequest;
+import be.feelio.mollie.data.method.MethodResponse;
+import be.feelio.mollie.data.profile.ProfileListResponse;
+import be.feelio.mollie.data.profile.ProfileResponse;
 import be.feelio.mollie.exception.MollieException;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
