@@ -11,6 +11,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * Handles the organizations API <a href="https://docs.mollie.com/reference/v2/organizations-api/current-organization">Mollie docs</a>
+ *
+ * @author Wout Schoovaerts
+ */
 public class OrganizationHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OrganizationHandler.class);
@@ -19,10 +24,23 @@ public class OrganizationHandler extends AbstractHandler {
         super(baseUrl, log);
     }
 
+    /**
+     * Retrieve the currently authenticated organization.
+     *
+     * @return OrganizationResponse object
+     * @throws MollieException when something went wrong
+     */
     public OrganizationResponse getMyOrganization() throws MollieException {
         return getMyOrganization(QueryParams.EMPTY);
     }
 
+    /**
+     * Retrieve the currently authenticated organization.
+     *
+     * @param params a map of query params
+     * @return OrganizationResponse object
+     * @throws MollieException when something went wrong
+     */
     public OrganizationResponse getMyOrganization(QueryParams params) throws MollieException {
         try {
             String uri = "/organizations/me";
@@ -37,10 +55,29 @@ public class OrganizationHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Retrieve an organization by its ID.
+     * <p>
+     * If you do not know the organization’s ID, you can use the organizations list endpoint to retrieve all organizations that are accessible.
+     *
+     * @param organizationId An organization ID
+     * @return OrganizationResponse object
+     * @throws MollieException when something went wrong
+     */
     public OrganizationResponse getOrganization(String organizationId) throws MollieException {
         return getOrganization(organizationId, QueryParams.EMPTY);
     }
 
+    /**
+     * Retrieve an organization by its ID.
+     * <p>
+     * If you do not know the organization’s ID, you can use the organizations list endpoint to retrieve all organizations that are accessible.
+     *
+     * @param organizationId An organization ID
+     * @param params         a map of query params
+     * @return OrganizationResponse object
+     * @throws MollieException when something went wrong
+     */
     public OrganizationResponse getOrganization(String organizationId, QueryParams params) throws MollieException {
         try {
             String uri = "/organizations/" + organizationId;

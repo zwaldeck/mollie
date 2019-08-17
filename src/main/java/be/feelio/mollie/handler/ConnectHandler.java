@@ -16,6 +16,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * Handles the Connect API <a href="https://docs.mollie.com/reference/oauth2/authorize">Mollie docs</a>
+ *
+ * @author Wout Schoovaerts
+ */
 public class ConnectHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ConnectHandler.class);
@@ -24,15 +29,44 @@ public class ConnectHandler extends AbstractHandler {
         super(null, log);
     }
 
+    /**
+     * The Authorize endpoint is the endpoint on Mollie web site where the merchant logs in, and grants authorization to your client application. E.g. when the merchant clicks on the Connect with Mollie button, you should redirect the merchant to the Authorize endpoint.
+     * <p>
+     * The resource owner can then grant the authorization to your client application for the scopes you have requested.
+     * <p>
+     * Mollie will then redirect the resource owner to the redirect_uri you have specified. The redirect_uri will be appended with a code parameter, which will contain the auth token. You should then exchange the auth token for an access token using the Tokens API.
+     *
+     * @param request AuthorizeRequest object
+     * @return The authorize URL
+     */
     public String createAuthorizeUrl(AuthorizeRequest request) {
         return "https://www.mollie.com/oauth2/authorize" + convertAuthorizeRequestToQueryParams(request).toString();
     }
 
+    /**
+     * Exchange the auth code received at the Authorize endpoint for an actual access token, with which you can communicate with the Mollie API.
+     *
+     * @param clientId     The OAuth client ID
+     * @param clientSecret The OAuth client ID
+     * @param body         TokenRequest object
+     * @return TokenResponse object
+     * @throws MollieException when something went wrong
+     */
     public TokenResponse generateTokens(String clientId, String clientSecret, TokenRequest body)
             throws MollieException {
         return generateTokens(clientId, clientSecret, body, QueryParams.EMPTY);
     }
 
+    /**
+     * Exchange the auth code received at the Authorize endpoint for an actual access token, with which you can communicate with the Mollie API.
+     *
+     * @param clientId     The OAuth client ID
+     * @param clientSecret The OAuth client ID
+     * @param body         TokenRequest object
+     * @param params       A map of query parameters
+     * @return TokenResponse object
+     * @throws MollieException when something went wrong
+     */
     public TokenResponse generateTokens(String clientId, String clientSecret, TokenRequest body, QueryParams params)
             throws MollieException {
         try {
@@ -56,10 +90,27 @@ public class ConnectHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * Revoke an access- or a refresh token. Once revoked the token can not be used anymore.
+     *
+     * @param clientId     The OAuth client ID
+     * @param clientSecret The OAuth client ID
+     * @param body         RevokeTokenRequest object
+     * @throws MollieException when something went wrong
+     */
     public void revokeToken(String clientId, String clientSecret, RevokeTokenRequest body) throws MollieException {
         revokeToken(clientId, clientSecret, body, QueryParams.EMPTY);
     }
 
+    /**
+     * Revoke an access- or a refresh token. Once revoked the token can not be used anymore.
+     *
+     * @param clientId     The OAuth client ID
+     * @param clientSecret The OAuth client ID
+     * @param body         RevokeTokenRequest object
+     * @param params       A map of query parameters
+     * @throws MollieException when something went wrong
+     */
     public void revokeToken(String clientId, String clientSecret, RevokeTokenRequest body, QueryParams params)
             throws MollieException {
         try {

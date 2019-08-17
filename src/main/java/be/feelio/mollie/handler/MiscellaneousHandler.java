@@ -21,6 +21,26 @@ public class MiscellaneousHandler extends AbstractHandler {
         super(baseApiUrl, log);
     }
 
+    /**
+     * For integrating Apple Pay in your own checkout on the web, you need to provide merchant validation. This is normally done using Apple’s Requesting Apple Pay Session. The merchant validation proves (to Apple) that a validated merchant is calling the Apple Pay Javascript APIs.
+     * <p>
+     * When integrating Apple Pay via Mollie, you cannot call Apple’s API but you should call this API instead. The response of this API call should be passed as-is to the the completion method, completeMerchantValidation.
+     * <p>
+     * Before requesting an Apple Pay Payment Session, you must place the domain validation file on your server at: https://[domain]/.well-known/apple-developer-merchantid-domain-association. Without this file, it will not be possible to use Apple Pay on your domain.
+     * <p>
+     * The guidelines for working with a payment session are:
+     *
+     * <ul>
+     * <li>Request a new payment session object for each transaction. You can only use a merchant session object a single time.</li>
+     * <li>The payment session object expires five minutes after it is created.</li>
+     * <li>Never request the payment session from the browser. The request must be sent from your server.</li>
+     * <li>For the full documentation, see the official Apple Pay JS API documentation.</li>
+     * </ul>
+     *
+     * @param profileId A profile ID
+     * @return ApplePaySessionResponse object
+     * @throws MollieException when something went wrong
+     */
     public ApplePaySessionResponse requestApplePaySession(String profileId) throws MollieException {
         if (Config.getInstance().getAccessToken() == null) {
             throw new MollieException(
@@ -45,6 +65,27 @@ public class MiscellaneousHandler extends AbstractHandler {
         }
     }
 
+    /**
+     * For integrating Apple Pay in your own checkout on the web, you need to provide merchant validation. This is normally done using Apple’s Requesting Apple Pay Session. The merchant validation proves (to Apple) that a validated merchant is calling the Apple Pay Javascript APIs.
+     * <p>
+     * When integrating Apple Pay via Mollie, you cannot call Apple’s API but you should call this API instead. The response of this API call should be passed as-is to the the completion method, completeMerchantValidation.
+     * <p>
+     * Before requesting an Apple Pay Payment Session, you must place the domain validation file on your server at: https://[domain]/.well-known/apple-developer-merchantid-domain-association. Without this file, it will not be possible to use Apple Pay on your domain.
+     * <p>
+     * The guidelines for working with a payment session are:
+     *
+     * <ul>
+     * <li>Request a new payment session object for each transaction. You can only use a merchant session object a single time.</li>
+     * <li>The payment session object expires five minutes after it is created.</li>
+     * <li>Never request the payment session from the browser. The request must be sent from your server.</li>
+     * <li>For the full documentation, see the official Apple Pay JS API documentation.</li>
+     * </ul>
+     *
+     * @param validationUrl A validation url
+     * @param domain        a domain
+     * @return ApplePaySessionResponse object
+     * @throws MollieException when something went wrong
+     */
     public ApplePaySessionResponse requestApplePaySession(String validationUrl, String domain) throws MollieException {
         try {
             String uri = "/wallets/applepay/sessions";
