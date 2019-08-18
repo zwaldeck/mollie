@@ -2,13 +2,14 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Locale;
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.CustomerRequest;
-import be.feelio.mollie.json.request.MandateRequest;
-import be.feelio.mollie.json.response.CustomerResponse;
-import be.feelio.mollie.json.response.MandateListResponse;
-import be.feelio.mollie.json.response.MandateResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.customer.CustomerRequest;
+import be.feelio.mollie.data.mandate.MandateRequest;
+import be.feelio.mollie.data.customer.CustomerResponse;
+import be.feelio.mollie.data.mandate.MandateListResponse;
+import be.feelio.mollie.data.mandate.MandateResponse;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 import java.util.Optional;
 
-import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
+import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MandateHandlerIntegrationTest {
@@ -87,7 +88,7 @@ class MandateHandlerIntegrationTest {
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
                 .email(Optional.of("name" + rand + "@feelio.be"))
-                .locale(Optional.of("nl_BE"))
+                .locale(Optional.of(Locale.nl_BE))
                 .build();
 
         return client.customers().createCustomer(customerRequest);

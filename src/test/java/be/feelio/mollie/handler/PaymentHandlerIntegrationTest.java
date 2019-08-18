@@ -2,12 +2,13 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.payment.PaymentMethod;
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Amount;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.PaymentRequest;
-import be.feelio.mollie.json.response.PaymentListResponse;
-import be.feelio.mollie.json.response.PaymentResponse;
+import be.feelio.mollie.data.common.Amount;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.payment.PaymentRequest;
+import be.feelio.mollie.data.payment.PaymentListResponse;
+import be.feelio.mollie.data.payment.PaymentResponse;
 import be.feelio.mollie.util.QueryParams;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -15,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
+import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentHandlerIntegrationTest {
@@ -92,7 +93,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .method(Optional.of("paysafecard"))
+                .method(Optional.of(PaymentMethod.PAY_SAFE_CARD))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();

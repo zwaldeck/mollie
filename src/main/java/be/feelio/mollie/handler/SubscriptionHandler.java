@@ -1,18 +1,17 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.SubscriptionRequest;
-import be.feelio.mollie.json.request.UpdateSubscriptionRequest;
-import be.feelio.mollie.json.response.PaymentListResponse;
-import be.feelio.mollie.json.response.SubscriptionListResponse;
-import be.feelio.mollie.json.response.SubscriptionResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.subscription.SubscriptionRequest;
+import be.feelio.mollie.data.subscription.UpdateSubscriptionRequest;
+import be.feelio.mollie.data.payment.PaymentListResponse;
+import be.feelio.mollie.data.subscription.SubscriptionListResponse;
+import be.feelio.mollie.data.subscription.SubscriptionResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import kong.unirest.HttpResponse;
+import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +27,7 @@ public class SubscriptionHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(SubscriptionHandler.class);
 
     public SubscriptionHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -55,15 +54,9 @@ public class SubscriptionHandler extends AbstractHandler {
     public SubscriptionResponse createSubscription(String customerId, SubscriptionRequest body, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/subscriptions" + params.toString();
+            String uri = "/customers/" + customerId + "/subscriptions";
 
-            log.info("Executing 'POST {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
-                    .body(body)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'POST {}'", url);
+            HttpResponse<String> response = post(uri, body, params);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SubscriptionResponse.class);
@@ -97,14 +90,9 @@ public class SubscriptionHandler extends AbstractHandler {
     public SubscriptionResponse getSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/subscriptions/" + subscriptionId + params.toString();
+            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SubscriptionResponse.class);
@@ -138,14 +126,9 @@ public class SubscriptionHandler extends AbstractHandler {
     public SubscriptionResponse cancelSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/subscriptions/" + subscriptionId + params.toString();
+            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            log.info("Executing 'DELETE {}'", url);
-            HttpResponse<String> response = Unirest.delete(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'DELETE {}'", url);
+            HttpResponse<String> response = delete(uri, params);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SubscriptionResponse.class);
@@ -178,14 +161,9 @@ public class SubscriptionHandler extends AbstractHandler {
     public Pagination<SubscriptionListResponse> listSubscriptions(String customerId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/subscriptions" + params.toString();
+            String uri = "/customers/" + customerId + "/subscriptions";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<SubscriptionListResponse>>() {
@@ -221,15 +199,9 @@ public class SubscriptionHandler extends AbstractHandler {
     public Pagination<PaymentListResponse> listSubscriptionPayments(String customerId, String subscriptionId,
                                                                     QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments" +
-                    params.toString();
+            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PaymentListResponse>>() {
@@ -272,15 +244,9 @@ public class SubscriptionHandler extends AbstractHandler {
                                                    UpdateSubscriptionRequest body, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/customers/" + customerId + "/subscriptions/" + subscriptionId + params.toString();
+            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            log.info("Executing 'PATCH {}'", url);
-            HttpResponse<String> response = Unirest.patch(url)
-                    .body(body)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'PATCH {}'", url);
+            HttpResponse<String> response = patch(uri, body, params);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SubscriptionResponse.class);

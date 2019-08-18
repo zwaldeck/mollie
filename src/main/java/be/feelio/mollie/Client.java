@@ -1,26 +1,65 @@
 package be.feelio.mollie;
 
 import be.feelio.mollie.handler.*;
-import be.feelio.mollie.util.ObjectMapperService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mashape.unirest.http.Unirest;
+import be.feelio.mollie.util.Config;
+import kong.unirest.Unirest;
 import lombok.Getter;
-
-import java.io.IOException;
 
 public class Client {
 
     @Getter
     private final String endpoint;
 
-    @Getter
-    private final String apiKey;
 
     public Client(String apiKey) {
         this.endpoint = "https://api.mollie.com/v2";
-        this.apiKey = apiKey;
+
+        // TODO: Check valid api key
+        Config.getInstance().setApiKey(apiKey);
+        Config.getInstance().setAccessToken(null);
+        Config.getInstance().setTestMode(false);
 
         initUniRest();
+    }
+
+    /**
+     * Set the access token, the requests will use the access token instead of the api key
+     *
+     * @param accessToken The access token (Generated or Organization token)
+     */
+    public void setAccessToken(String accessToken) {
+        // TODO: Check valid access token
+        Config.getInstance().setAccessToken(accessToken);
+    }
+
+    /**
+     * Removes the access token, the requests will start using the api key again
+     */
+    public void revokeAccessToken() {
+        Config.getInstance().setAccessToken(null);
+    }
+
+    /**
+     * Enable test mode if you are using an access token
+     */
+    public void enableTestMode() {
+        Config.getInstance().setTestMode(true);
+    }
+
+    /**
+     * Disable test mode if you are using an access token
+     */
+    public void disableTestMode() {
+        Config.getInstance().setTestMode(false);
+    }
+
+    /**
+     * Handles connect actions
+     *
+     * @return ConnectHandler object
+     */
+    public ConnectHandler connect() {
+        return new ConnectHandler();
     }
 
     /**
@@ -69,6 +108,24 @@ public class Client {
     }
 
     /**
+     * Handles order actions
+     *
+     * @return OrderHandler object
+     */
+    public OrderHandler orders() {
+        return new OrderHandler(endpoint);
+    }
+
+    /**
+     * Handles shipment actions
+     *
+     * @return ShipmentHandler object
+     */
+    public ShipmentHandler shipments() {
+        return new ShipmentHandler(endpoint);
+    }
+
+    /**
      * Handles customer actions
      *
      * @return CustomerHandler object
@@ -95,28 +152,71 @@ public class Client {
         return new SubscriptionHandler(endpoint);
     }
 
+    /**
+     * Handles permission actions
+     *
+     * @return PermissionHandler object
+     */
+    public PermissionHandler permissions() {
+        return new PermissionHandler(endpoint);
+    }
+
+    /**
+     * Handles organization actions
+     *
+     * @return OrganizationHandler object
+     */
+    public OrganizationHandler organizations() {
+        return new OrganizationHandler(endpoint);
+    }
+
+    /**
+     * Handles profile actions
+     *
+     * @return ProfileHandler object
+     */
+    public ProfileHandler profiles() {
+        return new ProfileHandler(endpoint);
+    }
+
+    /**
+     * Handles on boarding actions
+     *
+     * @return OnboardingHandler object
+     */
+    public OnboardingHandler onboarding() {
+        return new OnboardingHandler(endpoint);
+    }
+
+    /**
+     * Handles settlements actions
+     *
+     * @return SettlementHandler object
+     */
+    public SettlementHandler settlements() {
+        return new SettlementHandler(endpoint);
+    }
+
+    /**
+     * Handles invoices actions
+     *
+     * @return InvoiceHandler object
+     */
+    public InvoiceHandler invoices() {
+        return new InvoiceHandler(endpoint);
+    }
+
+    /**
+     * Handles miscellaneous actions
+     *
+     * @return MiscellaneousHandler object
+     */
+    public MiscellaneousHandler miscellaneous() {
+        return new MiscellaneousHandler(endpoint);
+    }
+
     private void initUniRest() {
-        Unirest.setDefaultHeader("Authorization", "Bearer " + apiKey);
-        Unirest.setDefaultHeader("Content-Type", "application/json");
-        Unirest.setObjectMapper(new com.mashape.unirest.http.ObjectMapper() {
-
-            @Override
-            public <T> T readValue(String value, Class<T> type) {
-                try {
-                    return ObjectMapperService.getInstance().getMapper().readValue(value, type);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            public String writeValue(Object value) {
-                try {
-                    return ObjectMapperService.getInstance().getMapper().writeValueAsString(value);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+        Unirest.config()
+            .setObjectMapper(new OAuthAwareObjectMapper());
     }
 }

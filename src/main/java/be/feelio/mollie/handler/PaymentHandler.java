@@ -1,16 +1,15 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.PaymentRequest;
-import be.feelio.mollie.json.response.PaymentListResponse;
-import be.feelio.mollie.json.response.PaymentResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.payment.PaymentRequest;
+import be.feelio.mollie.data.payment.PaymentListResponse;
+import be.feelio.mollie.data.payment.PaymentResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import kong.unirest.HttpResponse;
+import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +28,7 @@ public class PaymentHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(PaymentHandler.class);
 
     public PaymentHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
 
     }
 
@@ -47,22 +46,16 @@ public class PaymentHandler extends AbstractHandler {
     /**
      * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
      *
-     * @param body   PaymentRequest can be build with the builder pattern
+     * @param body   Pa ymentRequest can be build with the builder pattern
      * @param params A map of query parameters
      * @return The payment response from mollie
      * @throws MollieException when there went something wrong
      */
     public PaymentResponse createPayment(PaymentRequest body, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments" + params.toString();
+            String uri = "/payments";
 
-            log.info("Executing 'POST {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
-                    .body(body)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'POST {}'", url);
+            HttpResponse<String> response = post(uri, body, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -93,13 +86,9 @@ public class PaymentHandler extends AbstractHandler {
     public PaymentResponse getPayment(String paymentId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + params.toString();
+            String uri = "/payments/" + paymentId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -137,13 +126,9 @@ public class PaymentHandler extends AbstractHandler {
      */
     public PaymentResponse cancelPayment(String paymentId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + params.toString();
+            String uri = "/payments/" + paymentId;
 
-            log.info("Executing 'DELETE {}'", url);
-            HttpResponse<String> response = Unirest.delete(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'DELETE {}'", url);
+            HttpResponse<String> response = delete(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -176,13 +161,9 @@ public class PaymentHandler extends AbstractHandler {
      */
     public Pagination<PaymentListResponse> listPayments(QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments" + params.toString();
+            String uri = "/payments";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PaymentListResponse>>() {

@@ -1,17 +1,16 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.response.CaptureListResponse;
-import be.feelio.mollie.json.response.CaptureResponse;
-import be.feelio.mollie.json.response.ChargebackListResponse;
-import be.feelio.mollie.json.response.ChargebackResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.capture.CaptureListResponse;
+import be.feelio.mollie.data.capture.CaptureResponse;
+import be.feelio.mollie.data.chargeback.ChargebackListResponse;
+import be.feelio.mollie.data.chargeback.ChargebackResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import kong.unirest.HttpResponse;
+import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +26,7 @@ public class CaptureHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(CaptureHandler.class);
 
     public CaptureHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -58,14 +57,9 @@ public class CaptureHandler extends AbstractHandler {
     public CaptureResponse getCapture(String paymentId, String captureId, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId +
-                    "/captures/" + captureId + params.toString();
+            String uri = "/payments/" + paymentId + "/captures/" + captureId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<ChargebackResponse>() {
@@ -101,14 +95,9 @@ public class CaptureHandler extends AbstractHandler {
      */
     public Pagination<CaptureListResponse> listCaptures(String paymentId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId +
-                    "/captures" + params.toString();
+            String uri = "/payments/" + paymentId + "/captures";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {

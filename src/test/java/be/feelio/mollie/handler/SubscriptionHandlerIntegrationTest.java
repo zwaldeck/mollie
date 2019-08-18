@@ -2,17 +2,18 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Locale;
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Amount;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.CustomerRequest;
-import be.feelio.mollie.json.request.MandateRequest;
-import be.feelio.mollie.json.request.SubscriptionRequest;
-import be.feelio.mollie.json.request.UpdateSubscriptionRequest;
-import be.feelio.mollie.json.response.CustomerResponse;
-import be.feelio.mollie.json.response.PaymentListResponse;
-import be.feelio.mollie.json.response.SubscriptionListResponse;
-import be.feelio.mollie.json.response.SubscriptionResponse;
+import be.feelio.mollie.data.common.Amount;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.customer.CustomerRequest;
+import be.feelio.mollie.data.mandate.MandateRequest;
+import be.feelio.mollie.data.subscription.SubscriptionRequest;
+import be.feelio.mollie.data.subscription.UpdateSubscriptionRequest;
+import be.feelio.mollie.data.customer.CustomerResponse;
+import be.feelio.mollie.data.payment.PaymentListResponse;
+import be.feelio.mollie.data.subscription.SubscriptionListResponse;
+import be.feelio.mollie.data.subscription.SubscriptionResponse;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
+import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubscriptionHandlerIntegrationTest {
@@ -129,7 +130,7 @@ class SubscriptionHandlerIntegrationTest {
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
                 .email(Optional.of("name" + rand + "@feelio.be"))
-                .locale(Optional.of("nl_BE"))
+                .locale(Optional.of(Locale.nl_BE))
                 .build();
 
         CustomerResponse customer = client.customers().createCustomer(customerRequest);
@@ -154,7 +155,7 @@ class SubscriptionHandlerIntegrationTest {
                         .currency("EUR")
                         .value("25.00")
                         .build())
-                .times(OptionalInt.of(4))
+                .times(Optional.of(4))
                 .interval("3 months")
                 .description("Quarterly payment")
                 .webhookUrl(Optional.of("https://webshop.example.org/subscriptions/webhook/"))

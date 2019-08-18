@@ -2,22 +2,23 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.Client;
 import be.feelio.mollie.ClientBuilder;
+import be.feelio.mollie.data.common.Locale;
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Amount;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.CustomerRequest;
-import be.feelio.mollie.json.request.PaymentRequest;
-import be.feelio.mollie.json.response.CustomerListResponse;
-import be.feelio.mollie.json.response.CustomerResponse;
-import be.feelio.mollie.json.response.PaymentListResponse;
-import be.feelio.mollie.json.response.PaymentResponse;
+import be.feelio.mollie.data.common.Amount;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.customer.CustomerRequest;
+import be.feelio.mollie.data.payment.PaymentRequest;
+import be.feelio.mollie.data.customer.CustomerListResponse;
+import be.feelio.mollie.data.customer.CustomerResponse;
+import be.feelio.mollie.data.payment.PaymentListResponse;
+import be.feelio.mollie.data.payment.PaymentResponse;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static be.feelio.mollie.handler.IntegrationTestConstants.API_KEY;
+import static be.feelio.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerHandlerIntegrationTest {
@@ -117,7 +118,7 @@ class CustomerHandlerIntegrationTest {
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
                 .email(Optional.of("name" + rand + "@feelio.be"))
-                .locale(Optional.of("nl_BE"))
+                .locale(Optional.of(Locale.nl_BE))
                 .build();
 
         return client.customers().createCustomer(customerRequest);

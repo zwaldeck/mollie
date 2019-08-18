@@ -1,16 +1,15 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.request.RefundRequest;
-import be.feelio.mollie.json.response.RefundListResponse;
-import be.feelio.mollie.json.response.RefundResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.refund.RefundRequest;
+import be.feelio.mollie.data.refund.RefundListResponse;
+import be.feelio.mollie.data.refund.RefundResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import kong.unirest.HttpResponse;
+import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +25,7 @@ public class RefundHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(RefundHandler.class);
 
     public RefundHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -91,15 +90,9 @@ public class RefundHandler extends AbstractHandler {
     public RefundResponse createRefund(String paymentId, RefundRequest body, QueryParams params)
             throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + "/refunds" + params.toString();
+            String uri = "/payments/" + paymentId + "/refunds";
 
-            log.info("Executing 'POST {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
-                    .body(body)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'POST {}'", url);
+            HttpResponse<String> response = post(uri, body, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -131,14 +124,9 @@ public class RefundHandler extends AbstractHandler {
      */
     public RefundResponse getRefund(String paymentId, String refundId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + "/refunds/" + refundId + params.toString();
+            String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -173,14 +161,9 @@ public class RefundHandler extends AbstractHandler {
      */
     public void cancelRefund(String paymentId, String refundId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + "/refunds/" + refundId + params.toString();
+            String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            log.info("Executing 'DELETE {}'", url);
-            HttpResponse<String> response = Unirest.delete(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'DELETE {}'", url);
+            HttpResponse<String> response = delete(uri, params);
 
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
@@ -215,14 +198,9 @@ public class RefundHandler extends AbstractHandler {
      */
     public Pagination<RefundListResponse> listRefunds(QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/refunds" + params.toString();
+            String uri = "/refunds";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<RefundListResponse>>() {
@@ -263,14 +241,9 @@ public class RefundHandler extends AbstractHandler {
      */
     public Pagination<RefundListResponse> listRefunds(String paymentId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/payments/" + paymentId + "/refunds" + params.toString();
+            String uri = "/payments/" + paymentId + "/refunds";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url)
-                    .asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<RefundListResponse>>() {

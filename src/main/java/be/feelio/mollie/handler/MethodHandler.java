@@ -1,15 +1,14 @@
 package be.feelio.mollie.handler;
 
 import be.feelio.mollie.exception.MollieException;
-import be.feelio.mollie.json.common.Pagination;
-import be.feelio.mollie.json.response.MethodListResponse;
-import be.feelio.mollie.json.response.MethodResponse;
+import be.feelio.mollie.data.common.Pagination;
+import be.feelio.mollie.data.method.MethodListResponse;
+import be.feelio.mollie.data.method.MethodResponse;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import kong.unirest.HttpResponse;
+import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,7 @@ public class MethodHandler extends AbstractHandler {
     private static final Logger log = LoggerFactory.getLogger(MethodHandler.class);
 
     public MethodHandler(String baseUrl) {
-        super(baseUrl);
+        super(baseUrl, log);
     }
 
     /**
@@ -59,13 +58,9 @@ public class MethodHandler extends AbstractHandler {
      */
     public Pagination<MethodListResponse> listMethods(QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/methods" + params.toString();
+            String uri = "/methods";
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<MethodListResponse>>() {
@@ -97,13 +92,9 @@ public class MethodHandler extends AbstractHandler {
      */
     public MethodResponse getMethod(String methodId, QueryParams params) throws MollieException {
         try {
-            String url = baseUrl + "/methods/" + methodId + params.toString();
+            String uri = "/methods/" + methodId;
 
-            log.info("Executing 'GET {}'", url);
-            HttpResponse<String> response = Unirest.get(url).asString();
-
-            validateResponse(response);
-            log.info("Successful response 'GET {}'", url);
+            HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<MethodResponse>() {
