@@ -13,34 +13,30 @@ This library requires Java 8.
 
 ## Usage
 
-1. Add dependency to your project (For example maven:)
+1. Add the dependency to your project. For example with maven:
 ```
 <dependency>
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>0.8.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
-2. Build a client and use it (For getting a payment)
+
+2. Build a client
 ```
 Client client = new ClientBuilder()
                        .withApiKey("test_hW7trRMaJphr8feGzMNtd5SwShQSwg")
                        .build();
-                       
+```
+
+3. Use the client to execute whatever action you want to do. For example retrieving a payment:
+```
 PaymentResponse payment = client.payments().getPayment("my-payment-id");
 ```
 
-## V2 Roadmap
-
-Version 2 of this library will contain oAuth support and the apis that are only supported with oAuth will be included.
-
-Maybe: Orders & Shipments API when they are not in BETA anymore
-
-V2 development happens on branch V2
-
 ## Features
 
-- [ ] Mollie Connect / OAuth
+- [X] Mollie Connect / OAuth
 - [X] Api Key Authentication
 - [X] **Payment**
     - [X] Create payment
@@ -66,21 +62,21 @@ V2 development happens on branch V2
     - [X] Get capute
     - [X] List captures
     
-- [ ] **Orders**
-    - [ ] Create order    
-    - [ ] Get order    
-    - [ ] Update order    
-    - [ ] Cancel order    
-    - [ ] List orders    
-    - [ ] Cancel order lines    
-    - [ ] Create order refund    
-    - [ ] List order refunds 
+- [X] **Orders**
+    - [X] Create order    
+    - [X] Get order    
+    - [X] Update order    
+    - [X] Cancel order    
+    - [X] List orders    
+    - [X] Cancel order lines    
+    - [X] Create order refund    
+    - [X] List order refunds 
     
-- [ ] **Shipments**
-    - [ ] Create Shipment 
-    - [ ] Get Shipment    
-    - [ ] Update Shipment    
-    - [ ] List Shipments
+- [X] **Shipments**
+    - [X] Create Shipment 
+    - [X] Get Shipment    
+    - [X] Update Shipment    
+    - [X] List Shipments
      
 - [X] **Customers**
     - [X] Create Customer    
@@ -104,37 +100,37 @@ V2 development happens on branch V2
     - [X] Cancel subscription
     - [X] List subscriptions
      
-- [ ] **Connect**
-    - [ ] Authorize
-    - [ ] Tokens
+- [X] **Connect**
+    - [X] Authorize
+    - [X] Tokens
   
-- [ ] **Permissions**
-    - [ ] Get permission
-    - [ ] List permissions
+- [X] **Permissions**
+    - [X] Get permission
+    - [X] List permissions
                  
-- [ ] **Organizations**
-    - [ ] Get current organization
-    - [ ] Get organization
-    - [ ] List organizations
+- [X] **Organizations**
+    - [X] Get current organization
+    - [X] Get organization
+    - [X] List organizations
     
-- [ ] **Organizations**
-    - [ ] Create profile    
-    - [ ] Get profile    
-    - [ ] Get current profile    
-    - [ ] Update profile    
-    - [ ] Delete profile    
-    - [ ] List profiles
+- [X] **Organizations**
+    - [X] Create profile    
+    - [X] Get profile    
+    - [X] Get current profile    
+    - [X] Update profile    
+    - [X] Delete profile    
+    - [X] List profiles
     
-- [ ] **Settlements**
-    - [ ] Get settlement    
-    - [ ] Get next settlement    
-    - [ ] Get open settlement    
-    - [ ] List settlements    
-    - [ ] List settlement payments    
-    - [ ] List settlement refunds    
-    - [ ] List settlement chargebacks    
-    - [ ] List settlement captures    
+- [X] **Settlements**
+    - [X] Get settlement    
+    - [X] Get next settlement    
+    - [X] Get open settlement    
+    - [X] List settlements    
+    - [X] List settlement payments    
+    - [X] List settlement refunds    
+    - [X] List settlement chargebacks    
+    - [X] List settlement captures    
     
-- [ ] **Invoices**
-    - [ ] Get invoice
-    - [ ] List invoices
+- [X] **Invoices**
+    - [X] Get invoice
+    - [X] List invoices
