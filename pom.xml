@@ -6,7 +6,7 @@
 
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.0-tcl</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
@@ -206,23 +206,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sourcepath>${project.basedir}/target/delombok</sourcepath>
-                </configuration>
             </plugin>
 
             <plugin>
