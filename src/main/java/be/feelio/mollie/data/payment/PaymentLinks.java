@@ -39,4 +39,6 @@ public class PaymentLinks {
     private Optional<Link> status;
 
     private Optional<Link> payOnline;
+
+    private Optional<Link> changePaymentState;
 }
