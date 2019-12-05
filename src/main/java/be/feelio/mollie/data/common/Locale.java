@@ -1,5 +1,6 @@
 package be.feelio.mollie.data.common;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Locale {
@@ -24,7 +25,9 @@ public enum Locale {
     hu_HU,
     pl_PL,
     lv_LV,
-    lt_LT;
+    lt_LT,
+    @JsonEnumDefaultValue
+    UNKNOWN;
 
     @JsonValue
     public String getJsonValue() {
