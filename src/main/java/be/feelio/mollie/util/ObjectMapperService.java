@@ -17,11 +17,16 @@ public final class ObjectMapperService {
 
     private ObjectMapperService() {
         mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        // Deserialization Features
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
+
+        // Serialization Features
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-//        mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
+
         mapper.registerModule(new Jdk8Module());
     }
 }
