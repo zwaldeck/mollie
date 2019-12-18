@@ -9,7 +9,7 @@ The source code is licensed under the [Apache License, Version 2.0](http://www.a
 
 ## Java
 
-This library requires Java 8.
+This library requires Java 8+.
 
 ## Usage
 
@@ -18,7 +18,7 @@ This library requires Java 8.
 <dependency>
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
 </dependency>
 ```
 
