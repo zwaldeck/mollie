@@ -303,7 +303,7 @@ public class SettlementHandler extends AbstractHandler {
             HttpResponse<String> response = get(uri, params);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ChargebackListResponse>>() {
+                    new TypeReference<Pagination<CaptureListResponse>>() {
                     });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
