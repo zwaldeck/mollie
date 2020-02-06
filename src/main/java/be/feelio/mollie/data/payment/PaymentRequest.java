@@ -41,6 +41,8 @@ public class PaymentRequest {
 
     // payment method specific parameters
 
+    private Optional<String> cardToken;
+
     private Optional<String> billingEmail;
 
     private Optional<Date> dueDate;
