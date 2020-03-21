@@ -6,7 +6,7 @@
 
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>2.2.0</version>
+    <version>2.2.2</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
@@ -46,8 +46,8 @@
         <dependency>
             <groupId>com.konghq</groupId>
             <artifactId>unirest-java</artifactId>
-            <version>2.3.11</version>
-            <scope>provided</scope>
+            <version>3.6.01</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
