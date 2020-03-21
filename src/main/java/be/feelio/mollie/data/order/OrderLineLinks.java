@@ -14,10 +14,9 @@ import java.util.Optional;
 @Builder
 public class OrderLineLinks {
 
-    private Link self;
+    @Builder.Default
+    private Optional<Link> self = Optional.empty();
 
     @Builder.Default
-    private Optional<Link> checkout = Optional.empty();
-
-    private Link documentation;
+    private Optional<Link> imageUrl = Optional.empty();
 }
