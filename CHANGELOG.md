@@ -1,3 +1,10 @@
+## 2.2.4
+- Removed the description field from SimpleMethodResponse
+- Added the name field from SimpleMethodResponse
+
+## 2.2.3
+- Added lombok annotations to SimpleMethodResponse class
+
 ## 2.2.2
 - cardToken added to PaymentRequest
 - Issue with order links resolved
