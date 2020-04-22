@@ -14,6 +14,6 @@ public class SimpleMethodResponse {
 
     private String resource;
     private String id;
-    private String description;
+    private String name;
     private Image image;
 }
