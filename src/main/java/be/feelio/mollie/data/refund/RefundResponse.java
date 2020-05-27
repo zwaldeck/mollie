@@ -32,7 +32,7 @@ public class RefundResponse {
 
     private String description;
 
-    private HashMap<String, Object> metedata;
+    private HashMap<String, Object> metadata;
 
     private String status;
 
