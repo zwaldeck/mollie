@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ResponseType {
 
-    CODE("name");
+    CODE("code");
 
     private final String value;
 }
