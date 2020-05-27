@@ -18,7 +18,7 @@ This library requires Java 8+.
 <dependency>
     <groupId>be.feelio</groupId>
     <artifactId>mollie</artifactId>
-    <version>2.2.4</version>
+    <version>2.2.5</version>
 </dependency>
 ```
 

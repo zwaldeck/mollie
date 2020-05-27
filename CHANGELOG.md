@@ -1,3 +1,7 @@
+## 2.2.5
+- Fixed a typo in RefundResponse
+- Fixed a wrong enum value in ResponseType
+
 ## 2.2.4
 - Removed the description field from SimpleMethodResponse
 - Added the name field from SimpleMethodResponse
