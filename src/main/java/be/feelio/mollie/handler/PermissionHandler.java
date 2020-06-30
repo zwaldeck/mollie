@@ -5,6 +5,7 @@ import be.feelio.mollie.data.permission.Permission;
 import be.feelio.mollie.data.permission.PermissionListResponse;
 import be.feelio.mollie.data.permission.PermissionResponse;
 import be.feelio.mollie.exception.MollieException;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,8 +25,8 @@ public class PermissionHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(PermissionHandler.class);
 
-    public PermissionHandler(String baseUrl) {
-        super(baseUrl, log);
+    public PermissionHandler(String baseUrl, Config config) {
+        super(baseUrl, log, config);
     }
 
     /**

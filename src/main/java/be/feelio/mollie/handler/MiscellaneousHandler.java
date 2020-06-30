@@ -17,8 +17,8 @@ public class MiscellaneousHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MiscellaneousHandler.class);
 
-    public MiscellaneousHandler(String baseApiUrl) {
-        super(baseApiUrl, log);
+    public MiscellaneousHandler(String baseApiUrl, Config config) {
+        super(baseApiUrl, log, config);
     }
 
     /**
@@ -42,7 +42,7 @@ public class MiscellaneousHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ApplePaySessionResponse requestApplePaySession(String profileId) throws MollieException {
-        if (Config.getInstance().getAccessToken() == null) {
+        if (config.getAccessToken() == null) {
             throw new MollieException(
                     "To request an apple pay session with only a profile ID you must use an access token",
                     new HashMap<>()

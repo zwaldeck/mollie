@@ -10,14 +10,17 @@ public class Client {
     @Getter
     private final String endpoint;
 
+    @Getter
+    private final Config config = new Config();
+
 
     public Client(String apiKey) {
         this.endpoint = "https://api.mollie.com/v2";
 
         // TODO: Check valid api key
-        Config.getInstance().setApiKey(apiKey);
-        Config.getInstance().setAccessToken(null);
-        Config.getInstance().setTestMode(false);
+        config.setApiKey(apiKey);
+        config.setAccessToken(null);
+        config.setTestMode(false);
 
         initUniRest();
     }
@@ -29,28 +32,28 @@ public class Client {
      */
     public void setAccessToken(String accessToken) {
         // TODO: Check valid access token
-        Config.getInstance().setAccessToken(accessToken);
+        config.setAccessToken(accessToken);
     }
 
     /**
      * Removes the access token, the requests will start using the api key again
      */
     public void revokeAccessToken() {
-        Config.getInstance().setAccessToken(null);
+        config.setAccessToken(null);
     }
 
     /**
      * Enable test mode if you are using an access token
      */
     public void enableTestMode() {
-        Config.getInstance().setTestMode(true);
+        config.setTestMode(true);
     }
 
     /**
      * Disable test mode if you are using an access token
      */
     public void disableTestMode() {
-        Config.getInstance().setTestMode(false);
+        config.setTestMode(false);
     }
 
     /**
@@ -59,7 +62,7 @@ public class Client {
      * @return ConnectHandler object
      */
     public ConnectHandler connect() {
-        return new ConnectHandler();
+        return new ConnectHandler(config);
     }
 
     /**
@@ -68,7 +71,7 @@ public class Client {
      * @return PaymentHandler object
      */
     public PaymentHandler payments() {
-        return new PaymentHandler(endpoint);
+        return new PaymentHandler(endpoint, config);
     }
 
     /**
@@ -77,7 +80,7 @@ public class Client {
      * @return MethodHandler object
      */
     public MethodHandler methods() {
-        return new MethodHandler(endpoint);
+        return new MethodHandler(endpoint, config);
     }
 
     /**
@@ -86,7 +89,7 @@ public class Client {
      * @return RefundHandler object
      */
     public RefundHandler refunds() {
-        return new RefundHandler(endpoint);
+        return new RefundHandler(endpoint, config);
     }
 
     /**
@@ -95,7 +98,7 @@ public class Client {
      * @return ChargebackHandler object
      */
     public ChargebackHandler chargebacks() {
-        return new ChargebackHandler(endpoint);
+        return new ChargebackHandler(endpoint, config);
     }
 
     /**
@@ -104,7 +107,7 @@ public class Client {
      * @return CaptureHandler object
      */
     public CaptureHandler captures() {
-        return new CaptureHandler(endpoint);
+        return new CaptureHandler(endpoint, config);
     }
 
     /**
@@ -113,7 +116,7 @@ public class Client {
      * @return OrderHandler object
      */
     public OrderHandler orders() {
-        return new OrderHandler(endpoint);
+        return new OrderHandler(endpoint, config);
     }
 
     /**
@@ -122,7 +125,7 @@ public class Client {
      * @return ShipmentHandler object
      */
     public ShipmentHandler shipments() {
-        return new ShipmentHandler(endpoint);
+        return new ShipmentHandler(endpoint, config);
     }
 
     /**
@@ -131,7 +134,7 @@ public class Client {
      * @return CustomerHandler object
      */
     public CustomerHandler customers() {
-        return new CustomerHandler(endpoint);
+        return new CustomerHandler(endpoint, config);
     }
 
     /**
@@ -140,7 +143,7 @@ public class Client {
      * @return MandateHandler object
      */
     public MandateHandler mandates() {
-        return new MandateHandler(endpoint);
+        return new MandateHandler(endpoint, config);
     }
 
     /**
@@ -149,7 +152,7 @@ public class Client {
      * @return MethodHandler object
      */
     public SubscriptionHandler subscriptions() {
-        return new SubscriptionHandler(endpoint);
+        return new SubscriptionHandler(endpoint, config);
     }
 
     /**
@@ -158,7 +161,7 @@ public class Client {
      * @return PermissionHandler object
      */
     public PermissionHandler permissions() {
-        return new PermissionHandler(endpoint);
+        return new PermissionHandler(endpoint, config);
     }
 
     /**
@@ -167,7 +170,7 @@ public class Client {
      * @return OrganizationHandler object
      */
     public OrganizationHandler organizations() {
-        return new OrganizationHandler(endpoint);
+        return new OrganizationHandler(endpoint, config);
     }
 
     /**
@@ -176,7 +179,7 @@ public class Client {
      * @return ProfileHandler object
      */
     public ProfileHandler profiles() {
-        return new ProfileHandler(endpoint);
+        return new ProfileHandler(endpoint, config);
     }
 
     /**
@@ -185,7 +188,7 @@ public class Client {
      * @return OnboardingHandler object
      */
     public OnboardingHandler onboarding() {
-        return new OnboardingHandler(endpoint);
+        return new OnboardingHandler(endpoint, config);
     }
 
     /**
@@ -194,7 +197,7 @@ public class Client {
      * @return SettlementHandler object
      */
     public SettlementHandler settlements() {
-        return new SettlementHandler(endpoint);
+        return new SettlementHandler(endpoint, config);
     }
 
     /**
@@ -203,7 +206,7 @@ public class Client {
      * @return InvoiceHandler object
      */
     public InvoiceHandler invoices() {
-        return new InvoiceHandler(endpoint);
+        return new InvoiceHandler(endpoint, config);
     }
 
     /**
@@ -212,11 +215,11 @@ public class Client {
      * @return MiscellaneousHandler object
      */
     public MiscellaneousHandler miscellaneous() {
-        return new MiscellaneousHandler(endpoint);
+        return new MiscellaneousHandler(endpoint, config);
     }
 
     private void initUniRest() {
         Unirest.config()
-            .setObjectMapper(new OAuthAwareObjectMapper());
+            .setObjectMapper(new OAuthAwareObjectMapper(config));
     }
 }

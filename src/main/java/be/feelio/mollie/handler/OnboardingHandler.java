@@ -3,6 +3,7 @@ package be.feelio.mollie.handler;
 import be.feelio.mollie.data.onboarding.OnboardingRequest;
 import be.feelio.mollie.data.onboarding.OnboardingResponse;
 import be.feelio.mollie.exception.MollieException;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import kong.unirest.HttpResponse;
@@ -21,8 +22,8 @@ public class OnboardingHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OnboardingHandler.class);
 
-    public OnboardingHandler(String baseUrl) {
-        super(baseUrl, log);
+    public OnboardingHandler(String baseUrl, Config config) {
+        super(baseUrl, log, config);
     }
 
     /**

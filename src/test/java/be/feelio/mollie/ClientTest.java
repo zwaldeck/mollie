@@ -12,7 +12,7 @@ class ClientTest {
         Client client = new Client("apiKey");
 
         assertEquals("https://api.mollie.com/v2", client.getEndpoint());
-        assertEquals("apiKey", Config.getInstance().getApiKey());
+        assertEquals("apiKey", client.getConfig().getApiKey());
     }
 
     @Test
@@ -21,7 +21,7 @@ class ClientTest {
 
         client.setAccessToken("access_token");
 
-        assertEquals("access_token", Config.getInstance().getAccessToken());
+        assertEquals("access_token", client.getConfig().getAccessToken());
     }
 
     @Test
@@ -30,11 +30,11 @@ class ClientTest {
 
         client.setAccessToken("access_token");
 
-        assertEquals("access_token", Config.getInstance().getAccessToken());
+        assertEquals("access_token", client.getConfig().getAccessToken());
 
         client.revokeAccessToken();
 
-        assertNull(Config.getInstance().getAccessToken());
+        assertNull(client.getConfig().getAccessToken());
     }
 
     @Test
@@ -42,7 +42,7 @@ class ClientTest {
         Client client = new Client("apiKey");
         client.enableTestMode();
 
-        assertTrue(Config.getInstance().isTestMode());
+        assertTrue(client.getConfig().isTestMode());
     }
 
     @Test
@@ -51,7 +51,17 @@ class ClientTest {
         client.enableTestMode();
         client.disableTestMode();
 
-        assertFalse(Config.getInstance().isTestMode());
+        assertFalse(client.getConfig().isTestMode());
+    }
+    
+    @Test
+    void twoClients(){
+        Client client1 = new Client("apiKey1");
+        Client client2 = new Client("apiKey2");
+
+        assertEquals("apiKey1",client1.getConfig().getApiKey());
+        assertEquals("apiKey2",client2.getConfig().getApiKey());
+        
     }
 
 }

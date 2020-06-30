@@ -11,6 +11,12 @@ import java.io.IOException;
 
 public class OAuthAwareObjectMapper implements ObjectMapper {
 
+    private final Config config;
+
+    public OAuthAwareObjectMapper(Config config){
+        this.config = config;
+    }
+
     @Override
     public <T> T readValue(String value, Class<T> type) {
         try {
@@ -24,7 +30,7 @@ public class OAuthAwareObjectMapper implements ObjectMapper {
     public String writeValue(Object value) {
         try {
             JsonNode node = ObjectMapperService.getInstance().getMapper().valueToTree(value);
-            if (node.isObject() && Config.getInstance().shouldAddTestMode()) {
+            if (node.isObject() && config.shouldAddTestMode()) {
                 ObjectNode object = (ObjectNode) node;
                 object.put("testmode", true);
                 return ObjectMapperService.getInstance().getMapper().writeValueAsString(object);

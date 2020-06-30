@@ -2,6 +2,7 @@ package be.feelio.mollie.handler;
 
 import be.feelio.mollie.data.organization.OrganizationResponse;
 import be.feelio.mollie.exception.MollieException;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import kong.unirest.HttpResponse;
@@ -20,8 +21,8 @@ public class OrganizationHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OrganizationHandler.class);
 
-    public OrganizationHandler(String baseUrl) {
-        super(baseUrl, log);
+    public OrganizationHandler(String baseUrl, Config config) {
+        super(baseUrl, log, config);
     }
 
     /**

@@ -5,6 +5,7 @@ import be.feelio.mollie.data.connect.RevokeTokenRequest;
 import be.feelio.mollie.data.connect.TokenRequest;
 import be.feelio.mollie.data.connect.TokenResponse;
 import be.feelio.mollie.exception.MollieException;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import be.feelio.mollie.util.UrlUtils;
@@ -25,8 +26,8 @@ public class ConnectHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ConnectHandler.class);
 
-    public ConnectHandler() {
-        super(null, log);
+    public ConnectHandler(Config config) {
+        super(null, log, config);
     }
 
     /**

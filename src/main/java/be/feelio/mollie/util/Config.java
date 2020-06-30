@@ -7,12 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 public final class Config {
 
     @Getter
-    private static Config instance = new Config();
-
-    private Config() {
-    }
-
-    @Getter
     @Setter
     private String apiKey;
 
