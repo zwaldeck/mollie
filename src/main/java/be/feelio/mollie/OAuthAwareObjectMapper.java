@@ -13,7 +13,7 @@ public class OAuthAwareObjectMapper implements ObjectMapper {
 
     private final Config config;
 
-    public OAuthAwareObjectMapper(Config config) {
+    public OAuthAwareObjectMapper(Config config){
         this.config = config;
     }
 
