@@ -7,6 +7,7 @@ import be.feelio.mollie.data.method.MethodResponse;
 import be.feelio.mollie.data.profile.ProfileListResponse;
 import be.feelio.mollie.data.profile.ProfileResponse;
 import be.feelio.mollie.exception.MollieException;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,8 +27,8 @@ public class ProfileHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ProfileHandler.class);
 
-    public ProfileHandler(String baseUrl) {
-        super(baseUrl, log);
+    public ProfileHandler(String baseUrl, Config config) {
+        super(baseUrl, log, config);
     }
 
     /**

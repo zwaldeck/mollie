@@ -27,7 +27,7 @@ class ClientBuilderTest {
                 .build();
 
         assertNotNull(client);
-        assertEquals("org-token", Config.getInstance().getBearerToken());
+        assertEquals("org-token", client.getConfig().getBearerToken());
     }
 
     @Test
@@ -39,6 +39,6 @@ class ClientBuilderTest {
                 .build();
 
         assertNotNull(client);
-        assertTrue(Config.getInstance().isTestMode());
+        assertTrue(client.getConfig().isTestMode());
     }
 }

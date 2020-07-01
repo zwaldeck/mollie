@@ -19,11 +19,13 @@ public abstract class AbstractHandler {
     private final Logger log;
     private final String baseUrl;
     private final ObjectMapper mapper;
+    protected final Config config;
 
-    AbstractHandler(String baseUrl, Logger log) {
+    AbstractHandler(String baseUrl, Logger log, Config config) {
         this.baseUrl = baseUrl;
         this.log = log;
         this.mapper = ObjectMapperService.getInstance().getMapper();
+        this.config = config;
     }
 
     protected HttpResponse<String> get(String uri) throws IOException, MollieException {
@@ -31,7 +33,7 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> get(String uri, QueryParams params) throws IOException, MollieException {
-        if (Config.getInstance().shouldAddTestMode() && !params.containsKey("testmode")) {
+        if (config.shouldAddTestMode() && !params.containsKey("testmode")) {
             params.put("testmode", "true");
         }
 
@@ -42,7 +44,7 @@ public abstract class AbstractHandler {
         HttpResponse<String> response = Unirest
                 .get(url)
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .header("Authorization", "Bearer " + config.getBearerToken())
                 .asString();
 
         validateResponse(response);
@@ -60,7 +62,7 @@ public abstract class AbstractHandler {
         HttpResponse<String> response = Unirest
                 .post(url)
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .header("Authorization", "Bearer " + config.getBearerToken())
                 .asString();
 
         validateResponse(response);
@@ -82,7 +84,7 @@ public abstract class AbstractHandler {
         HttpResponse<String> response = Unirest
                 .post(url)
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .header("Authorization", "Bearer " + config.getBearerToken())
                 .body(body)
                 .asString();
 
@@ -105,7 +107,7 @@ public abstract class AbstractHandler {
         HttpResponse<String> response = Unirest
                 .patch(url)
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .header("Authorization", "Bearer " + config.getBearerToken())
                 .body(body)
                 .asString();
 
@@ -121,7 +123,7 @@ public abstract class AbstractHandler {
 
     protected HttpResponse<String> delete(String uri, QueryParams params) throws IOException, MollieException {
         Map<String, Object> body = new HashMap<>();
-        if (Config.getInstance().shouldAddTestMode()) {
+        if (config.shouldAddTestMode()) {
             body.put("testmode", "true");
         }
 
@@ -132,7 +134,7 @@ public abstract class AbstractHandler {
         HttpResponse<String> response = Unirest
                 .delete(url)
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .header("Authorization", "Bearer " + config.getBearerToken())
                 .body(body)
                 .asString();
 
@@ -151,7 +153,7 @@ public abstract class AbstractHandler {
         HttpResponse<String> response = Unirest
                 .delete(url)
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + Config.getInstance().getBearerToken())
+                .header("Authorization", "Bearer " + config.getBearerToken())
                 .body(body)
                 .asString();
 

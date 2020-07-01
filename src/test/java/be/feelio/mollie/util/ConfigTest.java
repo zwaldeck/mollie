@@ -8,17 +8,19 @@ class ConfigTest {
 
     @Test
     void getBearerToken_apiKey() {
-        Config.getInstance().setApiKey("apiKey");
-        Config.getInstance().setAccessToken(null);
+        Config config = new Config();
+        config.setApiKey("apiKey");
+        config.setAccessToken(null);
 
-        assertEquals("apiKey", Config.getInstance().getBearerToken());
+        assertEquals("apiKey", config.getBearerToken());
     }
 
     @Test
     void getBearerToken_accessToken() {
-        Config.getInstance().setApiKey("apiKey");
-        Config.getInstance().setAccessToken("accessToken");
+        Config config = new Config();
+        config.setApiKey("apiKey");
+        config.setAccessToken("accessToken");
 
-        assertEquals("accessToken", Config.getInstance().getBearerToken());
+        assertEquals("accessToken", config.getBearerToken());
     }
 }

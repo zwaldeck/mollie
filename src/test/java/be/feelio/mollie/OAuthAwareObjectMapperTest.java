@@ -13,18 +13,21 @@ class OAuthAwareObjectMapperTest {
 
     private static final TestPojo POJO = new TestPojo("My Name");
 
-    private OAuthAwareObjectMapper objectMapper = new OAuthAwareObjectMapper();
+
 
     @Test
     void readValue() {
+        OAuthAwareObjectMapper objectMapper = new OAuthAwareObjectMapper(new Config());
         TestPojo pojo = objectMapper.readValue(JSON_TO_POJO, TestPojo.class);
         assertEquals("My Name", pojo.getName());
     }
 
     @Test
     void writeValue_withTestMode() {
-        Config.getInstance().setAccessToken("access_token");
-        Config.getInstance().setTestMode(true);
+        Config config = new Config();
+        config.setAccessToken("access_token");
+        config.setTestMode(true);
+        OAuthAwareObjectMapper objectMapper = new OAuthAwareObjectMapper(config);
 
         String result = objectMapper.writeValue(POJO);
 
@@ -34,8 +37,10 @@ class OAuthAwareObjectMapperTest {
 
     @Test
     void writeValue_noTestMode() {
-        Config.getInstance().setAccessToken("access_token");
-        Config.getInstance().setTestMode(false);
+        Config config = new Config();
+        config.setAccessToken("access_token");
+        config.setTestMode(false);
+        OAuthAwareObjectMapper objectMapper = new OAuthAwareObjectMapper(config);
 
         String result = objectMapper.writeValue(POJO);
 
@@ -45,7 +50,9 @@ class OAuthAwareObjectMapperTest {
 
     @Test
     void writeValue_noOAuth() {
-        Config.getInstance().setApiKey("api-key");
+        Config config = new Config();
+        config.setApiKey("api-key");
+        OAuthAwareObjectMapper objectMapper = new OAuthAwareObjectMapper(config);
 
         String result = objectMapper.writeValue(POJO);
 

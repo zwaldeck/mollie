@@ -4,6 +4,7 @@ import be.feelio.mollie.data.common.Pagination;
 import be.feelio.mollie.data.invoice.InvoiceResponse;
 import be.feelio.mollie.data.invoice.InvoicesListResponse;
 import be.feelio.mollie.exception.MollieException;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,8 +24,8 @@ public class InvoiceHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(InvoiceHandler.class);
 
-    public InvoiceHandler(String baseApiUrl) {
-        super(baseApiUrl, log);
+    public InvoiceHandler(String baseApiUrl, Config config) {
+        super(baseApiUrl, log, config);
     }
 
     /**

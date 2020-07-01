@@ -8,6 +8,7 @@ import be.feelio.mollie.data.refund.RefundListResponse;
 import be.feelio.mollie.data.settlement.SettlementListResponse;
 import be.feelio.mollie.data.settlement.SettlementResponse;
 import be.feelio.mollie.exception.MollieException;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -27,8 +28,8 @@ public class SettlementHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(SettlementHandler.class);
 
-    public SettlementHandler(String baseUrl) {
-        super(baseUrl, log);
+    public SettlementHandler(String baseUrl, Config config) {
+        super(baseUrl, log, config);
     }
 
     /**

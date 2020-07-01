@@ -1,3 +1,7 @@
+## 2.2.6
+- Made Config object part of the Client, instead of being a singleton.
+  This allows multiple clients to have different configurations
+
 ## 2.2.5
 - Fixed a typo in RefundResponse
 - Fixed a wrong enum value in ResponseType

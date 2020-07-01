@@ -8,6 +8,7 @@ import be.feelio.mollie.data.customer.CustomerListResponse;
 import be.feelio.mollie.data.customer.CustomerResponse;
 import be.feelio.mollie.data.payment.PaymentListResponse;
 import be.feelio.mollie.data.payment.PaymentResponse;
+import be.feelio.mollie.util.Config;
 import be.feelio.mollie.util.ObjectMapperService;
 import be.feelio.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -27,8 +28,8 @@ public class CustomerHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerHandler.class);
 
-    public CustomerHandler(String baseUrl) {
-        super(baseUrl, log);
+    public CustomerHandler(String baseUrl, Config config) {
+        super(baseUrl, log, config);
     }
 
     /**
