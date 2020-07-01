@@ -11,13 +11,14 @@ public class Client {
     private final String endpoint;
 
     @Getter
-    private final Config config = new Config();
+    private final Config config;
 
 
     public Client(String apiKey) {
         this.endpoint = "https://api.mollie.com/v2";
 
         // TODO: Check valid api key
+        config = new Config();
         config.setApiKey(apiKey);
         config.setAccessToken(null);
         config.setTestMode(false);
