@@ -37,6 +37,7 @@
     <properties>
         <jackson.version>2.10.1</jackson.version>
         <log4j.version>2.11.1</log4j.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
