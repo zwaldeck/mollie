@@ -17,5 +17,5 @@ public class PaymentEmbedded {
 
     private List<RefundResponse> refunds;
 
-    private List<ChargebackResponse> chagebacks;
+    private List<ChargebackResponse> chargebacks;
 }
