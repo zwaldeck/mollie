@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>be.feelio</groupId>
+    <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>2.2.7</version>
+    <version>3.0.0</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
-    <url>https://github.com/Feel-IO/mollie</url>
+    <url>https://github.com/zwaldeck/mollie</url>
 
     <licenses>
         <license>
@@ -22,16 +22,16 @@
     <developers>
         <developer>
             <name>Wout Schoovaerts</name>
-            <email>wout@feelio.be</email>
-            <organization>Feel-IO</organization>
-            <organizationUrl>https://feelio.be</organizationUrl>
+            <email>schoovaertswout@live.be</email>
+            <organization>Wout Schoovaerts</organization>
+            <organizationUrl>https://woutschoovaerts.be</organizationUrl>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/Feel-IO/mollie.git</connection>
-        <developerConnection>scm:git:ssh://github.com/Feel-IO/mollie.git</developerConnection>
-        <url>https://github.com/Feel-IO/mollie/tree/master</url>
+        <connection>scm:git:git://github.com/zwaldeck/mollie.git</connection>
+        <developerConnection>scm:git:ssh://github.com/zwaldeck/mollie.git</developerConnection>
+        <url>https://github.com/zwaldeck/mollie/tree/master</url>
     </scm>
 
     <properties>
@@ -250,9 +250,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-feel-io-Mollie</id>
-            <name>feel-io-Mollie</name>
-            <url>https://api.bintray.com/maven/feel-io/Mollie/mollie/;publish=1</url>
+            <id>bintray-zwaldeck-Mollie</id>
+            <name>zwaldeck-Mollie</name>
+            <url>https://api.bintray.com/maven/zwaldeck/Mollie/mollie/;publish=1</url>
         </repository>
     </distributionManagement>
 

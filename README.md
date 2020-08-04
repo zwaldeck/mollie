@@ -16,9 +16,9 @@ This library requires Java 8+.
 1. Add the dependency to your project. For example with maven:
 ```
 <dependency>
-    <groupId>be.feelio</groupId>
+    <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>2.2.5</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
