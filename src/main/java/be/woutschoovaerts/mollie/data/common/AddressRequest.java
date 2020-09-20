@@ -15,13 +15,13 @@ public class AddressRequest {
 
     private String streetAndNumber;
 
-    private Optional<String> streetAdditional;
+    private Optional<String> streetAdditional = Optional.empty();
 
     private String postalCode;
 
     private String city;
 
-    private Optional<String> region;
+    private Optional<String> region = Optional.empty();
 
     private String country;
 }

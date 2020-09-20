@@ -16,9 +16,9 @@ public class PaginationLinks {
 
     private Link self;
 
-    private Optional<Link> previous;
+    private Optional<Link> previous = Optional.empty();
 
-    private Optional<Link> next;
+    private Optional<Link> next = Optional.empty();
 
     private Link documentation;
 }

@@ -21,10 +21,10 @@ public class MandateRequest {
 
     private String consumerAccount;
 
-    private Optional<String> consumerBic;
+    private Optional<String> consumerBic = Optional.empty();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Optional<Date> signatureDate;
+    private Optional<Date> signatureDate = Optional.empty();
 
-    private Optional<String> mandateReference;
+    private Optional<String> mandateReference = Optional.empty();
 }

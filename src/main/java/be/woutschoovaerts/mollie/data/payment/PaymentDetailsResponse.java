@@ -18,78 +18,78 @@ public class PaymentDetailsResponse {
 
     // we make everything optional because we cannot now what payment method is used
 
-    private Optional<String> cardNumber;
+    private Optional<String> cardNumber = Optional.empty();
 
-    private Optional<String> cardFingerprint;
+    private Optional<String> cardFingerprint = Optional.empty();
 
-    private Optional<String> bankname;
+    private Optional<String> bankname = Optional.empty();
 
-    private Optional<String> bankAccount;
+    private Optional<String> bankAccount = Optional.empty();
 
-    private Optional<String> bankBic;
+    private Optional<String> bankBic = Optional.empty();
 
-    private Optional<String> transferReference;
+    private Optional<String> transferReference = Optional.empty();
 
-    private Optional<String> consumerName;
+    private Optional<String> consumerName = Optional.empty();
 
-    private Optional<String> consumerAccount;
+    private Optional<String> consumerAccount = Optional.empty();
 
-    private Optional<String> consumerBic;
+    private Optional<String> consumerBic = Optional.empty();
 
-    private Optional<String> billingEmail;
+    private Optional<String> billingEmail = Optional.empty();
 
-    private Optional<String> bitcoinAddress;
+    private Optional<String> bitcoinAddress = Optional.empty();
 
-    private Optional<Amount> bitcoinAmount;
+    private Optional<Amount> bitcoinAmount = Optional.empty();
 
-    private Optional<String> bitcoinUri;
+    private Optional<String> bitcoinUri = Optional.empty();
 
-    private Optional<String> cardHolder;
+    private Optional<String> cardHolder = Optional.empty();
 
-    private Optional<String> carNumber;
+    private Optional<String> carNumber = Optional.empty();
 
-    private Optional<String> cardAudience;
+    private Optional<String> cardAudience = Optional.empty();
 
-    private Optional<String> cardLabel;
+    private Optional<String> cardLabel = Optional.empty();
 
-    private Optional<String> cardCountryCode;
+    private Optional<String> cardCountryCode = Optional.empty();
 
-    private Optional<String> cardSecurity;
+    private Optional<String> cardSecurity = Optional.empty();
 
-    private Optional<String> feeRegion;
+    private Optional<String> feeRegion = Optional.empty();
 
-    private Optional<String> failureReason;
+    private Optional<String> failureReason = Optional.empty();
 
-    private Optional<String> voucherNumber;
+    private Optional<String> voucherNumber = Optional.empty();
 
     private List<GiftCardResponse> giftcards;
 
-    private Optional<Amount> remainderAmount;
+    private Optional<Amount> remainderAmount = Optional.empty();
 
-    private Optional<String> remainderMethod;
+    private Optional<String> remainderMethod = Optional.empty();
 
-    private Optional<String> paypalReference;
+    private Optional<String> paypalReference = Optional.empty();
 
-    private Optional<String> customerReference;
+    private Optional<String> customerReference = Optional.empty();
 
-    private Optional<String> creditorIdentifier;
+    private Optional<String> creditorIdentifier = Optional.empty();
 
-    private Optional<Date> dueDate;
+    private Optional<Date> dueDate = Optional.empty();
 
-    private Optional<Date> signatureDate;
+    private Optional<Date> signatureDate = Optional.empty();
 
-    private Optional<String> bankReasonCode;
+    private Optional<String> bankReasonCode = Optional.empty();
 
-    private Optional<String> bankReason;
+    private Optional<String> bankReason = Optional.empty();
 
-    private Optional<String> endToEndIdentifier;
+    private Optional<String> endToEndIdentifier = Optional.empty();
 
-    private Optional<String> mandateReference;
+    private Optional<String> mandateReference = Optional.empty();
 
-    private Optional<String> batchReference;
+    private Optional<String> batchReference = Optional.empty();
 
-    private Optional<String> fileReference;
+    private Optional<String> fileReference = Optional.empty();
 
-    private Optional<QrCode> qrCode;
+    private Optional<QrCode> qrCode = Optional.empty();
 
 }

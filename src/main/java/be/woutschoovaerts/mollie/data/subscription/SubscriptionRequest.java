@@ -21,24 +21,24 @@ public class SubscriptionRequest {
 
     private Amount amount;
 
-    private Optional<Integer> times;
+    private Optional<Integer> times = Optional.empty();
 
     private String interval;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Optional<Date> startDate;
+    private Optional<Date> startDate = Optional.empty();
 
     private String description;
 
     private MandatePaymentMethod method;
 
-    private Optional<String> mandateId;
+    private Optional<String> mandateId = Optional.empty();
 
-    private Optional<String> webhookUrl;
+    private Optional<String> webhookUrl = Optional.empty();
 
     private Map<String, Object> metadata;
 
-    private Optional<String> profileId;
+    private Optional<String> profileId = Optional.empty();
 
-    private Optional<ApplicationFee> applicationFee;
+    private Optional<ApplicationFee> applicationFee = Optional.empty();
 }

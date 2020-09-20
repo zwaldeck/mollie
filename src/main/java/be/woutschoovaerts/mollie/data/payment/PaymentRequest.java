@@ -23,48 +23,48 @@ public class PaymentRequest {
 
     private String description;
 
-    private Optional<String> redirectUrl;
+    private Optional<String> redirectUrl = Optional.empty();
 
-    private Optional<String> webhookUrl;
+    private Optional<String> webhookUrl = Optional.empty();
 
-    private Optional<Locale> locale;
+    private Optional<Locale> locale = Optional.empty();
 
-    private Optional<PaymentMethod> method;
+    private Optional<PaymentMethod> method = Optional.empty();
 
     private Map<String, Object> metadata;
 
-    private Optional<SequenceType> sequenceType;
+    private Optional<SequenceType> sequenceType = Optional.empty();
 
-    private Optional<String> customerId;
+    private Optional<String> customerId = Optional.empty();
 
-    private Optional<String> mandateId;
+    private Optional<String> mandateId = Optional.empty();
 
     // payment method specific parameters
 
-    private Optional<String> cardToken;
+    private Optional<String> cardToken = Optional.empty();
 
-    private Optional<String> billingEmail;
+    private Optional<String> billingEmail = Optional.empty();
 
-    private Optional<Date> dueDate;
+    private Optional<Date> dueDate = Optional.empty();
 
-    private Optional<AddressRequest> billingAddress;
+    private Optional<AddressRequest> billingAddress = Optional.empty();
 
-    private Optional<AddressRequest> shippingAddress;
+    private Optional<AddressRequest> shippingAddress = Optional.empty();
 
-    private Optional<String> issuer;
+    private Optional<String> issuer = Optional.empty();
 
-    private Optional<String> voucherNumber;
+    private Optional<String> voucherNumber = Optional.empty();
 
-    private Optional<String> voucherPin;
+    private Optional<String> voucherPin = Optional.empty();
 
-    private Optional<String> customerReference;
+    private Optional<String> customerReference = Optional.empty();
 
-    private Optional<String> consumerName;
+    private Optional<String> consumerName = Optional.empty();
 
-    private Optional<String> consumerAccount;
+    private Optional<String> consumerAccount = Optional.empty();
 
     // OAuth params
-    private Optional<String> profileId;
+    private Optional<String> profileId = Optional.empty();
 
-    private Optional<ApplicationFee> applicationFee;
+    private Optional<ApplicationFee> applicationFee = Optional.empty();
 }

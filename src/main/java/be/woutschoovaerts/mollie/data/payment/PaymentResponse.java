@@ -31,31 +31,31 @@ public class PaymentResponse {
 
     private boolean isCancelable;
 
-    private Optional<Date> authorizedAt;
+    private Optional<Date> authorizedAt = Optional.empty();
 
-    private Optional<Date> paidAt;
+    private Optional<Date> paidAt = Optional.empty();
 
-    private Optional<Date> canceledAt;
+    private Optional<Date> canceledAt = Optional.empty();
 
     private Date expiresAt;
 
-    private Optional<Date> expiredAt;
+    private Optional<Date> expiredAt = Optional.empty();
 
-    private Optional<Date> failedAt;
+    private Optional<Date> failedAt = Optional.empty();
 
     private Amount amount;
 
-    private Optional<Amount> amountRefunded;
+    private Optional<Amount> amountRefunded = Optional.empty();
 
-    private Optional<Amount> amountRemaining;
+    private Optional<Amount> amountRemaining = Optional.empty();
 
-    private Optional<Amount> amountCaptured;
+    private Optional<Amount> amountCaptured = Optional.empty();
 
     private String description;
 
     private String redirectUrl;
 
-    private Optional<String> webhookUrl;
+    private Optional<String> webhookUrl = Optional.empty();
 
     private PaymentMethod method;
 
@@ -63,25 +63,25 @@ public class PaymentResponse {
 
     private Locale locale;
 
-    private Optional<String> countryCode;
+    private Optional<String> countryCode = Optional.empty();
 
     private String profileId;
 
-    private Optional<Amount> settlementAmount;
+    private Optional<Amount> settlementAmount = Optional.empty();
 
-    private Optional<String> settlementId;
+    private Optional<String> settlementId = Optional.empty();
 
-    private Optional<String> customerId;
+    private Optional<String> customerId = Optional.empty();
 
     private SequenceType sequenceType;
 
-    private Optional<String> mandateId;
+    private Optional<String> mandateId = Optional.empty();
 
-    private Optional<String> subscriptionId;
+    private Optional<String> subscriptionId = Optional.empty();
 
-    private Optional<String> orderId;
+    private Optional<String> orderId = Optional.empty();
 
-    private Optional<ApplicationFee> applicationFee;
+    private Optional<ApplicationFee> applicationFee = Optional.empty();
 
     @JsonProperty("_links")
     private PaymentLinks links;

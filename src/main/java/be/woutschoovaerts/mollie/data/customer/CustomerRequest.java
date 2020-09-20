@@ -15,11 +15,11 @@ import java.util.Optional;
 @Builder
 public class CustomerRequest {
 
-    private Optional<String> name;
+    private Optional<String> name = Optional.empty();
 
-    private Optional<String> email;
+    private Optional<String> email = Optional.empty();
 
-    private Optional<Locale> locale;
+    private Optional<Locale> locale = Optional.empty();
 
     private Map<String, Object> metadata;
 }

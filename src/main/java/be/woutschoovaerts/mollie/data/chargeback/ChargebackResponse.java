@@ -35,5 +35,5 @@ public class ChargebackResponse {
     private ChargebackLinks links;
 
     @JsonProperty("_embedded")
-    private Optional<ChargebackEmbedded> embedded;
+    private Optional<ChargebackEmbedded> embedded = Optional.empty();
 }

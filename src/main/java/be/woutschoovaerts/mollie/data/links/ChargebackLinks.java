@@ -18,7 +18,7 @@ public class ChargebackLinks {
 
     private Link payment;
 
-    private Optional<Link> settlement;
+    private Optional<Link> settlement = Optional.empty();
 
     private Link documentation;
 

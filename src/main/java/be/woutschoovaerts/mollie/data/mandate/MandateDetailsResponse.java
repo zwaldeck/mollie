@@ -14,20 +14,20 @@ import java.util.Optional;
 @Builder
 public class MandateDetailsResponse {
 
-    private Optional<String> consumerName;
+    private Optional<String> consumerName = Optional.empty();
 
-    private Optional<String> consumerAccount;
+    private Optional<String> consumerAccount = Optional.empty();
 
-    private Optional<String> consumerBic;
+    private Optional<String> consumerBic = Optional.empty();
 
-    private Optional<String> cardHolder;
+    private Optional<String> cardHolder = Optional.empty();
 
-    private Optional<String> cardNumber;
+    private Optional<String> cardNumber = Optional.empty();
 
-    private Optional<String> cardLabel;
+    private Optional<String> cardLabel = Optional.empty();
 
-    private Optional<String> cardFingerprint;
+    private Optional<String> cardFingerprint = Optional.empty();
 
-    private Optional<Date> cardExpiryDate;
+    private Optional<Date> cardExpiryDate = Optional.empty();
 
 }

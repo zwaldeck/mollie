@@ -18,16 +18,16 @@ import java.util.OptionalInt;
 @Builder
 public class UpdateSubscriptionRequest {
 
-    private Optional<Amount> amount;
+    private Optional<Amount> amount = Optional.empty();
 
-    private OptionalInt times;
+    private OptionalInt times = OptionalInt.empty();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Optional<Date> startDate;
+    private Optional<Date> startDate = Optional.empty();
 
-    private Optional<String> description;
+    private Optional<String> description = Optional.empty();
 
-    private Optional<String> webhookUrl;
+    private Optional<String> webhookUrl = Optional.empty();
 
     private Map<String, Object> metadata;
 }

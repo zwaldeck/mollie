@@ -18,27 +18,27 @@ public class PaymentLinks {
 
     private Link checkout;
 
-    private Optional<Link> refunds;
+    private Optional<Link> refunds = Optional.empty();
 
-    private Optional<Link> chargebacks;
+    private Optional<Link> chargebacks = Optional.empty();
 
-    private Optional<Link> captures;
+    private Optional<Link> captures = Optional.empty();
 
-    private Optional<Link> settlement;
+    private Optional<Link> settlement = Optional.empty();
 
     private Link documentation;
 
-    private Optional<Link> mandate;
+    private Optional<Link> mandate = Optional.empty();
 
-    private Optional<Link> subscription;
+    private Optional<Link> subscription = Optional.empty();
 
-    private Optional<Link> customer;
+    private Optional<Link> customer = Optional.empty();
 
-    private Optional<Link> order;
+    private Optional<Link> order = Optional.empty();
 
-    private Optional<Link> status;
+    private Optional<Link> status = Optional.empty();
 
-    private Optional<Link> payOnline;
+    private Optional<Link> payOnline = Optional.empty();
 
-    private Optional<Link> changePaymentState;
+    private Optional<Link> changePaymentState = Optional.empty();
 }

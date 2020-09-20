@@ -25,7 +25,7 @@ public class OrderAddressResponse {
 
     private String email;
 
-    private Optional<String> phone;
+    private Optional<String> phone  = Optional.empty();
 
     private String streetAndNumber;
 

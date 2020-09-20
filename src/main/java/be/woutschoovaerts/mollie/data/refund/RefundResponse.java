@@ -26,9 +26,9 @@ public class RefundResponse {
 
     private Amount amount;
 
-    private Optional<String> settlementId;
+    private Optional<String> settlementId = Optional.empty();
 
-    private Optional<Amount> settlementAmount;
+    private Optional<Amount> settlementAmount = Optional.empty();
 
     private String description;
 
@@ -36,16 +36,16 @@ public class RefundResponse {
 
     private String status;
 
-    private Optional<List<OrderLineResponse>> lines;
+    private Optional<List<OrderLineResponse>> lines = Optional.empty();
 
     private String paymentId;
 
-    private Optional<String> orderId;
+    private Optional<String> orderId = Optional.empty();
 
     private Date createdAt;
 
     @JsonProperty("_embedded")
-    private Optional<RefundEmbedded> embedded;
+    private Optional<RefundEmbedded> embedded = Optional.empty();
 
     @JsonProperty("_links")
     private RefundLinks links;

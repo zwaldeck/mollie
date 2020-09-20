@@ -17,7 +17,7 @@ public class RefundRequest {
 
     private Amount amount;
 
-    private Optional<String> description;
+    private Optional<String> description = Optional.empty();
 
     private HashMap<String, Object> metadata;
 }

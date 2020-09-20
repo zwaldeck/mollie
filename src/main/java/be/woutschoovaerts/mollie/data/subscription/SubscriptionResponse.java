@@ -40,13 +40,13 @@ public class SubscriptionResponse {
 
     private Date startDate;
 
-    private Optional<Date> nextPaymentDate;
+    private Optional<Date> nextPaymentDate = Optional.empty();
 
     private String description;
 
     private MandatePaymentMethod method;
 
-    private Optional<String> mandateId;
+    private Optional<String> mandateId = Optional.empty();
 
     private Date canceledAt;
 

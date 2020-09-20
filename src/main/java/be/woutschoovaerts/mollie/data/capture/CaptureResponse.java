@@ -29,9 +29,9 @@ public class CaptureResponse {
 
     private String paymentId;
 
-    private Optional<String> shipmentId;
+    private Optional<String> shipmentId = Optional.empty();
 
-    private Optional<String> settlementId;
+    private Optional<String> settlementId  = Optional.empty();
 
     private Date createdAt;
 

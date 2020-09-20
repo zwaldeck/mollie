@@ -18,9 +18,9 @@ public class RefundLinks {
 
     private Link payment;
 
-    private Optional<Link> settlement;
+    private Optional<Link> settlement = Optional.empty();
 
-    private Optional<Link> order;
+    private Optional<Link> order = Optional.empty();
 
     private Link documentation;
 
