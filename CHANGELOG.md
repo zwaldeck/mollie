@@ -1,3 +1,5 @@
+## 3.0.1
+- Optionals default to empty instead of `null`
 
 ## 2.2.7
 - Fixed a typo in PaymentEmbedded.chargebacks
