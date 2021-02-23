@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public class PaymentRequest {
 
     private Optional<Locale> locale = Optional.empty();
 
-    private Optional<PaymentMethod> method = Optional.empty();
+    private Optional<List<PaymentMethod>> method = Optional.empty();
 
     private Map<String, Object> metadata;
 
