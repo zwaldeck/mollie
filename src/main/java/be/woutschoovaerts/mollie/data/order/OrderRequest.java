@@ -49,7 +49,7 @@ public class OrderRequest {
 
     private Map<String, Object> payment;
 
-    private Map<String, Object> metaData;
+    private Map<String, Object> metadata;
 
     private Optional<Date> expiresAt = Optional.empty();
 
