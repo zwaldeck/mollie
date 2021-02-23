@@ -6,16 +6,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SubscriptionStatus {
 
-    PENDING("pending"),
-    ACTIVE("active"),
-    CANCELED("canceled"),
-    SUSPENDED("suspended"),
-    COMPLETED("completed");
-
-    private final String jsonValue;
+    PENDING,
+    ACTIVE,
+    CANCELED,
+    SUSPENDED,
+    COMPLETED;
 
     @JsonValue
     public String getJsonValue() {
-        return jsonValue;
+        return name().toLowerCase().replace('_', '-');
     }
 }

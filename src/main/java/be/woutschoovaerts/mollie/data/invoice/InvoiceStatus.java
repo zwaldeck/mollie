@@ -6,14 +6,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum InvoiceStatus {
 
-    OPEN("open"),
-    PAID("paid"),
-    OVERDUE("overdue");
-
-    private final String jsonValue;
+    OPEN,
+    PAID,
+    OVERDUE;
 
     @JsonValue
     public String getJsonValue() {
-        return jsonValue;
+        return name().toLowerCase().replace('_', '-');
     }
 }

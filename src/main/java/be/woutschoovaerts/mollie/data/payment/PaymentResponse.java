@@ -27,7 +27,7 @@ public class PaymentResponse {
 
     private Date createdAt;
 
-    private String status;
+    private PaymentStatus status;
 
     private boolean isCancelable;
 
@@ -93,7 +93,7 @@ public class PaymentResponse {
 
     // An extra setter so we can serialize 'isCancelable' (https://github.com/zwaldeck/mollie/issues/45)
 
-    public void setIsCancelable(boolean isCancelable) {
-        this.isCancelable = isCancelable;
+    public void setIsCancelable(boolean cancelable) {
+        this.isCancelable = cancelable;
     }
 }

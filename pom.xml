@@ -222,6 +222,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
                     <sourcepath>${project.basedir}/target/delombok</sourcepath>
                 </configuration>
             </plugin>

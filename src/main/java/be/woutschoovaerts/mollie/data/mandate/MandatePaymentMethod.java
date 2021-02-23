@@ -6,13 +6,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MandatePaymentMethod {
 
-    DIRECT_DEBIT("directdebit"),
-    CREDIT_CARD("creditcard");
-
-    private final String jsonValue;
+    DIRECTDEBIT,
+    CREDITCARD;
 
     @JsonValue
     public String getJsonValue() {
-        return jsonValue;
+        return name().toLowerCase().replace('_', '-');
     }
 }

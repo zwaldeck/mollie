@@ -1,12 +1,15 @@
-package be.woutschoovaerts.mollie.data.profile;
+package be.woutschoovaerts.mollie.data.payment;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum ProfileStatus {
-
-    UNVERIFIED,
-    VERIFIED,
-    BLOCKED;
+public enum PaymentStatus {
+    OPEN,
+    CANCELED,
+    PENDING,
+    AUTHORIZED,
+    EXPIRED,
+    FAILED,
+    PAID;
 
     @JsonValue
     public String getJsonValue() {

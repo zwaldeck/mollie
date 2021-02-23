@@ -6,14 +6,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MandateStatus {
 
-    VALID("valid"),
-    PENDING("pending"),
-    INVALID("invalid");
-
-    private final String jsonValue;
+    VALID,
+    PENDING,
+    INVALID;
 
     @JsonValue
     public String getJsonValue() {
-        return jsonValue;
+        return name().toLowerCase().replace('_', '-');
     }
 }

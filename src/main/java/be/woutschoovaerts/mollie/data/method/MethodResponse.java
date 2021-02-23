@@ -23,6 +23,7 @@ public class MethodResponse {
     private Amount minimumAmount;
     private Amount maximumAmount;
     private Image image;
+    private MethodStatus status;
 
     @JsonProperty("_links")
     private MethodLinks links;

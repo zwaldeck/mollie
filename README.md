@@ -1,6 +1,6 @@
 # Mollie API with Java 8+
 
-[![Build Status](https://travis-ci.org/Feel-IO/mollie.svg?branch=master)](https://travis-ci.org/Feel-IO/mollie)  [![Maven Central badge](https://maven-badges.herokuapp.com/maven-central/be.woutschoovaerts/mollie/badge.svg)](https://search.maven.org/artifact/be.woutschoovaerts/mollie) [![Javadocs](https://www.javadoc.io/badge/be.woutschoovaerts/mollie.svg?color=red)](https://www.javadoc.io/doc/be.woutschoovaerts/mollie)
+[![Build Status](https://travis-ci.org/zwaldeck/mollie.svg?branch=master)](https://travis-ci.org/zwaldeck/mollie)  [![Maven Central badge](https://maven-badges.herokuapp.com/maven-central/be.woutschoovaerts/mollie/badge.svg)](https://search.maven.org/artifact/be.woutschoovaerts/mollie) [![Javadocs](https://www.javadoc.io/badge/be.woutschoovaerts/mollie.svg?color=red)](https://www.javadoc.io/doc/be.woutschoovaerts/mollie)
   
 
 ## License

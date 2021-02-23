@@ -14,6 +14,6 @@ public enum OrderStatus {
 
     @JsonValue
     public String getJsonValue() {
-        return this.name().toLowerCase();
+        return name().toLowerCase().replace('_', '-');
     }
 }

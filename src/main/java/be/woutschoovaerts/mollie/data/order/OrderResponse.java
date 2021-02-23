@@ -14,7 +14,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderResponse {
+public class  OrderResponse {
 
     private String resource;
 

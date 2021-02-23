@@ -6,16 +6,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum RefundStatus {
 
-    QUEUED("queued"),
-    PENDING("pending"),
-    PROCESSING("processing"),
-    REFUNDED("refunded"),
-    FAILED("failed");
-
-    private final String jsonValue;
+    QUEUED,
+    PENDING,
+    PROCESSING,
+    REFUNDED,
+    FAILED;
 
     @JsonValue
     public String getJsonValue() {
-        return jsonValue;
+        return name().toLowerCase().replace('_', '-');
     }
 }

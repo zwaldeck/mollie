@@ -14,6 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -93,7 +96,7 @@ public class PaymentHandlerIntegrationTest {
                         .value("10.00")
                         .build())
                 .description("My first payment")
-                .method(Optional.of(PaymentMethod.PAY_SAFE_CARD))
+                .method(Optional.of(Collections.singletonList(PaymentMethod.PAY_SAFE_CARD)))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
