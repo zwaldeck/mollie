@@ -16,6 +16,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -89,7 +90,7 @@ class CustomerHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))

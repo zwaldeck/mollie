@@ -18,6 +18,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Optional;
 
@@ -152,7 +153,7 @@ class SubscriptionHandlerIntegrationTest {
         SubscriptionRequest subscriptionRequest = SubscriptionRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("25.00")
+                        .value(new BigDecimal("25.00"))
                         .build())
                 .times(Optional.of(4))
                 .interval("3 months")

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -34,7 +35,7 @@ class RefundHandlerIntegrationTest {
         RefundRequest refundRequest = RefundRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .build();
 
@@ -62,7 +63,7 @@ class RefundHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))

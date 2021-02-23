@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +37,7 @@ public class PaymentHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
@@ -52,7 +53,7 @@ public class PaymentHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("CURRENCY THAT NOT EXISTS")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
@@ -71,7 +72,7 @@ public class PaymentHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
@@ -93,7 +94,7 @@ public class PaymentHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .method(Optional.of(Collections.singletonList(PaymentMethod.PAY_SAFE_CARD)))
@@ -124,7 +125,7 @@ public class PaymentHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
@@ -150,7 +151,7 @@ public class PaymentHandlerIntegrationTest {
         PaymentRequest request = PaymentRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))

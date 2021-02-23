@@ -19,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -59,7 +60,7 @@ class ShipmentHandlerTest {
         OrderRequest orderRequest = OrderRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .orderNumber(RandomStringUtils.randomNumeric(5))
                 .lines(Collections.singletonList(createOrderLineRequest()))
@@ -86,16 +87,16 @@ class ShipmentHandlerTest {
                 .quantity(10)
                 .unitPrice(Amount.builder()
                         .currency("EUR")
-                        .value("1.00")
+                        .value(new BigDecimal("1.00"))
                         .build())
                 .totalAmount(Amount.builder()
                         .currency("EUR")
-                        .value("10.00")
+                        .value(new BigDecimal("10.00"))
                         .build())
                 .vatRate("21.00")
                 .vatAmount(Amount.builder()
                         .currency("EUR")
-                        .value("1.74")
+                        .value(new BigDecimal("1.74"))
                         .build())
                 .sku(Optional.of(RandomStringUtils.randomAlphabetic(5)))
                 .build();
