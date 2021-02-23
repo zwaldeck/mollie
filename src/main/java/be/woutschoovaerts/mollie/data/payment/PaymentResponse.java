@@ -90,4 +90,10 @@ public class PaymentResponse {
 
     @JsonProperty("_embedded")
     private PaymentEmbedded embedded;
+
+    // An extra setter so we can serialize 'isCancelable' (https://github.com/zwaldeck/mollie/issues/45)
+
+    public void setIsCancelable(boolean isCancelable) {
+        this.isCancelable = isCancelable;
+    }
 }
