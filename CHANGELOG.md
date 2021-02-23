@@ -1,3 +1,11 @@
+## 3.1.0
+- Fixed camel case issue for 'metadata' in OrderRequest
+- Allow multiple methods in PaymentRequest
+- Fixed isCancelable always false
+- Mapped Status fields to Enums
+- Mapped 'value' from Amount to a BigDecimal
+- Fixed an issue where the TokenType from TokenResponse was not mapping
+
 ## 3.0.1
 - Optionals default to empty instead of `null`
 
