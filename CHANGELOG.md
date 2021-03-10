@@ -1,3 +1,7 @@
+## 3.2.0
+- Adjusted POM to include the creation of a fat jar
+- Exposed the dashboard link
+
 ## 3.1.0
 - Fixed camel case issue for 'metadata' in OrderRequest
 - Allow multiple methods in PaymentRequest
