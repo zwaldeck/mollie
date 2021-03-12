@@ -18,6 +18,9 @@ public class OrderLineRequest {
     @Builder.Default
     private Optional<OrderLineType> type = Optional.empty();
 
+    @Builder.Default
+    private Optional<OrderLineCategory> category = Optional.empty();
+
     private String name;
 
     private int quantity;
