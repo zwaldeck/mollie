@@ -1,3 +1,4 @@
 - [Wout Schoovaerts](https://github.com/zwaldeck)
 - [Paul Van eijden](https://github.com/paulvaneijden)
 - [Carlos Freund](https://github.com/happyherp)
+- [Tom Martens](https://github.com/tomsnor)
