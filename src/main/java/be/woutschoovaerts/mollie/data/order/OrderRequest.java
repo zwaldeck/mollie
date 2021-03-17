@@ -3,6 +3,7 @@ package be.woutschoovaerts.mollie.data.order;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.Locale;
 import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
+import be.woutschoovaerts.mollie.serializer.ISO8601DateFormatSerializer;
 import be.woutschoovaerts.mollie.serializer.PaymentMethodSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
@@ -51,6 +52,7 @@ public class OrderRequest {
 
     private Map<String, Object> metadata;
 
+    @JsonSerialize(using = ISO8601DateFormatSerializer.class)
     private Optional<Date> expiresAt = Optional.empty();
 
     // OAuth Params
