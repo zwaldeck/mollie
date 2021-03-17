@@ -1,3 +1,6 @@
+## 3.2.2
+- Changed OrderRequest `expiresAt` field date serialization format to `yyyy-MM-dd`
+
 ## 3.2.0
 - Add support for category attribute in OrderLineRequest
 - Exposed the dashboard link in the OrderLink
