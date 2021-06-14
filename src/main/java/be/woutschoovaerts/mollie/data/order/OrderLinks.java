@@ -19,5 +19,8 @@ public class OrderLinks {
     @Builder.Default
     private Optional<Link> checkout = Optional.empty();
 
+    @Builder.Default
+    private Optional<Link> dashboard = Optional.empty();
+
     private Link documentation;
 }
