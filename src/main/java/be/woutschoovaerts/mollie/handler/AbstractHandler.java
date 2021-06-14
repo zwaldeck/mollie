@@ -43,8 +43,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .get(url)
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + config.getBearerToken())
+                .headers(getHeaderMap())
                 .asString();
 
         validateResponse(response);
@@ -61,8 +60,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .post(url)
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + config.getBearerToken())
+                .headers(getHeaderMap())
                 .asString();
 
         validateResponse(response);
@@ -83,8 +81,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .post(url)
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + config.getBearerToken())
+                .headers(getHeaderMap())
                 .body(body)
                 .asString();
 
@@ -106,8 +103,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .patch(url)
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + config.getBearerToken())
+                .headers(getHeaderMap())
                 .body(body)
                 .asString();
 
@@ -133,8 +129,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .delete(url)
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + config.getBearerToken())
+                .headers(getHeaderMap())
                 .body(body)
                 .asString();
 
@@ -152,8 +147,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .delete(url)
-                .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + config.getBearerToken())
+                .headers(getHeaderMap())
                 .body(body)
                 .asString();
 
@@ -171,5 +165,16 @@ public abstract class AbstractHandler {
                     new TypeReference<Map>() {
                     }));
         }
+    }
+
+    private Map<String, String> getHeaderMap() {
+        Map<String, String> map = new HashMap<>();
+
+        map.put("Content-Type", "application/json");
+        map.put("Authorization", "Bearer " + config.getBearerToken());
+
+        config.getUserAgent().ifPresent(userAgent -> map.put("User-Agent", userAgent));
+
+        return map;
     }
 }
