@@ -1,5 +1,7 @@
 ## 3.2.0
+- Add support for category attribute in OrderLineRequest
 - Exposed the dashboard link in the OrderLink
+
 
 ## 3.1.0
 - Fixed camel case issue for 'metadata' in OrderRequest
