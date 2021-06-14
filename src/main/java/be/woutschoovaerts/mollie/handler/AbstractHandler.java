@@ -173,7 +173,7 @@ public abstract class AbstractHandler {
         map.put("Content-Type", "application/json");
         map.put("Authorization", "Bearer " + config.getBearerToken());
 
-        config.getUserAgent().ifPresent(userAgent -> map.put("User-Agent", userAgent));
+        config.getUserAgentString().ifPresent(userAgentString -> map.put("User-Agent", userAgentString));
 
         return map;
     }

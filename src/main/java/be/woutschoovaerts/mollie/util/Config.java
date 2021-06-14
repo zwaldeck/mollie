@@ -21,7 +21,7 @@ public final class Config {
     private boolean testMode;
 
     @Setter
-    private String userAgent;
+    private String userAgentString;
 
     public String getBearerToken() {
         return StringUtils.isBlank(accessToken) ? apiKey : accessToken;
@@ -31,7 +31,7 @@ public final class Config {
         return !StringUtils.isBlank(accessToken) && testMode;
     }
 
-    public Optional<String> getUserAgent() {
-        return Optional.ofNullable(userAgent);
+    public Optional<String> getUserAgentString() {
+        return Optional.ofNullable(userAgentString);
     }
 }

@@ -56,18 +56,18 @@ class ClientTest {
     }
 
     @Test
-    void setUserAgent() {
+    void setUserAgentString() {
         Client client = new Client("apiKey");
-        client.setUserAgent("user_agent/version");
+        client.setUserAgentString("user_agent/version");
 
-        assertEquals(Optional.of("user_agent/version"), client.getConfig().getUserAgent());
+        assertEquals(Optional.of("user_agent/version"), client.getConfig().getUserAgentString());
     }
 
     @Test
-    void defaultUserAgent() {
+    void defaultUserAgentString() {
         Client client = new Client("apiKey");
 
-        assertEquals(Optional.empty(), client.getConfig().getUserAgent());
+        assertEquals(Optional.empty(), client.getConfig().getUserAgentString());
     }
 
     @Test

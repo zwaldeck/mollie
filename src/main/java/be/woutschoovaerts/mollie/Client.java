@@ -60,8 +60,8 @@ public class Client {
     /**
      * Set the user agent string
      */
-    public void setUserAgent(String userAgent) {
-        config.setUserAgent(userAgent);
+    public void setUserAgentString(String userAgentString) {
+        config.setUserAgentString(userAgentString);
     }
 
     /**

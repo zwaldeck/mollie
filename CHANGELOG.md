@@ -1,5 +1,5 @@
 ## 3.3.0
-- Allow a custom user agent header
+- Allow a custom user agent string
 
 ## 3.2.0
 - Exposed the dashboard link in the OrderLink

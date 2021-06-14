@@ -5,7 +5,7 @@ public final class ClientBuilder {
     private String apiKey;
     private String organizationToken;
     private boolean testMode = false;
-    private String userAgent;
+    private String userAgentString;
 
     public ClientBuilder withApiKey(String key) {
         this.apiKey = key;
@@ -22,8 +22,8 @@ public final class ClientBuilder {
         return this;
     }
 
-    public ClientBuilder withUserAgent(String customUserAgent) {
-        this.userAgent = customUserAgent;
+    public ClientBuilder withUserAgent(String customUserAgentString) {
+        this.userAgentString = customUserAgentString;
         return this;
     }
 
@@ -42,8 +42,8 @@ public final class ClientBuilder {
             client.enableTestMode();
         }
 
-        if (userAgent != null) {
-            client.setUserAgent(userAgent);
+        if (userAgentString != null) {
+            client.setUserAgentString(userAgentString);
         }
 
         return client;

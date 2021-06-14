@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class ClientBuilderTest {
 
     @Test
@@ -44,13 +43,13 @@ class ClientBuilderTest {
     }
 
     @Test
-    void build_withUserAgent() {
+    void build_withUserAgentString() {
         Client client = new ClientBuilder()
                 .withApiKey("my-api-key")
-                .withUserAgent("my-user-agent")
+                .withUserAgent("my-user-agent-string")
                 .build();
 
         assertNotNull(client);
-        assertEquals(Optional.of("my-user-agent"), client.getConfig().getUserAgent());
+        assertEquals(Optional.of("my-user-agent-string"), client.getConfig().getUserAgentString());
     }
 }
