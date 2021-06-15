@@ -43,7 +43,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .get(url)
-                .headers(getHeaderMap())
+                .headers(configureAllHeaders())
                 .asString();
 
         validateResponse(response);
@@ -60,7 +60,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .post(url)
-                .headers(getHeaderMap())
+                .headers(configureAllHeaders())
                 .asString();
 
         validateResponse(response);
@@ -81,7 +81,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .post(url)
-                .headers(getHeaderMap())
+                .headers(configureAllHeaders())
                 .body(body)
                 .asString();
 
@@ -103,7 +103,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .patch(url)
-                .headers(getHeaderMap())
+                .headers(configureAllHeaders())
                 .body(body)
                 .asString();
 
@@ -129,7 +129,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .delete(url)
-                .headers(getHeaderMap())
+                .headers(configureAllHeaders())
                 .body(body)
                 .asString();
 
@@ -147,7 +147,7 @@ public abstract class AbstractHandler {
 
         HttpResponse<String> response = Unirest
                 .delete(url)
-                .headers(getHeaderMap())
+                .headers(configureAllHeaders())
                 .body(body)
                 .asString();
 
@@ -167,7 +167,7 @@ public abstract class AbstractHandler {
         }
     }
 
-    private Map<String, String> getHeaderMap() {
+    private Map<String, String> configureAllHeaders() {
         Map<String, String> map = new HashMap<>();
 
         map.put("Content-Type", "application/json");
