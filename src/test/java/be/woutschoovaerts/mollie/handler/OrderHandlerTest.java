@@ -54,6 +54,18 @@ class OrderHandlerTest {
     }
 
     @Test
+    void createOrderLineWithSpecificCategory() throws MollieException {
+        OrderRequest orderRequest = createOrderRequest();
+
+        orderRequest.getLines().get(0).setCategory(Optional.of(OrderLineCategory.ECO));
+
+        OrderResponse orderResponse = client.orders().createOrder(orderRequest);
+
+        // can't assert line category is persisted correctly, it's not included in Mollie's order response
+        assertNotNull(orderResponse);
+    }
+
+    @Test
     void getOrders() throws MollieException {
         OrderResponse order = create();
 
@@ -175,6 +187,12 @@ class OrderHandlerTest {
     }
 
     private OrderResponse create() throws MollieException {
+        OrderRequest orderRequest = createOrderRequest();
+
+        return client.orders().createOrder(orderRequest);
+    }
+
+    private OrderRequest createOrderRequest() {
         OrderRequest orderRequest = OrderRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
@@ -195,8 +213,7 @@ class OrderHandlerTest {
                 .method(Optional.of(Collections.singletonList(PaymentMethod.BANK_TRANSFER)))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .build();
-
-        return client.orders().createOrder(orderRequest);
+        return orderRequest;
     }
 
     private OrderLineRequest createOrderLineRequest() {
