@@ -1,3 +1,6 @@
+## 3.2.2
+- Add "voucher" as a known payment method
+
 ## 3.2.0
 - Add support for category attribute in OrderLineRequest
 - Exposed the dashboard link in the OrderLink
