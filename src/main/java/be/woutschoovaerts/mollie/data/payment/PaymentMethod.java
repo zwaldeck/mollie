@@ -24,7 +24,8 @@ public enum PaymentMethod {
     PAYPAL("paypal"),
     PAY_SAFE_CARD("paysafecard"),
     PRZELEWY24("przelewy24"),
-    SOFORT("sofort");
+    SOFORT("sofort"),
+    VOUCHER("voucher");
 
     private final String value;
 

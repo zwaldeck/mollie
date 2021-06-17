@@ -3,3 +3,4 @@
 - [Carlos Freund](https://github.com/happyherp)
 - [Tom Martens](https://github.com/tomsnor)
 - [Dániel Szabó](https://github.com/szada92)
+- [Tim Smelik](https://github.com/timsmelik)

@@ -5,6 +5,7 @@ public final class ClientBuilder {
     private String apiKey;
     private String organizationToken;
     private boolean testMode = false;
+    private String userAgentString;
 
     public ClientBuilder withApiKey(String key) {
         this.apiKey = key;
@@ -21,6 +22,11 @@ public final class ClientBuilder {
         return this;
     }
 
+    public ClientBuilder withUserAgent(String customUserAgentString) {
+        this.userAgentString = customUserAgentString;
+        return this;
+    }
+
     public Client build() {
         if (apiKey == null) {
             throw new IllegalArgumentException("API key not set. Please use withApiKey(key)");
@@ -34,6 +40,10 @@ public final class ClientBuilder {
 
         if (testMode) {
             client.enableTestMode();
+        }
+
+        if (userAgentString != null) {
+            client.setUserAgentString(userAgentString);
         }
 
         return client;
