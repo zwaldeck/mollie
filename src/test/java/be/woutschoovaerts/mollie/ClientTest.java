@@ -1,5 +1,7 @@
 package be.woutschoovaerts.mollie;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,7 +54,22 @@ class ClientTest {
 
         assertFalse(client.getConfig().isTestMode());
     }
-    
+
+    @Test
+    void setUserAgentString() {
+        Client client = new Client("apiKey");
+        client.setUserAgentString("user_agent/version");
+
+        assertEquals(Optional.of("user_agent/version"), client.getConfig().getUserAgentString());
+    }
+
+    @Test
+    void defaultUserAgentString() {
+        Client client = new Client("apiKey");
+
+        assertEquals(Optional.empty(), client.getConfig().getUserAgentString());
+    }
+
     @Test
     void twoClients(){
         Client client1 = new Client("apiKey1");

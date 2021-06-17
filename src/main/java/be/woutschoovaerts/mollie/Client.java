@@ -58,6 +58,13 @@ public class Client {
     }
 
     /**
+     * Set the user agent string
+     */
+    public void setUserAgentString(String userAgentString) {
+        config.setUserAgentString(userAgentString);
+    }
+
+    /**
      * Handles connect actions
      *
      * @return ConnectHandler object

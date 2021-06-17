@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Optional;
+
 public final class Config {
 
     @Getter
@@ -18,11 +20,18 @@ public final class Config {
     @Setter
     private boolean testMode;
 
+    @Setter
+    private String userAgentString;
+
     public String getBearerToken() {
         return StringUtils.isBlank(accessToken) ? apiKey : accessToken;
     }
 
     public boolean shouldAddTestMode() {
         return !StringUtils.isBlank(accessToken) && testMode;
+    }
+
+    public Optional<String> getUserAgentString() {
+        return Optional.ofNullable(userAgentString);
     }
 }
