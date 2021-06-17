@@ -1,3 +1,6 @@
+## 3.2.3
+- Add "voucher" as a known payment method
+
 ## 3.2.2
 - Allow a custom user agent string
 
