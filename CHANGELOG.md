@@ -1,6 +1,9 @@
 ## 3.2.3
 - Add "voucher" as a known payment method
 
+## 3.2.2
+- Allow a custom user agent string
+
 ## 3.2.0
 - Add support for category attribute in OrderLineRequest
 - Exposed the dashboard link in the OrderLink
