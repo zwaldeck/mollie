@@ -1,3 +1,6 @@
+## 3.3.0
+- Changed OrderRequest `expiresAt` field date serialization format to `yyyy-MM-dd`
+
 ## 3.2.3
 - Add "voucher" as a known payment method
 

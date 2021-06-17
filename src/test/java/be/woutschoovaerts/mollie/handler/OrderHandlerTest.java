@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrderHandlerTest {
 
+    private static final int ORDER_MAX_EXPIRY_DAYS = 100;
+
     private Client client;
 
     @BeforeEach
@@ -124,6 +126,39 @@ class OrderHandlerTest {
     }
 
     @Test
+    void createOrderWithExpiry() throws MollieException {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, ORDER_MAX_EXPIRY_DAYS);
+        Date maxExpiry = calendar.getTime();
+
+        OrderRequest orderRequest = createOrderRequestBuilder()
+                .expiresAt(Optional.of(maxExpiry))
+                .build();
+
+        OrderResponse response = client.orders().createOrder(orderRequest);
+
+        assertNotNull(response);
+    }
+
+    @Test
+    void createOrderWithExpiryTooFarInFuture() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, ORDER_MAX_EXPIRY_DAYS + 1);
+        Date maxExpiry = calendar.getTime();
+
+        OrderRequest orderRequest = createOrderRequestBuilder()
+                .expiresAt(Optional.of(maxExpiry))
+                .build();
+
+        MollieException ex = assertThrows(MollieException.class, () -> client.orders().createOrder(orderRequest));
+
+        assertNotNull(ex);
+        assertEquals(422, ex.getDetails().get("status"));
+        assertEquals("Unprocessable Entity", ex.getDetails().get("title"));
+        assertEquals("expiryDate", ex.getDetails().get("field"));
+    }
+
+    @Test
     @Disabled // Todo extend the test so we have the correct order line status to cancel
     void cancelOrderLine() throws MollieException {
         OrderResponse order = create();
@@ -193,7 +228,11 @@ class OrderHandlerTest {
     }
 
     private OrderRequest createOrderRequest() {
-        OrderRequest orderRequest = OrderRequest.builder()
+        return createOrderRequestBuilder().build();
+    }
+
+    private OrderRequest.OrderRequestBuilder createOrderRequestBuilder() {
+        return OrderRequest.builder()
                 .amount(Amount.builder()
                         .currency("EUR")
                         .value(new BigDecimal("10.00"))
@@ -211,9 +250,7 @@ class OrderHandlerTest {
                         .build())
                 .locale(Locale.nl_BE)
                 .method(Optional.of(Collections.singletonList(PaymentMethod.BANK_TRANSFER)))
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
-                .build();
-        return orderRequest;
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"));
     }
 
     private OrderLineRequest createOrderLineRequest() {
