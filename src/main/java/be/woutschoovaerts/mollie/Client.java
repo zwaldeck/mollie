@@ -26,6 +26,18 @@ public class Client {
         initUniRest();
     }
 
+    public Client(String apiKey, String host, int port, String username, String password) {
+        this.endpoint = "https://api.mollie.com/v2";
+
+        // TODO: Check valid api key
+        config = new Config();
+        config.setApiKey(apiKey);
+        config.setAccessToken(null);
+        config.setTestMode(false);
+
+        initUniRest(host, port, username, password);
+    }
+    
     /**
      * Set the access token, the requests will use the access token instead of the api key
      *
@@ -228,6 +240,14 @@ public class Client {
 
     private void initUniRest() {
         Unirest.config()
-            .setObjectMapper(new OAuthAwareObjectMapper(config));
+            .setObjectMapper(new OAuthAwareObjectMapper(config));        
     }
+    
+    private void initUniRest(String host, int port, String username, String password) {
+        Unirest.config()
+            .setObjectMapper(new OAuthAwareObjectMapper(config));
+        
+        Unirest.config().proxy(host, port, username, password);
+    }
+    
 }
