@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -127,9 +128,7 @@ class OrderHandlerTest {
 
     @Test
     void createOrderWithExpiry() throws MollieException {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, ORDER_MAX_EXPIRY_DAYS);
-        Date maxExpiry = calendar.getTime();
+        LocalDate maxExpiry = LocalDate.now().plusDays(ORDER_MAX_EXPIRY_DAYS);
 
         OrderRequest orderRequest = createOrderRequestBuilder()
                 .expiresAt(Optional.of(maxExpiry))
@@ -142,9 +141,7 @@ class OrderHandlerTest {
 
     @Test
     void createOrderWithExpiryTooFarInFuture() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, ORDER_MAX_EXPIRY_DAYS + 1);
-        Date maxExpiry = calendar.getTime();
+        LocalDate maxExpiry = LocalDate.now().plusDays(ORDER_MAX_EXPIRY_DAYS + 1);
 
         OrderRequest orderRequest = createOrderRequestBuilder()
                 .expiresAt(Optional.of(maxExpiry))
