@@ -1,3 +1,6 @@
+## 3.4.1
+- Added missing fields to 'UpdateSubscriptionRequest'
+
 ## 3.4.0
 - Changed `java.util.Date` fields to its `java.time` representatives
 

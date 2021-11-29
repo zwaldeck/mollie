@@ -4,3 +4,4 @@
 - [Tom Martens](https://github.com/tomsnor)
 - [Dániel Szabó](https://github.com/szada92)
 - [Tim Smelik](https://github.com/timsmelik)
+- [Thomas van Putten](https://github.com/delta11)
