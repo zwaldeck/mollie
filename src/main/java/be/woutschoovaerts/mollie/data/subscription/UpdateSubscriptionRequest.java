@@ -27,6 +27,10 @@ public class UpdateSubscriptionRequest {
 
     private Optional<String> description = Optional.empty();
 
+    private Optional<String> interval = Optional.empty();
+
+    private Optional<String> mandateId = Optional.empty();
+
     private Optional<String> webhookUrl = Optional.empty();
 
     private Map<String, Object> metadata;
