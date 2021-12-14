@@ -2,6 +2,9 @@
 - Updated Log4j to 2.16.0
 - Bumped all other dependencies and made their versions a property
 
+## 3.4.1
+- Added missing fields to 'UpdateSubscriptionRequest'
+
 ## 3.4.0
 - Changed `java.util.Date` fields to its `java.time` representatives
 
