@@ -6,7 +6,7 @@
 
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>3.5.0</version>
+    <version>3.6.0</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
@@ -41,13 +41,12 @@
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <jaxb-core.version>3.0.1</jaxb-core.version>
         <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
-        <log4j.version>2.16.0</log4j.version>
         <lombok.version>1.18.22</lombok.version>
         <lombok-maven-plugin.version>1.18.0.0</lombok-maven-plugin.version>
         <maven-jdk-tools-wrapper.version>0.1</maven-jdk-tools-wrapper.version>
         <mockito-core.version>4.1.0</mockito-core.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <slf4j-api.version>1.7.32</slf4j-api.version>
+        <slf4j.version>1.7.32</slf4j.version>
         <unirest-java.version>3.13.4</unirest-java.version>
     </properties>
 
@@ -103,7 +102,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!-- Needed for Java 9+ -->
@@ -147,9 +146,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
 

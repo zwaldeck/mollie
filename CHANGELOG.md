@@ -1,3 +1,6 @@
+## 3.6.0
+- Replaced log4j-slf4j-impl with slf4j-nop
+
 ## 3.5.0
 - Updated Log4j to 2.16.0
 - Bumped all other dependencies and made their versions a property
