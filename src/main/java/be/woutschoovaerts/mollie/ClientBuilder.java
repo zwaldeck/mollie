@@ -28,8 +28,8 @@ public final class ClientBuilder {
         return this;
     }
 
-    public ClientBuilder withProxy(ClientProxy proxy) {
-        this.proxy = proxy;
+    public ClientBuilder withProxy(ClientProxy clientProxy) {
+        this.proxy = clientProxy;
         return this;
     }
 

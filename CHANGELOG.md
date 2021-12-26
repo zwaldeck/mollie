@@ -1,3 +1,9 @@
+## 3.6.0
+- Added 'metaData' field to OrderLineResponse
+- Added the possibility to add proxy config to Unirest
+- Fixed a wrong JSON mapped value in SettlementStatus
+- Added fields 'Locale' & 'LandingPage' to AuthorizeRequest
+
 ## 3.5.0
 - Updated Log4j to 2.16.0
 - Bumped all other dependencies and made their versions a property
