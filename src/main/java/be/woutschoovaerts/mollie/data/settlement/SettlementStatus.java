@@ -13,6 +13,6 @@ public enum SettlementStatus {
 
     @JsonValue
     public String getJsonValue() {
-        return name().toLowerCase().replace('_', '-');
+        return name().toLowerCase().replace("_", "");
     }
 }
