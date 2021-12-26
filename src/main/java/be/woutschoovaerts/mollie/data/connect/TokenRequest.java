@@ -25,5 +25,6 @@ public class TokenRequest {
     private Optional<String> refreshToken = Optional.empty();
 
     @JsonProperty("redirect_uri")
-    private String redirectUri;
+    @Builder.Default
+    private Optional<String> redirectUri = Optional.empty();
 }

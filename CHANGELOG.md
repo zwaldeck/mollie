@@ -1,3 +1,6 @@
+## 3.6.1
+ - Made field 'RedirectUri' in TokenRequest an optional
+
 ## 3.6.0
 - Added 'metaData' field to OrderLineResponse
 - Added the possibility to add proxy config to Unirest

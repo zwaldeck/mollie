@@ -15,8 +15,10 @@ import java.util.Optional;
 @Builder
 public class AuthorizeRequest {
 
+    @JsonProperty("client_id")
     private String clientId;
 
+    @JsonProperty("redirect_uri")
     @Builder.Default
     private Optional<String> redirectUri = Optional.empty();
 
@@ -24,8 +26,10 @@ public class AuthorizeRequest {
 
     private String[] scope;
 
+    @JsonProperty("response_type")
     private ResponseType responseType;
 
+    @JsonProperty("approval_prompt")
     private ApprovalPrompt approvalPrompt;
 
     private Locale locale;
