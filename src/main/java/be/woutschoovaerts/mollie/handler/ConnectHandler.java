@@ -151,7 +151,7 @@ public class ConnectHandler extends AbstractHandler {
         sb.append("grant_type=").append(UrlUtils.urlEncode(request.getGrantType().name().toLowerCase()));
         request.getCode().ifPresent(code -> sb.append("&code=").append(UrlUtils.urlEncode(code)));
         request.getRefreshToken().ifPresent(token -> sb.append("&refresh_token=").append(UrlUtils.urlEncode(token)));
-        sb.append("&redirect_uri=").append(UrlUtils.urlEncode(request.getRedirectUri()));
+        request.getRedirectUri().ifPresent(uri -> sb.append("&redirect_uri=").append(UrlUtils.urlEncode(uri)));
 
         return sb.toString();
     }

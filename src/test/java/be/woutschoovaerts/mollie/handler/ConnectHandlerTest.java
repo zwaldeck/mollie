@@ -68,7 +68,7 @@ class ConnectHandlerTest {
         TokenRequest request = TokenRequest.builder()
                 .grantType(GrantType.AUTHORIZATION_CODE)
                 .code(Optional.of("auth_DtphSvzURvQsKVQMGbhTmCSpVxH4Dx"))
-                .redirectUri("https://github.com/Feel-IO/mollie")
+                .redirectUri(Optional.of("https://github.com/Feel-IO/mollie"))
                 .build();
 
         MollieException ex = assertThrows(MollieException.class, () -> client.connect().generateTokens("",
