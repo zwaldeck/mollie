@@ -2,6 +2,7 @@ package be.woutschoovaerts.mollie;
 
 import java.util.Optional;
 
+import kong.unirest.Unirest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,13 +72,29 @@ class ClientTest {
     }
 
     @Test
-    void twoClients(){
+    void twoClients() {
         Client client1 = new Client("apiKey1");
         Client client2 = new Client("apiKey2");
 
-        assertEquals("apiKey1",client1.getConfig().getApiKey());
-        assertEquals("apiKey2",client2.getConfig().getApiKey());
-        
+        assertEquals("apiKey1", client1.getConfig().getApiKey());
+        assertEquals("apiKey2", client2.getConfig().getApiKey());
+    }
+
+    @Test
+    void clientWithProxy() {
+        ClientProxy clientProxy = ClientProxy.builder()
+                .host("localhost")
+                .port(9999)
+                .username("wout")
+                .password("securityIsKey")
+                .build();
+        Client client = new Client("apiKey1", clientProxy);
+
+        assertEquals("apiKey1", client.getConfig().getApiKey());
+        assertEquals("localhost", Unirest.config().getProxy().getHost());
+        assertEquals(9999, Unirest.config().getProxy().getPort());
+        assertEquals("wout", Unirest.config().getProxy().getUsername());
+        assertEquals("securityIsKey", Unirest.config().getProxy().getPassword());
     }
 
 }

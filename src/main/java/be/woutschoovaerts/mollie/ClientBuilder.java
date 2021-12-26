@@ -6,6 +6,7 @@ public final class ClientBuilder {
     private String organizationToken;
     private boolean testMode = false;
     private String userAgentString;
+    private ClientProxy proxy;
 
     public ClientBuilder withApiKey(String key) {
         this.apiKey = key;
@@ -27,12 +28,17 @@ public final class ClientBuilder {
         return this;
     }
 
+    public ClientBuilder withProxy(ClientProxy proxy) {
+        this.proxy = proxy;
+        return this;
+    }
+
     public Client build() {
         if (apiKey == null) {
             throw new IllegalArgumentException("API key not set. Please use withApiKey(key)");
         }
 
-        Client client = new Client(apiKey);
+        Client client = proxy != null ? new Client(apiKey, proxy) : new Client(apiKey);
 
         if (organizationToken != null) {
             client.setAccessToken(organizationToken);

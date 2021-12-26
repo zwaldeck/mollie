@@ -2,6 +2,7 @@ package be.woutschoovaerts.mollie;
 
 import java.util.Optional;
 
+import kong.unirest.Unirest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +18,22 @@ class ClientBuilderTest {
         assertNotNull(new ClientBuilder()
         .withApiKey("my-api-key")
         .build());
+    }
+
+    @Test
+    void build_success_withProxy() {
+        Client client = new ClientBuilder()
+                .withApiKey("my-api-key")
+                .withProxy(ClientProxy.builder()
+                        .host("localhost")
+                        .port(9999)
+                        .username("wout")
+                        .password("securityIsKey")
+                        .build())
+                .build();
+
+        assertNotNull(client);
+        assertNotNull(Unirest.config().getProxy());
     }
 
     @Test

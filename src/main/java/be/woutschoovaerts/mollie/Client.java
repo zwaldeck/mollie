@@ -13,8 +13,11 @@ public class Client {
     @Getter
     private final Config config;
 
-
     public Client(String apiKey) {
+        this(apiKey, null);
+    }
+
+    public Client(String apiKey, ClientProxy proxy) {
         this.endpoint = "https://api.mollie.com/v2";
 
         // TODO: Check valid api key
@@ -23,8 +26,9 @@ public class Client {
         config.setAccessToken(null);
         config.setTestMode(false);
 
-        initUniRest();
+        initUniRest(proxy);
     }
+
 
     /**
      * Set the access token, the requests will use the access token instead of the api key
@@ -226,8 +230,12 @@ public class Client {
         return new MiscellaneousHandler(endpoint, config);
     }
 
-    private void initUniRest() {
+    private void initUniRest(ClientProxy proxy) {
         Unirest.config()
             .setObjectMapper(new OAuthAwareObjectMapper(config));
+
+        if (proxy != null) {
+            Unirest.config().proxy(proxy.getHost(), proxy.getPort(), proxy.getUsername(), proxy.getPassword());
+        }
     }
 }
