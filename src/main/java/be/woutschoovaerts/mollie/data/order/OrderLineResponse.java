@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -66,5 +67,8 @@ public class OrderLineResponse {
 
     @JsonProperty("_links")
     private OrderLineLinks links;
+
+    @Builder.Default
+    private Optional<Map<String, Object>> metadata = Optional.empty();
 
 }
