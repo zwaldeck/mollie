@@ -1,9 +1,9 @@
 package be.woutschoovaerts.mollie;
 
-import java.util.Optional;
-
 import kong.unirest.Unirest;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.ORGANISATION_TOKEN;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class OnboardingHandlerTest {
 

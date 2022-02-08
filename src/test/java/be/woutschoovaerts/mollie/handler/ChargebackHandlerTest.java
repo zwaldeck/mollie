@@ -2,12 +2,12 @@ package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.exception.MollieException;
+import be.woutschoovaerts.mollie.data.chargeback.ChargebackListResponse;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
-import be.woutschoovaerts.mollie.data.chargeback.ChargebackListResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
+import be.woutschoovaerts.mollie.exception.MollieException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ChargebackHandlerTest {
 

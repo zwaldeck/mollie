@@ -3,11 +3,10 @@ package be.woutschoovaerts.mollie.handler;
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
 import be.woutschoovaerts.mollie.data.common.Amount;
-import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.common.Locale;
-import be.woutschoovaerts.mollie.data.order.OrderStatus;
-import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
+import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.order.*;
+import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
 import be.woutschoovaerts.mollie.data.refund.RefundResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
@@ -19,7 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;

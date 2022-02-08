@@ -1,4 +1,4 @@
-package be.woutschoovaerts.mollie.data.miscellaneous;
+package be.woutschoovaerts.mollie.data.wallet;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

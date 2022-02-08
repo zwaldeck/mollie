@@ -64,8 +64,10 @@ public class PaymentRequest {
 
     private Optional<String> consumerAccount = Optional.empty();
 
+    private Optional<ApplicationFee> applicationFee = Optional.empty();
+
+    private Optional<String> applePayPaymentToken = Optional.empty();
+
     // OAuth params
     private Optional<String> profileId = Optional.empty();
-
-    private Optional<ApplicationFee> applicationFee = Optional.empty();
 }

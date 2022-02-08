@@ -1,10 +1,10 @@
 package be.woutschoovaerts.mollie.handler;
 
-import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
+import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
+import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
@@ -38,7 +38,7 @@ public class PaymentHandler extends AbstractHandler {
      *
      * @param body PaymentRequest can be build with the builder pattern
      * @return The payment response from mollie
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public PaymentResponse createPayment(PaymentRequest body) throws MollieException {
         return createPayment(body, QueryParams.EMPTY);
@@ -47,10 +47,10 @@ public class PaymentHandler extends AbstractHandler {
     /**
      * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
      *
-     * @param body   Pa ymentRequest can be build with the builder pattern
+     * @param body PaymentRequest can be build with the builder pattern
      * @param params A map of query parameters
      * @return The payment response from mollie
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public PaymentResponse createPayment(PaymentRequest body, QueryParams params) throws MollieException {
         try {
@@ -70,7 +70,7 @@ public class PaymentHandler extends AbstractHandler {
      *
      * @param paymentId payment token
      * @return The payment response from mollie
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public PaymentResponse getPayment(String paymentId) throws MollieException {
         return getPayment(paymentId, QueryParams.EMPTY);
@@ -82,7 +82,7 @@ public class PaymentHandler extends AbstractHandler {
      * @param paymentId payment token
      * @param params    A map of query parameters
      * @return The payment response from mollie
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public PaymentResponse getPayment(String paymentId, QueryParams params)
             throws MollieException {
@@ -107,7 +107,7 @@ public class PaymentHandler extends AbstractHandler {
      *
      * @param paymentId payment token
      * @return The payment response from mollie
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public PaymentResponse cancelPayment(String paymentId) throws MollieException {
         return cancelPayment(paymentId, QueryParams.EMPTY);
@@ -123,7 +123,7 @@ public class PaymentHandler extends AbstractHandler {
      * @param paymentId payment token
      * @param params    A map of query parameters
      * @return The payment response from mollie
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public PaymentResponse cancelPayment(String paymentId, QueryParams params) throws MollieException {
         try {
@@ -144,7 +144,7 @@ public class PaymentHandler extends AbstractHandler {
      * The results are paginated.
      *
      * @return paginated payment response list
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public Pagination<PaymentListResponse> listPayments() throws MollieException {
         return listPayments(QueryParams.EMPTY);
@@ -158,7 +158,7 @@ public class PaymentHandler extends AbstractHandler {
      *
      * @param params A map of query parameters
      * @return paginated payment response list
-     * @throws MollieException when there went something wrong
+     * @throws MollieException when something went wrong
      */
     public Pagination<PaymentListResponse> listPayments(QueryParams params) throws MollieException {
         try {

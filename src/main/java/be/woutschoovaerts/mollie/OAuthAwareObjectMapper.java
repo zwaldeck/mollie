@@ -29,14 +29,15 @@ public class OAuthAwareObjectMapper implements ObjectMapper {
     @Override
     public String writeValue(Object value) {
         try {
-            JsonNode node = ObjectMapperService.getInstance().getMapper().valueToTree(value);
-            if (node.isObject() && config.shouldAddTestMode()) {
-                ObjectNode object = (ObjectNode) node;
-                object.put("testmode", true);
-                return ObjectMapperService.getInstance().getMapper().writeValueAsString(object);
-            } else {
-                return ObjectMapperService.getInstance().getMapper().writeValueAsString(value);
+            if (config.shouldAddTestMode()) {
+                JsonNode node = ObjectMapperService.getInstance().getMapper().valueToTree(value);
+                if (node.isObject()) {
+                    ObjectNode object = (ObjectNode) node;
+                    object.put("testmode", true);
+                    return ObjectMapperService.getInstance().getMapper().writeValueAsString(object);
+                }
             }
+            return ObjectMapperService.getInstance().getMapper().writeValueAsString(value);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

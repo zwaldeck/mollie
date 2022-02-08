@@ -2,17 +2,16 @@ package be.woutschoovaerts.mollie.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
 
 class ISO8601DateFormatSerializerTest {
 
