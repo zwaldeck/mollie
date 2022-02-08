@@ -1,10 +1,10 @@
 package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.shipment.ShipmentRequest;
-import be.woutschoovaerts.mollie.data.shipment.ShipmentUpdateRequest;
 import be.woutschoovaerts.mollie.data.shipment.ShipmentListResponse;
+import be.woutschoovaerts.mollie.data.shipment.ShipmentRequest;
 import be.woutschoovaerts.mollie.data.shipment.ShipmentResponse;
+import be.woutschoovaerts.mollie.data.shipment.ShipmentUpdateRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;

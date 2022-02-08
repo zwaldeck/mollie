@@ -2,14 +2,14 @@ package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
-import be.woutschoovaerts.mollie.data.refund.RefundRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
 import be.woutschoovaerts.mollie.data.refund.RefundListResponse;
+import be.woutschoovaerts.mollie.data.refund.RefundRequest;
 import be.woutschoovaerts.mollie.data.refund.RefundResponse;
+import be.woutschoovaerts.mollie.exception.MollieException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

@@ -2,12 +2,7 @@ package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.connect.ApprovalPrompt;
-import be.woutschoovaerts.mollie.data.connect.GrantType;
-import be.woutschoovaerts.mollie.data.connect.ResponseType;
-import be.woutschoovaerts.mollie.data.connect.AuthorizeRequest;
-import be.woutschoovaerts.mollie.data.connect.RevokeTokenRequest;
-import be.woutschoovaerts.mollie.data.connect.TokenRequest;
+import be.woutschoovaerts.mollie.data.connect.*;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //https://www.mollie.com/oauth2/authorize?client_id=*client_id*&state=random&scope=payments.read&response_type=code&approval_prompt=auto
 

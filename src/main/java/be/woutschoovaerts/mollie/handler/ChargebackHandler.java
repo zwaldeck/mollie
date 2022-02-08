@@ -1,9 +1,9 @@
 package be.woutschoovaerts.mollie.handler;
 
-import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.chargeback.ChargebackListResponse;
 import be.woutschoovaerts.mollie.data.chargeback.ChargebackResponse;
+import be.woutschoovaerts.mollie.data.common.Pagination;
+import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;

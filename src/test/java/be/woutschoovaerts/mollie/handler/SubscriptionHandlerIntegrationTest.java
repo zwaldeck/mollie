@@ -2,18 +2,18 @@ package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.common.Locale;
-import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.data.common.Amount;
+import be.woutschoovaerts.mollie.data.common.Locale;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.customer.CustomerRequest;
-import be.woutschoovaerts.mollie.data.mandate.MandateRequest;
-import be.woutschoovaerts.mollie.data.subscription.SubscriptionRequest;
-import be.woutschoovaerts.mollie.data.subscription.UpdateSubscriptionRequest;
 import be.woutschoovaerts.mollie.data.customer.CustomerResponse;
+import be.woutschoovaerts.mollie.data.mandate.MandateRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
 import be.woutschoovaerts.mollie.data.subscription.SubscriptionListResponse;
+import be.woutschoovaerts.mollie.data.subscription.SubscriptionRequest;
 import be.woutschoovaerts.mollie.data.subscription.SubscriptionResponse;
+import be.woutschoovaerts.mollie.data.subscription.UpdateSubscriptionRequest;
+import be.woutschoovaerts.mollie.exception.MollieException;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class SubscriptionHandlerIntegrationTest {
 

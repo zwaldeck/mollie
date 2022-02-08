@@ -4,14 +4,14 @@ import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.Locale;
-import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
 import be.woutschoovaerts.mollie.data.order.OrderAddressRequest;
 import be.woutschoovaerts.mollie.data.order.OrderLineRequest;
 import be.woutschoovaerts.mollie.data.order.OrderRequest;
-import be.woutschoovaerts.mollie.data.shipment.ShipmentRequest;
 import be.woutschoovaerts.mollie.data.order.OrderResponse;
-import be.woutschoovaerts.mollie.data.shipment.ShipmentResponse;
+import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
 import be.woutschoovaerts.mollie.data.shipment.ShipmentLineRequest;
+import be.woutschoovaerts.mollie.data.shipment.ShipmentRequest;
+import be.woutschoovaerts.mollie.data.shipment.ShipmentResponse;
 import be.woutschoovaerts.mollie.data.shipment.ShipmentTrackingRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ShipmentHandlerTest {
 

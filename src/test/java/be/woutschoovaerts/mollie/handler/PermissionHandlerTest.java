@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.ORGANISATION_TOKEN;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PermissionHandlerTest {
 

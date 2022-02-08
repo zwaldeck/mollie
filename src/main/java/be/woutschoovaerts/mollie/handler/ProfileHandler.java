@@ -1,10 +1,10 @@
 package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
-import be.woutschoovaerts.mollie.data.profile.ProfileRequest;
 import be.woutschoovaerts.mollie.data.method.MethodResponse;
+import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
 import be.woutschoovaerts.mollie.data.profile.ProfileListResponse;
+import be.woutschoovaerts.mollie.data.profile.ProfileRequest;
 import be.woutschoovaerts.mollie.data.profile.ProfileResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;

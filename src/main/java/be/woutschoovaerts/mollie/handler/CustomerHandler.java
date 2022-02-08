@@ -1,13 +1,13 @@
 package be.woutschoovaerts.mollie.handler;
 
-import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.customer.CustomerRequest;
-import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.customer.CustomerListResponse;
+import be.woutschoovaerts.mollie.data.customer.CustomerRequest;
 import be.woutschoovaerts.mollie.data.customer.CustomerResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
+import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
+import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
