@@ -1,6 +1,7 @@
 package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionResponse;
+import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
@@ -10,17 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-@Deprecated
-public class MiscellaneousHandler extends AbstractHandler {
+public class WalletHandler extends AbstractHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(MiscellaneousHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(WalletHandler.class);
 
     private static final String WALLETS_APPLEPAY_SESSIONS_URI = "/wallets/applepay/sessions";
 
-    public MiscellaneousHandler(String baseApiUrl, Config config) {
+    public WalletHandler(String baseApiUrl, Config config) {
         super(baseApiUrl, log, config);
     }
 
@@ -40,18 +38,12 @@ public class MiscellaneousHandler extends AbstractHandler {
      * <li>For the full documentation, see the official Apple Pay JS API documentation.</li>
      * </ul>
      *
-     * @param validationUrl The validationUrl you got from the <a href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepayvalidatemerchantevent"></a>ApplePayValidateMerchant</a> event.
-     * @param domain        The domain of your web shop, that is visible in the browser’s location bar. For example pay.myshop.com.
-     * @return The ApplePayPaymentSession response from mollie, which can then be passed as-is to the completion method <a href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepaysession/1778015-completemerchantvalidation">completeMerchantValidation</a>.
+     * @param body ApplePaySessionRequest The validationUrl you got from the <a href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepayvalidatemerchantevent"></a>ApplePayValidateMerchant</a> event.
+     * @return The ApplePaySession response from mollie, which can then be passed as-is to the completion method <a href="https://developer.apple.com/documentation/apple_pay_on_the_web/applepaysession/1778015-completemerchantvalidation">completeMerchantValidation</a>.
      * @throws MollieException when something went wrong
      */
-    @Deprecated
-    public ApplePaySessionResponse requestApplePaySession(String validationUrl, String domain) throws MollieException {
+    public ApplePaySessionResponse requestApplePaySession(ApplePaySessionRequest body) throws MollieException {
         try {
-            Map<String, Object> body = new HashMap<>();
-            body.put("validationUrl", validationUrl);
-            body.put("domain", domain);
-
             HttpResponse<String> response = post(WALLETS_APPLEPAY_SESSIONS_URI, body);
 
             return ObjectMapperService.getInstance().getMapper()

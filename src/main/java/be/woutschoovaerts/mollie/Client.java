@@ -222,12 +222,20 @@ public class Client {
     }
 
     /**
-     * Handles miscellaneous actions
-     *
-     * @return MiscellaneousHandler object
+     * @deprecated replaced by {@link #wallet()}
      */
+    @Deprecated
     public MiscellaneousHandler miscellaneous() {
         return new MiscellaneousHandler(endpoint, config);
+    }
+
+    /**
+     * Handles wallet actions
+     *
+     * @return WalletHandler object
+     */
+    public WalletHandler wallet() {
+        return new WalletHandler(endpoint, config);
     }
 
     private void initUniRest(ClientProxy proxy) {
