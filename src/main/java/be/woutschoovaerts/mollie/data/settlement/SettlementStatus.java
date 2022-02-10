@@ -6,13 +6,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SettlementStatus {
 
-    OPEN,
-    PENDING,
-    PAID_OUT,
-    FAILED;
+    OPEN("open"),
+    PENDING("pending"),
+    PAID_OUT("paidout"),
+    FAILED("failed");
+
+    private final String value;
 
     @JsonValue
     public String getJsonValue() {
-        return name().toLowerCase().replace("_", "");
+        return value;
     }
 }

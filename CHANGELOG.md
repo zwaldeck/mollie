@@ -1,6 +1,9 @@
 ## 4.0.0
-- removed unirest dependency and replaced with JDK11 HttpClient
-- because of this only JDK11+ is supported, revert to version 3.6.2 for JDK8 support
+- Removed unirest dependency and replaced with JDK11 HttpClient
+- Because of this only JDK11+ is supported, revert to version 3.6.2 for JDK8 support
+- Fix all serialization of isCancelable fields by not using the primitive boolean (#45)
+- Refactor all Optional<List> into List, so it's no longer ambiguous when the field is empty, implying a breaking change in how to pass the optional method in an (order)paymentRequest
+- Fixed a wrong JSON deserialization value of paidout in SettlementStatus (#70)
 
 ## 3.6.2
  - add applePayPaymentToken to PaymentRequest
