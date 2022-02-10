@@ -6,7 +6,7 @@
 
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>3.6.1</version>
+    <version>3.6.2</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
@@ -26,6 +26,12 @@
             <organization>Wout Schoovaerts</organization>
             <organizationUrl>https://z-soft.be</organizationUrl>
         </developer>
+        <developer>
+            <name>Paul van Eijden</name>
+            <email>paul@unicornify.com</email>
+            <organization>Unicornify</organization>
+            <organizationUrl>https://unicornify.com</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
@@ -41,7 +47,7 @@
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <jaxb-core.version>3.0.1</jaxb-core.version>
         <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
-        <log4j.version>2.17.0</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
         <lombok.version>1.18.22</lombok.version>
         <lombok-maven-plugin.version>1.18.0.0</lombok-maven-plugin.version>
         <maven-jdk-tools-wrapper.version>0.1</maven-jdk-tools-wrapper.version>

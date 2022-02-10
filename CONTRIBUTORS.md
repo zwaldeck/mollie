@@ -1,5 +1,5 @@
 - [Wout Schoovaerts](https://github.com/zwaldeck)
-- [Paul Van eijden](https://github.com/paulvaneijden)
+- [Paul van Eijden](https://github.com/paulvaneijden)
 - [Carlos Freund](https://github.com/happyherp)
 - [Tom Martens](https://github.com/tomsnor)
 - [Dániel Szabó](https://github.com/szada92)
