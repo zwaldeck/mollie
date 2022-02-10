@@ -27,7 +27,7 @@ public class OrderLineResponse {
 
     private OrderStatus status;
 
-    private boolean isCancelable;
+    private Boolean isCancelable;
 
     private int quantity;
 
@@ -70,5 +70,4 @@ public class OrderLineResponse {
 
     @Builder.Default
     private Optional<Map<String, Object>> metadata = Optional.empty();
-
 }

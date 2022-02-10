@@ -26,8 +26,10 @@ public class RefundResponse {
 
     private Amount amount;
 
+    @Builder.Default
     private Optional<String> settlementId = Optional.empty();
 
+    @Builder.Default
     private Optional<Amount> settlementAmount = Optional.empty();
 
     private String description;
@@ -40,10 +42,12 @@ public class RefundResponse {
 
     private String paymentId;
 
+    @Builder.Default
     private Optional<String> orderId = Optional.empty();
 
     private OffsetDateTime createdAt;
 
+    @Builder.Default
     @JsonProperty("_embedded")
     private Optional<RefundEmbedded> embedded = Optional.empty();
 

@@ -25,6 +25,7 @@ public class OrderAddressResponse {
 
     private String email;
 
+    @Builder.Default
     private Optional<String> phone  = Optional.empty();
 
     private String streetAndNumber;

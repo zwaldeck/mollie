@@ -41,12 +41,14 @@ public class SubscriptionResponse {
 
     private LocalDate startDate;
 
+    @Builder.Default
     private Optional<LocalDate> nextPaymentDate = Optional.empty();
 
     private String description;
 
     private MandatePaymentMethod method;
 
+    @Builder.Default
     private Optional<String> mandateId = Optional.empty();
 
     private OffsetDateTime canceledAt;

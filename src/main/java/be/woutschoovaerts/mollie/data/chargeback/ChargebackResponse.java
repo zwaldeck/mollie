@@ -34,6 +34,7 @@ public class ChargebackResponse {
     @JsonProperty("_links")
     private ChargebackLinks links;
 
+    @Builder.Default
     @JsonProperty("_embedded")
     private Optional<ChargebackEmbedded> embedded = Optional.empty();
 }

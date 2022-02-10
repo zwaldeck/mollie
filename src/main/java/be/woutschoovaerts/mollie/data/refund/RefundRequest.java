@@ -17,6 +17,7 @@ public class RefundRequest {
 
     private Amount amount;
 
+    @Builder.Default
     private Optional<String> description = Optional.empty();
 
     private HashMap<String, Object> metadata;

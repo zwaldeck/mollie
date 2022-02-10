@@ -16,8 +16,10 @@ public class PaginationLinks {
 
     private Link self;
 
+    @Builder.Default
     private Optional<Link> previous = Optional.empty();
 
+    @Builder.Default
     private Optional<Link> next = Optional.empty();
 
     private Link documentation;

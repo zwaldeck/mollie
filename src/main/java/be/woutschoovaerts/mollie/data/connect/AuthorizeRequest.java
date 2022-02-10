@@ -35,6 +35,6 @@ public class AuthorizeRequest {
     private Locale locale;
 
     @JsonProperty("landing_page")
+    @Builder.Default
     private LandingPageType landingPage = LandingPageType.LOGIN;
-
 }

@@ -18,8 +18,10 @@ public class CaptureLinks {
 
     private Link payment;
 
+    @Builder.Default
     private Optional<Link> settlement = Optional.empty();
 
+    @Builder.Default
     private Optional<Link> shipment = Optional.empty();
 
     private Link documentation;

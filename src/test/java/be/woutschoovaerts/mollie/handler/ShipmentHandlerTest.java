@@ -117,10 +117,4 @@ class ShipmentHandlerTest {
 
         return client.shipments().createShipment(order.getId(), request);
     }
-
-    private ShipmentLineRequest createShipmentLineRequest(String orderLineId) {
-        return ShipmentLineRequest.builder()
-                .id(orderLineId)
-                .build();
-    }
 }

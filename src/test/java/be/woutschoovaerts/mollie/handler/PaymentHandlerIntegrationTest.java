@@ -102,7 +102,7 @@ public class PaymentHandlerIntegrationTest {
         PaymentResponse response = client.payments().createPayment(request);
 
         assertNotNull(response);
-        assertTrue(response.isCancelable());
+        assertTrue(response.getIsCancelable());
 
         response = client.payments().cancelPayment(response.getId());
 

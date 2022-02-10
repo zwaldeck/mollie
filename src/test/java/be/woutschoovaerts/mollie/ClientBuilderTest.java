@@ -14,7 +14,7 @@ class ClientBuilderTest {
 
     @Test
     void build_noApiKeyGiven() {
-        assertThrows(IllegalArgumentException.class, () -> new ClientBuilder().build());
+        assertThrows(NullPointerException.class, () -> new ClientBuilder().build());
     }
 
     @Test

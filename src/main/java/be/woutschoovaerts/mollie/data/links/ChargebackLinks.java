@@ -18,6 +18,7 @@ public class ChargebackLinks {
 
     private Link payment;
 
+    @Builder.Default
     private Optional<Link> settlement = Optional.empty();
 
     private Link documentation;

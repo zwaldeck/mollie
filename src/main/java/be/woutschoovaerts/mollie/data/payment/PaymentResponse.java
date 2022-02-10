@@ -29,32 +29,41 @@ public class PaymentResponse {
 
     private PaymentStatus status;
 
-    private boolean isCancelable;
+    private Boolean isCancelable;
 
+    @Builder.Default
     private Optional<OffsetDateTime> authorizedAt = Optional.empty();
 
+    @Builder.Default
     private Optional<OffsetDateTime> paidAt = Optional.empty();
 
+    @Builder.Default
     private Optional<OffsetDateTime> canceledAt = Optional.empty();
 
     private OffsetDateTime expiresAt;
 
+    @Builder.Default
     private Optional<OffsetDateTime> expiredAt = Optional.empty();
 
+    @Builder.Default
     private Optional<OffsetDateTime> failedAt = Optional.empty();
 
     private Amount amount;
 
+    @Builder.Default
     private Optional<Amount> amountRefunded = Optional.empty();
 
+    @Builder.Default
     private Optional<Amount> amountRemaining = Optional.empty();
 
+    @Builder.Default
     private Optional<Amount> amountCaptured = Optional.empty();
 
     private String description;
 
     private String redirectUrl;
 
+    @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();
 
     private PaymentMethod method;
@@ -63,24 +72,32 @@ public class PaymentResponse {
 
     private Locale locale;
 
+    @Builder.Default
     private Optional<String> countryCode = Optional.empty();
 
     private String profileId;
 
+    @Builder.Default
     private Optional<Amount> settlementAmount = Optional.empty();
 
+    @Builder.Default
     private Optional<String> settlementId = Optional.empty();
 
+    @Builder.Default
     private Optional<String> customerId = Optional.empty();
 
     private SequenceType sequenceType;
 
+    @Builder.Default
     private Optional<String> mandateId = Optional.empty();
 
+    @Builder.Default
     private Optional<String> subscriptionId = Optional.empty();
 
+    @Builder.Default
     private Optional<String> orderId = Optional.empty();
 
+    @Builder.Default
     private Optional<ApplicationFee> applicationFee = Optional.empty();
 
     @JsonProperty("_links")
@@ -90,10 +107,4 @@ public class PaymentResponse {
 
     @JsonProperty("_embedded")
     private PaymentEmbedded embedded;
-
-    // An extra setter so we can serialize 'isCancelable' (https://github.com/zwaldeck/mollie/issues/45)
-
-    public void setIsCancelable(boolean cancelable) {
-        this.isCancelable = cancelable;
-    }
 }

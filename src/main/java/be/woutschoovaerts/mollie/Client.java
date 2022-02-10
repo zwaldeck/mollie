@@ -3,6 +3,7 @@ package be.woutschoovaerts.mollie;
 import be.woutschoovaerts.mollie.handler.*;
 import be.woutschoovaerts.mollie.util.Config;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.Optional;
 
@@ -14,11 +15,11 @@ public class Client {
     @Getter
     private final Config config;
 
-    public Client(String apiKey) {
+    public Client(@NonNull String apiKey) {
         this(apiKey, null);
     }
 
-    public Client(String apiKey, ClientProxy proxy) {
+    public Client(@NonNull String apiKey, ClientProxy proxy) {
         this.endpoint = "https://api.mollie.com/v2";
 
         // TODO: Check valid api key

@@ -18,8 +18,10 @@ public class RefundLinks {
 
     private Link payment;
 
+    @Builder.Default
     private Optional<Link> settlement = Optional.empty();
 
+    @Builder.Default
     private Optional<Link> order = Optional.empty();
 
     private Link documentation;

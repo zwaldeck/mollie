@@ -16,7 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class  OrderResponse {
+public class OrderResponse {
 
     private String resource;
 
@@ -38,7 +38,7 @@ public class  OrderResponse {
 
     private OrderStatus status;
 
-    private boolean isCancelable;
+    private Boolean isCancelable;
 
     private OrderAddressResponse billingAddress;
 

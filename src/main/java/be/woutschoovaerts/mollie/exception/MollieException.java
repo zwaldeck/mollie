@@ -8,8 +8,7 @@ import java.util.Map;
 @Getter
 public class MollieException extends Exception {
 
-
-    private Map<String, Object> details;
+    private final Map<String, Object> details;
 
     public MollieException(String message, Map<String, Object> details) {
         super(message);

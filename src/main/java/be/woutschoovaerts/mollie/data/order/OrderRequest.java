@@ -51,6 +51,7 @@ public class OrderRequest {
 
     private Map<String, Object> metadata;
 
+    @Builder.Default
     private Optional<LocalDate> expiresAt = Optional.empty();
 
     // OAuth Params

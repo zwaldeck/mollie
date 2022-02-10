@@ -21,10 +21,12 @@ public class SubscriptionRequest {
 
     private Amount amount;
 
+    @Builder.Default
     private Optional<Integer> times = Optional.empty();
 
     private String interval;
 
+    @Builder.Default
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Optional<LocalDate> startDate = Optional.empty();
 
@@ -32,13 +34,17 @@ public class SubscriptionRequest {
 
     private MandatePaymentMethod method;
 
+    @Builder.Default
     private Optional<String> mandateId = Optional.empty();
 
+    @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();
 
     private Map<String, Object> metadata;
 
+    @Builder.Default
     private Optional<String> profileId = Optional.empty();
 
+    @Builder.Default
     private Optional<ApplicationFee> applicationFee = Optional.empty();
 }
