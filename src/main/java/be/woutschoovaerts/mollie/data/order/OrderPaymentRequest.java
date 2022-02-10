@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class OrderPaymentRequest {
 
     @Builder.Default
     @JsonSerialize(using = PaymentMethodSerializer.class)
-    private Optional<List<PaymentMethod>> method = Optional.empty();
+    private List<PaymentMethod> method = new ArrayList<>();
 
     @Builder.Default
     private Optional<String> customerId = Optional.empty();

@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,8 @@ public class RefundResponse {
 
     private String status;
 
-    private Optional<List<OrderLineResponse>> lines = Optional.empty();
+    @Builder.Default
+    private List<OrderLineResponse> lines = new ArrayList<>();
 
     private String paymentId;
 

@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -181,7 +182,7 @@ class OrderHandlerTest {
         assertNotNull(order);
 
         OrderPaymentRequest body = OrderPaymentRequest.builder()
-                .method(Optional.of(Arrays.asList(PaymentMethod.BANK_TRANSFER)))
+                .method(Collections.singletonList(PaymentMethod.BANK_TRANSFER))
                 .build();
 
         PaymentResponse response = client.orders().createOrderPayment(order.getId(), body);
@@ -247,7 +248,7 @@ class OrderHandlerTest {
                         .country("BE")
                         .build())
                 .locale(Locale.nl_BE)
-                .method(Optional.of(Collections.singletonList(PaymentMethod.BANK_TRANSFER)))
+                .method(Collections.singletonList(PaymentMethod.BANK_TRANSFER))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"));
     }
 

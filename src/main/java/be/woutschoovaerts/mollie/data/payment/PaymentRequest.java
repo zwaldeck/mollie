@@ -4,12 +4,15 @@ import be.woutschoovaerts.mollie.data.common.AddressRequest;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.ApplicationFee;
 import be.woutschoovaerts.mollie.data.common.Locale;
+import be.woutschoovaerts.mollie.serializer.PaymentMethodSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +36,9 @@ public class PaymentRequest {
     @Builder.Default
     private Optional<Locale> locale = Optional.empty();
 
-    private Optional<List<PaymentMethod>> method = Optional.empty();
+    @Builder.Default
+    @JsonSerialize(using = PaymentMethodSerializer.class)
+    private List<PaymentMethod> method = new ArrayList<>();
 
     private Map<String, Object> metadata;
 

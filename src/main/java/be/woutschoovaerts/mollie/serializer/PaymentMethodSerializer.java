@@ -7,24 +7,21 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-public class PaymentMethodSerializer extends JsonSerializer<Optional<List<PaymentMethod>>> {
+public class PaymentMethodSerializer extends JsonSerializer<List<PaymentMethod>> {
     @Override
-    public void serialize(Optional<List<PaymentMethod>> paymentMethods,
+    public void serialize(List<PaymentMethod> paymentMethods,
                           JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
-        if (!paymentMethods.isPresent()) {
+        if (paymentMethods.isEmpty()) {
             jsonGenerator.writeNull();
             return;
         }
 
-        List<PaymentMethod> methods = paymentMethods.get();
-
-        if (methods.size() == 1) {
-            jsonGenerator.writeObject(methods.get(0));
+        if (paymentMethods.size() == 1) {
+            jsonGenerator.writeObject(paymentMethods.get(0));
         } else {
-            jsonGenerator.writeObject(methods);
+            jsonGenerator.writeObject(paymentMethods);
         }
     }
 }

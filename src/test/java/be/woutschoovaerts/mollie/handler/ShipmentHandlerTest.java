@@ -74,7 +74,7 @@ class ShipmentHandlerTest {
                         .country("BE")
                         .build())
                 .locale(Locale.nl_BE)
-                .method(Optional.of(Collections.singletonList(PaymentMethod.BANK_TRANSFER)))
+                .method(Collections.singletonList(PaymentMethod.BANK_TRANSFER))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .build();
 

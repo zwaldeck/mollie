@@ -95,7 +95,7 @@ public class PaymentHandlerIntegrationTest {
                         .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
-                .method(Optional.of(Collections.singletonList(PaymentMethod.PAY_SAFE_CARD)))
+                .method(Collections.singletonList(PaymentMethod.PAY_SAFE_CARD))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();

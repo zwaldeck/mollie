@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class OrderRequest {
 
     @Builder.Default
     @JsonSerialize(using = PaymentMethodSerializer.class)
-    private Optional<List<PaymentMethod>> method = Optional.empty();
+    private List<PaymentMethod> method = new ArrayList<>();
 
     private Map<String, Object> payment;
 
