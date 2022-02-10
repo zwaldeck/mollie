@@ -8,15 +8,10 @@ import be.woutschoovaerts.mollie.data.profile.ProfileRequest;
 import be.woutschoovaerts.mollie.data.profile.ProfileResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the profiles API <a href="https://docs.mollie.com/reference/v2/profiles-api/create-profile">Mollie docs</a>
@@ -51,16 +46,10 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse createProfile(ProfileRequest body, QueryParams params) throws MollieException {
-        try {
-            String uri = "/profiles";
+        String uri = "/profiles";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -83,16 +72,10 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse getProfile(String id, QueryParams params) throws MollieException {
-        try {
-            String uri = "/profiles/" + id;
+        String uri = "/profiles/" + id;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -117,16 +100,10 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse getMyProfile(QueryParams params) throws MollieException {
-        try {
-            String uri = "/profiles/me";
+        String uri = "/profiles/me";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -151,16 +128,10 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse updateProfile(String id, ProfileRequest body, QueryParams params) throws MollieException {
-        try {
-            String uri = "/profiles/" + id;
+        String uri = "/profiles/" + id;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return patch(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -181,15 +152,10 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void deleteProfile(String id, QueryParams params) throws MollieException {
-        try {
-            String uri = "/profiles/" + id;
+        String uri = "/profiles/" + id;
 
-            delete(uri, params);
-
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        delete(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -239,16 +205,10 @@ public class ProfileHandler extends AbstractHandler {
      */
     public MethodResponse enablePaymentMethod(String profileId, PaymentMethod paymentMethod, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
+        String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
 
-            HttpResponse<String> response = postWithoutBody(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), MethodResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return postWithoutBody(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -294,14 +254,10 @@ public class ProfileHandler extends AbstractHandler {
      */
     public void disablePaymentMethod(String profileId, PaymentMethod paymentMethod, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
+        String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
 
-            delete(uri, params);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        delete(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -322,18 +278,9 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ProfileListResponse> getProfiles(QueryParams params) throws MollieException {
-        try {
-            String uri = "/profiles";
+        String uri = "/profiles";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ProfileListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
-
 }

@@ -1,6 +1,5 @@
 package be.woutschoovaerts.mollie;
 
-import kong.unirest.Unirest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,6 @@ class ClientBuilderTest {
 
     @AfterEach
     public void tearDown() {
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -39,9 +37,6 @@ class ClientBuilderTest {
                 .build();
 
         assertNotNull(client);
-        assertNotNull(Unirest.config().getProxy());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -53,8 +48,6 @@ class ClientBuilderTest {
 
         assertNotNull(client);
         assertEquals("org-token", client.getConfig().getBearerToken());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -67,8 +60,6 @@ class ClientBuilderTest {
 
         assertNotNull(client);
         assertTrue(client.getConfig().isTestMode());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -80,7 +71,5 @@ class ClientBuilderTest {
 
         assertNotNull(client);
         assertEquals(Optional.of("my-user-agent-string"), client.getConfig().getUserAgentString());
-
-        Unirest.config().shutDown(true);
     }
 }

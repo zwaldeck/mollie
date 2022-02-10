@@ -6,15 +6,10 @@ import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
 import be.woutschoovaerts.mollie.data.refund.RefundResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Order API <a href="https://docs.mollie.com/reference/v2/orders-api/create-order">Mollie docs</a>
@@ -61,16 +56,10 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse createOrder(OrderRequest body, QueryParams params) throws MollieException {
-        try {
-            String uri = "/orders";
+        String uri = "/orders";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -93,16 +82,10 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse getOrder(String orderId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/orders/" + orderId;
+        String uri = "/orders/" + orderId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -123,18 +106,10 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<OrderListResponse> getOrders(QueryParams params) throws MollieException {
-        try {
-            String uri = "/orders";
+        String uri = "/orders";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<OrderListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -164,16 +139,10 @@ public class OrderHandler extends AbstractHandler {
      */
     public OrderResponse updateOrder(String orderId, OrderUpdateRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId;
+        String uri = "/orders/" + orderId;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return patch(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -218,16 +187,10 @@ public class OrderHandler extends AbstractHandler {
      */
     public OrderResponse updateOrderLine(String orderId, String lineId, OrderLineUpdateRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/lines/" + lineId;
+        String uri = "/orders/" + orderId + "/lines/" + lineId;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return patch(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -264,16 +227,10 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse cancelOrder(String orderId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/orders/" + orderId;
+        String uri = "/orders/" + orderId;
 
-            HttpResponse<String> response = delete(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return delete(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -313,14 +270,10 @@ public class OrderHandler extends AbstractHandler {
      */
     public void cancelOrderLines(String orderId, CancelOrderLinesRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/lines";
+        String uri = "/orders/" + orderId + "/lines";
 
-            delete(uri, body, params);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        delete(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -354,16 +307,10 @@ public class OrderHandler extends AbstractHandler {
      */
     public PaymentResponse createOrderPayment(String orderId, OrderPaymentRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/payments";
+        String uri = "/orders/" + orderId + "/payments";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -397,16 +344,10 @@ public class OrderHandler extends AbstractHandler {
      */
     public RefundResponse createOrderRefund(String orderId, OrderRefundRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/refunds";
+        String uri = "/orders/" + orderId + "/refunds";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -430,17 +371,9 @@ public class OrderHandler extends AbstractHandler {
      */
     public Pagination<OrderRefundListResponse> getOrderRefunds(String orderId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/refunds";
+        String uri = "/orders/" + orderId + "/refunds";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<OrderRefundListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

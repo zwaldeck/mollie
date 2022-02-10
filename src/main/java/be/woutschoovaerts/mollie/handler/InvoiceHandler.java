@@ -5,15 +5,10 @@ import be.woutschoovaerts.mollie.data.invoice.InvoiceResponse;
 import be.woutschoovaerts.mollie.data.invoice.InvoicesListResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Invoices API <a href="https://docs.mollie.com/reference/v2/invoices-api/get-invoice">Mollie docs</a>
@@ -46,18 +41,10 @@ public class InvoiceHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<InvoicesListResponse> getInvoices(QueryParams params) throws MollieException {
-        try {
-            String uri = "/invoices";
+        String uri = "/invoices";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<InvoicesListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -84,15 +71,9 @@ public class InvoiceHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public InvoiceResponse getInvoice(String id, QueryParams params) throws MollieException {
-        try {
-            String uri = "/invoices/" + id;
+        String uri = "/invoices/" + id;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), InvoiceResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

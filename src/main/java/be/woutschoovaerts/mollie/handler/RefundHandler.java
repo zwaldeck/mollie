@@ -6,15 +6,10 @@ import be.woutschoovaerts.mollie.data.refund.RefundRequest;
 import be.woutschoovaerts.mollie.data.refund.RefundResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Refund API <a href="https://docs.mollie.com/reference/v2/refunds-api/create-refund">Mollie docs</a>
@@ -90,16 +85,10 @@ public class RefundHandler extends AbstractHandler {
      */
     public RefundResponse createRefund(String paymentId, RefundRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/refunds";
+        String uri = "/payments/" + paymentId + "/refunds";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -124,16 +113,10 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public RefundResponse getRefund(String paymentId, String refundId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/refunds/" + refundId;
+        String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
 
@@ -161,15 +144,10 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void cancelRefund(String paymentId, String refundId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/refunds/" + refundId;
+        String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            HttpResponse<String> response = delete(uri, params);
-
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        delete(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -198,18 +176,10 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<RefundListResponse> listRefunds(QueryParams params) throws MollieException {
-        try {
-            String uri = "/refunds";
+        String uri = "/refunds";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<RefundListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
 
@@ -241,17 +211,9 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<RefundListResponse> listRefunds(String paymentId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/refunds";
+        String uri = "/payments/" + paymentId + "/refunds";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<RefundListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

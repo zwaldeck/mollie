@@ -34,23 +34,15 @@ public final class ClientBuilder {
     }
 
     public Client build() {
-        if (apiKey == null) {
-            throw new IllegalArgumentException("API key not set. Please use withApiKey(key)");
-        }
+        Client client = new Client(apiKey, proxy);
 
-        Client client = proxy != null ? new Client(apiKey, proxy) : new Client(apiKey);
-
-        if (organizationToken != null) {
-            client.setAccessToken(organizationToken);
-        }
+        client.setAccessToken(organizationToken);
 
         if (testMode) {
             client.enableTestMode();
         }
 
-        if (userAgentString != null) {
-            client.setUserAgentString(userAgentString);
-        }
+        client.setUserAgentString(userAgentString);
 
         return client;
     }

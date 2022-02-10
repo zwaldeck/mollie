@@ -3,14 +3,10 @@ package be.woutschoovaerts.mollie.handler;
 import be.woutschoovaerts.mollie.data.organization.OrganizationResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the organizations API <a href="https://docs.mollie.com/reference/v2/organizations-api/current-organization">Mollie docs</a>
@@ -43,17 +39,10 @@ public class OrganizationHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrganizationResponse getMyOrganization(QueryParams params) throws MollieException {
-        try {
-            String uri = "/organizations/me";
+        String uri = "/organizations/me";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OrganizationResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -80,16 +69,9 @@ public class OrganizationHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrganizationResponse getOrganization(String organizationId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/organizations/" + organizationId;
+        String uri = "/organizations/" + organizationId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OrganizationResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

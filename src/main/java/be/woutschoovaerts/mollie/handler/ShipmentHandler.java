@@ -7,15 +7,10 @@ import be.woutschoovaerts.mollie.data.shipment.ShipmentResponse;
 import be.woutschoovaerts.mollie.data.shipment.ShipmentUpdateRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the shipments API <a href="https://docs.mollie.com/reference/v2/shipments-api/create-shipment">Mollie docs</a>
@@ -61,16 +56,10 @@ public class ShipmentHandler extends AbstractHandler {
      */
     public ShipmentResponse createShipment(String orderId, ShipmentRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/shipments";
+        String uri = "/orders/" + orderId + "/shipments";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ShipmentResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -96,16 +85,10 @@ public class ShipmentHandler extends AbstractHandler {
      */
     public ShipmentResponse getShipment(String orderId, String shipmentId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
+        String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ShipmentResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -129,18 +112,10 @@ public class ShipmentHandler extends AbstractHandler {
      */
     public Pagination<ShipmentListResponse> getShipments(String orderId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/shipments";
+        String uri = "/orders/" + orderId + "/shipments";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ShipmentListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
 
@@ -169,15 +144,9 @@ public class ShipmentHandler extends AbstractHandler {
     public ShipmentResponse updateShipment(String orderId, String shipmentId,
                                            ShipmentUpdateRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
+        String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ShipmentResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return patch(uri, body, params, new TypeReference<>() {
+        });
     }
 }

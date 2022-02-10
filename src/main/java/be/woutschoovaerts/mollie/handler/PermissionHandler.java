@@ -6,15 +6,10 @@ import be.woutschoovaerts.mollie.data.permission.PermissionListResponse;
 import be.woutschoovaerts.mollie.data.permission.PermissionResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Permissions API <a href="https://docs.mollie.com/reference/v2/permissions-api/get-permission">Mollie docs</a>
@@ -49,17 +44,10 @@ public class PermissionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PermissionResponse getPermission(Permission permission, QueryParams params) throws MollieException {
-        try {
-            String uri = "/permissions/" + permission.getValue();
+        String uri = "/permissions/" + permission.getValue();
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), PermissionResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -80,17 +68,9 @@ public class PermissionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PermissionListResponse> getPermissions(QueryParams params) throws MollieException {
-        try {
-            String uri = "/permissions";
+        String uri = "/permissions";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<PermissionListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

@@ -2,8 +2,9 @@ package be.woutschoovaerts.mollie;
 
 import be.woutschoovaerts.mollie.handler.*;
 import be.woutschoovaerts.mollie.util.Config;
-import kong.unirest.Unirest;
 import lombok.Getter;
+
+import java.util.Optional;
 
 public class Client {
 
@@ -25,10 +26,8 @@ public class Client {
         config.setApiKey(apiKey);
         config.setAccessToken(null);
         config.setTestMode(false);
-
-        initUniRest(proxy);
+        config.setProxy(Optional.ofNullable(proxy));
     }
-
 
     /**
      * Set the access token, the requests will use the access token instead of the api key
@@ -65,7 +64,7 @@ public class Client {
      * Set the user agent string
      */
     public void setUserAgentString(String userAgentString) {
-        config.setUserAgentString(userAgentString);
+        config.setUserAgentString(Optional.ofNullable(userAgentString));
     }
 
     /**
@@ -236,14 +235,5 @@ public class Client {
      */
     public WalletHandler wallet() {
         return new WalletHandler(endpoint, config);
-    }
-
-    private void initUniRest(ClientProxy proxy) {
-        Unirest.config()
-            .setObjectMapper(new OAuthAwareObjectMapper(config));
-
-        if (proxy != null) {
-            Unirest.config().proxy(proxy.getHost(), proxy.getPort(), proxy.getUsername(), proxy.getPassword());
-        }
     }
 }

@@ -5,15 +5,10 @@ import be.woutschoovaerts.mollie.data.capture.CaptureResponse;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the capture API <a href="https://docs.mollie.com/reference/v2/captures-api/get-capture">Mollie docs</a>
@@ -55,18 +50,10 @@ public class CaptureHandler extends AbstractHandler {
      */
     public CaptureResponse getCapture(String paymentId, String captureId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/captures/" + captureId;
+        String uri = "/payments/" + paymentId + "/captures/" + captureId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<CaptureResponse>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -93,18 +80,9 @@ public class CaptureHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<CaptureListResponse> listCaptures(String paymentId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/captures";
+        String uri = "/payments/" + paymentId + "/captures";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<CaptureListResponse>>() {
-                    });
-
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

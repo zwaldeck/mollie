@@ -1,6 +1,5 @@
 package be.woutschoovaerts.mollie;
 
-import kong.unirest.Unirest;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -15,8 +14,6 @@ class ClientTest {
 
         assertEquals("https://api.mollie.com/v2", client.getEndpoint());
         assertEquals("apiKey", client.getConfig().getApiKey());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -26,8 +23,6 @@ class ClientTest {
         client.setAccessToken("access_token");
 
         assertEquals("access_token", client.getConfig().getAccessToken());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -41,8 +36,6 @@ class ClientTest {
         client.revokeAccessToken();
 
         assertNull(client.getConfig().getAccessToken());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -51,8 +44,6 @@ class ClientTest {
         client.enableTestMode();
 
         assertTrue(client.getConfig().isTestMode());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -62,8 +53,6 @@ class ClientTest {
         client.disableTestMode();
 
         assertFalse(client.getConfig().isTestMode());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -72,8 +61,6 @@ class ClientTest {
         client.setUserAgentString("user_agent/version");
 
         assertEquals(Optional.of("user_agent/version"), client.getConfig().getUserAgentString());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -81,8 +68,6 @@ class ClientTest {
         Client client = new Client("apiKey");
 
         assertEquals(Optional.empty(), client.getConfig().getUserAgentString());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -92,8 +77,6 @@ class ClientTest {
 
         assertEquals("apiKey1", client1.getConfig().getApiKey());
         assertEquals("apiKey2", client2.getConfig().getApiKey());
-
-        Unirest.config().shutDown(true);
     }
 
     @Test
@@ -107,12 +90,9 @@ class ClientTest {
         Client client = new Client("apiKey1", clientProxy);
 
         assertEquals("apiKey1", client.getConfig().getApiKey());
-        assertEquals("localhost", Unirest.config().getProxy().getHost());
-        assertEquals(9999, Unirest.config().getProxy().getPort());
-        assertEquals("wout", Unirest.config().getProxy().getUsername());
-        assertEquals("securityIsKey", Unirest.config().getProxy().getPassword());
-
-        Unirest.config().shutDown(true);
+        assertEquals("localhost", client.getConfig().getProxy().get().getHost());
+        assertEquals(9999, client.getConfig().getProxy().get().getPort());
+        assertEquals("wout", client.getConfig().getProxy().get().getUsername());
+        assertEquals("securityIsKey", client.getConfig().getProxy().get().getPassword());
     }
-
 }

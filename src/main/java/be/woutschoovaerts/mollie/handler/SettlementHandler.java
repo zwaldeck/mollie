@@ -9,15 +9,10 @@ import be.woutschoovaerts.mollie.data.settlement.SettlementListResponse;
 import be.woutschoovaerts.mollie.data.settlement.SettlementResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Settlements API <a href="https://docs.mollie.com/reference/v2/settlements-api/get-settlement">Mollie docs</a>
@@ -56,17 +51,10 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getSettlement(String id, QueryParams params) throws MollieException {
-        try {
-            String uri = "/settlements/" + id;
+        String uri = "/settlements/" + id;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SettlementResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -88,18 +76,10 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<SettlementListResponse> getSettlements(QueryParams params) throws MollieException {
-        try {
-            String uri = "/settlements";
+        String uri = "/settlements";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<SettlementListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -120,17 +100,10 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getNextSettlement(QueryParams params) throws MollieException {
-        try {
-            String uri = "/settlements/next";
+        String uri = "/settlements/next";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SettlementResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -151,17 +124,10 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getOpenSettlement(QueryParams params) throws MollieException {
-        try {
-            String uri = "/settlements/open";
+        String uri = "/settlements/open";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SettlementResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -189,18 +155,10 @@ public class SettlementHandler extends AbstractHandler {
      */
     public Pagination<PaymentListResponse> getSettlementPayments(String settlementId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/settlements/" + settlementId + "/payments";
+        String uri = "/settlements/" + settlementId + "/payments";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<PaymentListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -224,18 +182,10 @@ public class SettlementHandler extends AbstractHandler {
      */
     public Pagination<RefundListResponse> getSettlementRefund(String settlementId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/settlements/" + settlementId + "/refunds";
+        String uri = "/settlements/" + settlementId + "/refunds";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<RefundListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -259,18 +209,10 @@ public class SettlementHandler extends AbstractHandler {
      */
     public Pagination<ChargebackListResponse> getSettlementChargebacks(String settlementId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/settlements/" + settlementId + "/chargebacks";
+        String uri = "/settlements/" + settlementId + "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ChargebackListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -298,18 +240,9 @@ public class SettlementHandler extends AbstractHandler {
      */
     public Pagination<CaptureListResponse> getSettlementCaptures(String settlementId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/settlements/" + settlementId + "/captures";
+        String uri = "/settlements/" + settlementId + "/captures";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<CaptureListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
-
 }

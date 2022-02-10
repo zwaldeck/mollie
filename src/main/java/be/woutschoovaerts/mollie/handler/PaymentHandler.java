@@ -6,15 +6,12 @@ import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 // TODO support Mollie Connect/OAuth parameters
 // TODO support QR codes
@@ -53,16 +50,10 @@ public class PaymentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse createPayment(PaymentRequest body, QueryParams params) throws MollieException {
-        try {
-            String uri = "/payments";
+        String uri = "/payments";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -86,16 +77,34 @@ public class PaymentHandler extends AbstractHandler {
      */
     public PaymentResponse getPayment(String paymentId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId;
+        String uri = "/payments/" + paymentId;
 
-            HttpResponse<String> response = get(uri, params);
+        return get(uri, params, new TypeReference<>() {
+        });
+    }
 
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+    /**
+     * Asynchronously retrieve a single payment object by its payment token.
+     *
+     * @param paymentId payment token
+     * @return The CompletableFuture payment response from mollie
+     */
+    public CompletableFuture<PaymentResponse> getPaymentASync(String paymentId) {
+        return getPaymentASync(paymentId, QueryParams.EMPTY);
+    }
+
+    /**
+     * Asynchronously retrieve a single payment object by its payment token.
+     *
+     * @param paymentId payment token
+     * @param params    A map of query parameters
+     * @return The CompletableFuture payment response from mollie
+     */
+    public CompletableFuture<PaymentResponse> getPaymentASync(String paymentId, QueryParams params) {
+        String uri = "/payments/" + paymentId;
+
+        return getASync(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -126,16 +135,10 @@ public class PaymentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse cancelPayment(String paymentId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId;
+        String uri = "/payments/" + paymentId;
 
-            HttpResponse<String> response = delete(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return delete(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -161,17 +164,9 @@ public class PaymentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PaymentListResponse> listPayments(QueryParams params) throws MollieException {
-        try {
-            String uri = "/payments";
+        String uri = "/payments";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<PaymentListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

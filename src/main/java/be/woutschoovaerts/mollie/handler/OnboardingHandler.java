@@ -4,14 +4,10 @@ import be.woutschoovaerts.mollie.data.onboarding.OnboardingRequest;
 import be.woutschoovaerts.mollie.data.onboarding.OnboardingResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the onboarding API <a href="https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status">Mollie docs</a>
@@ -44,17 +40,10 @@ public class OnboardingHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OnboardingResponse getOnboardingStatus(QueryParams params) throws MollieException {
-        try {
-            String uri = "/onboarding/me";
+        String uri = "/onboarding/me";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OnboardingResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -75,14 +64,9 @@ public class OnboardingHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void submitOnboardingData(OnboardingRequest body, QueryParams params) throws MollieException {
-        try {
-            String uri = "/onboarding/me";
+        String uri = "/onboarding/me";
 
-            post(uri, body, params);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        post(uri, body, params, new TypeReference<>() {
+        });
     }
-
 }

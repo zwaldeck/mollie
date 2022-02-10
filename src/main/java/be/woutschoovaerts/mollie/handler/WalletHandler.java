@@ -1,16 +1,13 @@
 package be.woutschoovaerts.mollie.handler;
 
-import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionResponse;
 import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionRequest;
+import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 public class WalletHandler extends AbstractHandler {
 
@@ -43,14 +40,7 @@ public class WalletHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ApplePaySessionResponse requestApplePaySession(ApplePaySessionRequest body) throws MollieException {
-        try {
-            HttpResponse<String> response = post(WALLETS_APPLEPAY_SESSIONS_URI, body);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), ApplePaySessionResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(WALLETS_APPLEPAY_SESSIONS_URI, body, QueryParams.EMPTY, new TypeReference<>() {
+        });
     }
 }

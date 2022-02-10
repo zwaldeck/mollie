@@ -5,15 +5,10 @@ import be.woutschoovaerts.mollie.data.method.MethodListResponse;
 import be.woutschoovaerts.mollie.data.method.MethodResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Method API <a href="https://docs.mollie.com/reference/v2/methods-api/list-methods">Mollie docs</a>
@@ -58,18 +53,10 @@ public class MethodHandler extends AbstractHandler {
      * @throws MollieException When something goes wrong
      */
     public Pagination<MethodListResponse> listMethods(QueryParams params) throws MollieException {
-        try {
-            String uri = "/methods";
+        String uri = "/methods";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<MethodListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -92,17 +79,9 @@ public class MethodHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public MethodResponse getMethod(String methodId, QueryParams params) throws MollieException {
-        try {
-            String uri = "/methods/" + methodId;
+        String uri = "/methods/" + methodId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<MethodResponse>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }

@@ -1,3 +1,7 @@
+## 4.0.0
+- removed unirest dependency and replaced with JDK11 HttpClient
+- because of this only JDK11+ is supported, revert to version 3.6.2 for JDK8 support
+
 ## 3.6.2
  - add applePayPaymentToken to PaymentRequest
  - rename MiscellaneousHandler to WalletHandler

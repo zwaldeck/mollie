@@ -8,15 +8,10 @@ import be.woutschoovaerts.mollie.data.subscription.SubscriptionResponse;
 import be.woutschoovaerts.mollie.data.subscription.UpdateSubscriptionRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Subscriptions API <a href="https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription">Mollie docs</a>
@@ -54,17 +49,10 @@ public class SubscriptionHandler extends AbstractHandler {
      */
     public SubscriptionResponse createSubscription(String customerId, SubscriptionRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/customers/" + customerId + "/subscriptions";
+        String uri = "/customers/" + customerId + "/subscriptions";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SubscriptionResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return post(uri, body, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -90,17 +78,10 @@ public class SubscriptionHandler extends AbstractHandler {
      */
     public SubscriptionResponse getSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
+        String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SubscriptionResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -126,17 +107,10 @@ public class SubscriptionHandler extends AbstractHandler {
      */
     public SubscriptionResponse cancelSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
+        String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            HttpResponse<String> response = delete(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SubscriptionResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return delete(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -161,18 +135,10 @@ public class SubscriptionHandler extends AbstractHandler {
      */
     public Pagination<SubscriptionListResponse> listSubscriptions(String customerId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/customers/" + customerId + "/subscriptions";
+        String uri = "/customers/" + customerId + "/subscriptions";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<SubscriptionListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -199,18 +165,10 @@ public class SubscriptionHandler extends AbstractHandler {
      */
     public Pagination<PaymentListResponse> listSubscriptionPayments(String customerId, String subscriptionId,
                                                                     QueryParams params) throws MollieException {
-        try {
-            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments";
+        String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<PaymentListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -244,16 +202,9 @@ public class SubscriptionHandler extends AbstractHandler {
     public SubscriptionResponse updateSubscription(String customerId, String subscriptionId,
                                                    UpdateSubscriptionRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
+        String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), SubscriptionResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return patch(uri, body, params, new TypeReference<>() {
+        });
     }
 }

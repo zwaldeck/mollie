@@ -5,15 +5,10 @@ import be.woutschoovaerts.mollie.data.chargeback.ChargebackResponse;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
-import kong.unirest.UnirestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Charge back API <a href="https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback">Mollie docs</a>
@@ -51,18 +46,10 @@ public class ChargebackHandler extends AbstractHandler {
      */
     public ChargebackResponse getChargeback(String paymentId, String chargebackId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/chargebacks/" + chargebackId;
+        String uri = "/payments/" + paymentId + "/chargebacks/" + chargebackId;
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<ChargebackResponse>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -87,18 +74,10 @@ public class ChargebackHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ChargebackListResponse> listChargebacks(QueryParams params) throws MollieException {
-        try {
-            String uri = "/chargebacks";
+        String uri = "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ChargebackListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 
     /**
@@ -127,17 +106,9 @@ public class ChargebackHandler extends AbstractHandler {
      */
     public Pagination<ChargebackListResponse> listChargebacks(String paymentId, QueryParams params)
             throws MollieException {
-        try {
-            String uri = "/payments/" + paymentId + "/chargebacks";
+        String uri = "/payments/" + paymentId + "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ChargebackListResponse>>() {
-                    });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        return get(uri, params, new TypeReference<>() {
+        });
     }
 }
