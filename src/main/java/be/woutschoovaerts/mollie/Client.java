@@ -222,14 +222,6 @@ public class Client {
     }
 
     /**
-     * @deprecated replaced by {@link #wallet()}
-     */
-    @Deprecated
-    public MiscellaneousHandler miscellaneous() {
-        return new MiscellaneousHandler(endpoint, config);
-    }
-
-    /**
      * Handles wallet actions
      *
      * @return WalletHandler object
