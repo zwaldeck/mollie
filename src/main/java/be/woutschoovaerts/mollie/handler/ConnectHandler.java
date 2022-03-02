@@ -23,6 +23,7 @@ public class ConnectHandler extends AbstractHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ConnectHandler.class);
     private static final String OAUTH_2_TOKENS_URI = "https://api.mollie.com/oauth2/tokens";
+    private static final String OAUTH_2_AUTHORIZE_URI = "https://www.mollie.com/oauth2/authorize";
 
     public ConnectHandler(Config config) {
         super(null, log, config);
@@ -39,7 +40,7 @@ public class ConnectHandler extends AbstractHandler {
      * @return The authorize URL
      */
     public String createAuthorizeUrl(AuthorizeRequest request) {
-        return "https://www.mollie.com/oauth2/authorize" + convertAuthorizeRequestToQueryParams(request);
+        return OAUTH_2_AUTHORIZE_URI + convertAuthorizeRequestToQueryParams(request);
     }
 
     /**

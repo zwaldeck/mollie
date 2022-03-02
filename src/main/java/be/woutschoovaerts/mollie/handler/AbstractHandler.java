@@ -1,5 +1,6 @@
 package be.woutschoovaerts.mollie.handler;
 
+import be.woutschoovaerts.mollie.ClientProxy;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
@@ -8,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -21,9 +21,12 @@ import java.net.http.HttpResponse;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.Executors;
+
+import static java.lang.String.format;
 
 public abstract class AbstractHandler {
 
@@ -211,12 +214,9 @@ public abstract class AbstractHandler {
 
         map.put("Content-Type", "application/json");
         map.put("Authorization", "Bearer " + config.getBearerToken());
-        config.getProxy().ifPresent(proxy -> {
-            if (StringUtils.isNotEmpty(proxy.getUsername()) && StringUtils.isNotEmpty(proxy.getPassword())) {
-                map.put("Proxy-Authorization", "Basic " + getBase64String(proxy.getUsername(), proxy.getPassword()));
-            }
-        });
-
+        config.getProxy()
+                .filter(proxy -> Objects.nonNull(proxy.getUsername()) && Objects.nonNull(proxy.getPassword()))
+                .ifPresent(proxy -> map.put("Proxy-Authorization", getBasicAuth(proxy)));
         config.getUserAgentString().ifPresent(userAgentString -> map.put("User-Agent", userAgentString));
 
         return map;
@@ -241,13 +241,17 @@ public abstract class AbstractHandler {
         return HttpRequest.newBuilder()
                 .uri(url)
                 .header("Content-Type", "application/x-www-form-urlencoded")
-                .header("Authorization", "Basic " + getBase64String(clientId, clientSecret))
+                .header("Authorization", getBasicAuth(clientId, clientSecret))
                 .method(method, HttpRequest.BodyPublishers.ofString(body))
                 .build();
     }
 
-    private String getBase64String(String clientId, String clientSecret) {
-        return new String(Base64.getEncoder().encode(String.format("%s:%s", clientId, clientSecret).getBytes()));
+    private String getBasicAuth(ClientProxy proxy) {
+        return getBasicAuth(proxy.getUsername(), proxy.getPassword());
+    }
+
+    private String getBasicAuth(String clientId, String clientSecret) {
+        return "Basic " + new String(Base64.getEncoder().encode(format("%s:%s", clientId, clientSecret).getBytes()));
     }
 
     private HttpRequest.Builder httpRequestBuilder(URI url) {

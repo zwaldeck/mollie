@@ -37,6 +37,8 @@ class ClientBuilderTest {
                 .build();
 
         assertNotNull(client);
+        assertTrue(client.getConfig().getProxy().isPresent());
+        assertEquals(client.getConfig().getProxy().get().getUsername(), "wout");
     }
 
     @Test
