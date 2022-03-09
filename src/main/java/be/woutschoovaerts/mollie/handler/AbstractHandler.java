@@ -4,6 +4,7 @@ import be.woutschoovaerts.mollie.ClientProxy;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
+import be.woutschoovaerts.mollie.util.QueryParamMapper;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -62,7 +63,29 @@ public abstract class AbstractHandler {
         }
     }
 
+    protected <T> T get(String uri, QueryParamMapper params, TypeReference<T> clazz) throws MollieException {
+        final HttpRequest httpRequest = buildHttpRequest(uri, params);
+
+        try {
+            HttpResponse<String> response = httpClient
+                    .send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            validateResponse(response);
+
+            return mapper.readValue(response.body(), clazz);
+        } catch (IOException | InterruptedException e) {
+            throw new MollieException(e);
+        }
+    }
+
     protected <T> CompletableFuture<T> getASync(String uri, QueryParams params, TypeReference<T> clazz) {
+        final HttpRequest httpRequest = buildHttpRequest(uri, params);
+
+        return httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
+                .thenApply(this::validateASyncResponse)
+                .thenApplyAsync(stringHttpResponse -> readResponse(stringHttpResponse, clazz));
+    }
+
+    protected <T> CompletableFuture<T> getASync(String uri, QueryParamMapper params, TypeReference<T> clazz) {
         final HttpRequest httpRequest = buildHttpRequest(uri, params);
 
         return httpClient.sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
@@ -222,7 +245,6 @@ public abstract class AbstractHandler {
         return map;
     }
 
-
     private HttpRequest buildHttpRequest(String uri, QueryParams params) {
         if (config.shouldAddTestMode() && !params.containsKey("testmode")) {
             params.put("testmode", "true");
@@ -230,7 +252,17 @@ public abstract class AbstractHandler {
 
         URI url = URI.create(baseUrl + uri + params.toString());
 
-        log.debug("Executing ASync 'GET {}'", url);
+        log.debug("Executing 'GET {}'", url);
+
+        return httpRequestBuilder(url)
+                .GET()
+                .build();
+    }
+
+    private HttpRequest buildHttpRequest(String uri, QueryParamMapper params) {
+        URI url = URI.create(baseUrl + uri + params.toQueryParams());
+
+        log.debug("Executing 'GET {}'", url);
 
         return httpRequestBuilder(url)
                 .GET()

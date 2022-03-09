@@ -1,6 +1,7 @@
 package be.woutschoovaerts.mollie.handler;
 
 import be.woutschoovaerts.mollie.data.common.Pagination;
+import be.woutschoovaerts.mollie.data.method.MethodListRequest;
 import be.woutschoovaerts.mollie.data.method.MethodListResponse;
 import be.woutschoovaerts.mollie.data.method.MethodResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
@@ -28,9 +29,6 @@ public class MethodHandler extends AbstractHandler {
      *
      * For test mode, payment methods are returned that are enabled in the Dashboard (or the activation is pending).
      * For live mode, payment methods are returned that have been activated on your account and have been enabled in the Dashboard.
-     * When using the first sequence type, methods will be returned if they can be used as a first payment in a recurring sequence and if they are enabled in the Dashboard.
-     *
-     * When using the recurring sequence type, payment methods that can be used for recurring payments or subscriptions will be returned. Enabling / disabling methods in the dashboard does not affect how they can be used for recurring payments.
      *
      * @return The methods paginated
      * @throws MollieException When something goes wrong
@@ -56,6 +54,13 @@ public class MethodHandler extends AbstractHandler {
         String uri = "/methods";
 
         return get(uri, params, new TypeReference<>() {
+        });
+    }
+
+    public Pagination<MethodListResponse> listMethods(MethodListRequest body) throws MollieException {
+        String uri = "/methods";
+
+        return get(uri, body, new TypeReference<>() {
         });
     }
 

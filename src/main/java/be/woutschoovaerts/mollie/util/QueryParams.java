@@ -11,8 +11,9 @@ public class QueryParams extends LinkedHashMap<String, String> {
     /**
      * Generate the query string from all the [key, value] pairs
      *
-     * @return the query string starting with ?
+     * @return the query string starting with ?, or empty string if none
      */
+    @Override
     public String toString() {
         if (size() == 0) {
             return "";
