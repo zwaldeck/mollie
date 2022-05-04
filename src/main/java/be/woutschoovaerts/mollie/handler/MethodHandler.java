@@ -73,6 +73,40 @@ public class MethodHandler extends AbstractHandler {
     }
 
     /**
+     * Retrieve all payment methods that Mollie offers and can be activated by the Organization.
+     * The results are not paginated. New payment methods can be activated via the Enable payment method endpoint in the Profiles API.
+     *
+     * @return The methods paginated
+     * @throws MollieException When something goes wrong
+     */
+    public Pagination<MethodListResponse> listAllMethods() throws MollieException {
+        return listAllMethods(new QueryParams());
+    }
+
+    /**
+     * Retrieve all payment methods that Mollie offers and can be activated by the Organization.
+     * The results are not paginated. New payment methods can be activated via the Enable payment method endpoint in the Profiles API.
+     *
+     * @param params A map of query parameters
+     * @return The methods paginated
+     * @throws MollieException When something goes wrong
+     */
+    public Pagination<MethodListResponse> listAllMethods(QueryParams params) throws MollieException {
+        try {
+            String uri = "/methods/all";
+
+            HttpResponse<String> response = get(uri, params);
+
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<MethodListResponse>>() {
+                    });
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    /**
      * Retrieve a single method by its ID. Note that if a method is not available on the website profile a status 404 Not found is returned. When the method is not enabled, a status 403 Forbidden is returned.
      *
      * @param methodId the method id

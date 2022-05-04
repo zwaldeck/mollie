@@ -29,6 +29,13 @@ class MethodHandlerIntegrationTest {
     }
 
     @Test
+    void listAllMethods() throws MollieException {
+        Pagination<MethodListResponse> methods = client.methods().listAllMethods();
+
+        assertNotNull(methods);
+    }
+
+    @Test
     void getMethod() throws MollieException {
         MethodResponse method = client.methods().getMethod("ideal");
 
