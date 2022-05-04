@@ -1,9 +1,12 @@
+## 3.6.3
+ - Deprecated QueryParams.EMPTY
+ - Added the list all payment methods endpoint
+
 ## 3.6.2
  - add applePayPaymentToken to PaymentRequest
  - rename MiscellaneousHandler to WalletHandler
  - Updated Log4j to 2.17.1
  - Bumped all other dependencies
- - Last version that will work on JDK 8
 
 ## 3.6.1
  - Made field 'RedirectUri' in TokenRequest an optional
