@@ -39,7 +39,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse createProfile(ProfileRequest body) throws MollieException {
-        return createProfile(body, QueryParams.EMPTY);
+        return createProfile(body, new QueryParams());
     }
 
     /**
@@ -71,7 +71,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse getProfile(String id) throws MollieException {
-        return getProfile(id, QueryParams.EMPTY);
+        return getProfile(id, new QueryParams());
     }
 
     /**
@@ -104,7 +104,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse getMyProfile() throws MollieException {
-        return getMyProfile(QueryParams.EMPTY);
+        return getMyProfile(new QueryParams());
     }
 
     /**
@@ -138,7 +138,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse updateProfile(String id, ProfileRequest body) throws MollieException {
-        return updateProfile(id, body, QueryParams.EMPTY);
+        return updateProfile(id, body, new QueryParams());
     }
 
     /**
@@ -170,7 +170,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void deleteProfile(String id) throws MollieException {
-        deleteProfile(id, QueryParams.EMPTY);
+        deleteProfile(id, new QueryParams());
     }
 
     /**
@@ -200,7 +200,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public MethodResponse enableMyPaymentMethod(PaymentMethod paymentMethod) throws MollieException {
-        return enablePaymentMethod("me", paymentMethod, QueryParams.EMPTY);
+        return enablePaymentMethod("me", paymentMethod, new QueryParams());
     }
 
     /**
@@ -225,7 +225,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public MethodResponse enablePaymentMethod(String profileId, PaymentMethod paymentMethod) throws MollieException {
-        return enablePaymentMethod(profileId, paymentMethod, QueryParams.EMPTY);
+        return enablePaymentMethod(profileId, paymentMethod, new QueryParams());
     }
 
     /**
@@ -258,7 +258,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void disableMyPaymentMethod(PaymentMethod paymentMethod) throws MollieException {
-        enablePaymentMethod("me", paymentMethod, QueryParams.EMPTY);
+        enablePaymentMethod("me", paymentMethod, new QueryParams());
     }
 
     /**
@@ -281,7 +281,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void disablePaymentMethod(String profileId, PaymentMethod paymentMethod) throws MollieException {
-        disablePaymentMethod(profileId, paymentMethod, QueryParams.EMPTY);
+        disablePaymentMethod(profileId, paymentMethod, new QueryParams());
     }
 
     /**
@@ -311,7 +311,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ProfileListResponse> getProfiles() throws MollieException {
-        return getProfiles(QueryParams.EMPTY);
+        return getProfiles(new QueryParams());
     }
 
     /**

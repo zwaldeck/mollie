@@ -40,7 +40,7 @@ public class MandateHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public MandateResponse createMandate(String customerId, MandateRequest body) throws MollieException {
-        return createMandate(customerId, body, QueryParams.EMPTY);
+        return createMandate(customerId, body, new QueryParams());
     }
 
     /**
@@ -77,7 +77,7 @@ public class MandateHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public MandateResponse getMandate(String customerId, String mandateId) throws MollieException {
-        return getMandate(customerId, mandateId, QueryParams.EMPTY);
+        return getMandate(customerId, mandateId, new QueryParams());
     }
 
     /**
@@ -111,7 +111,7 @@ public class MandateHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void revokeMandate(String customerId, String mandateId) throws MollieException {
-        revokeMandate(customerId, mandateId, QueryParams.EMPTY);
+        revokeMandate(customerId, mandateId, new QueryParams());
     }
 
     /**
@@ -145,7 +145,7 @@ public class MandateHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<MandateListResponse> listMandates(String customerId) throws MollieException {
-        return listMandates(customerId, QueryParams.EMPTY);
+        return listMandates(customerId, new QueryParams());
     }
 
 

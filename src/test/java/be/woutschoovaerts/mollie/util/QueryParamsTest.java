@@ -18,6 +18,6 @@ class QueryParamsTest {
 
     @Test
     void toString_empty() {
-        assertEquals("", QueryParams.EMPTY.toString());
+        assertEquals("", new QueryParams().toString());
     }
 }

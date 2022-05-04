@@ -40,7 +40,7 @@ public class SubscriptionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SubscriptionResponse createSubscription(String customerId, SubscriptionRequest body) throws MollieException {
-        return createSubscription(customerId, body, QueryParams.EMPTY);
+        return createSubscription(customerId, body, new QueryParams());
     }
 
     /**
@@ -76,7 +76,7 @@ public class SubscriptionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SubscriptionResponse getSubscription(String customerId, String subscriptionId) throws MollieException {
-        return getSubscription(customerId, subscriptionId, QueryParams.EMPTY);
+        return getSubscription(customerId, subscriptionId, new QueryParams());
     }
 
     /**
@@ -112,7 +112,7 @@ public class SubscriptionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SubscriptionResponse cancelSubscription(String customerId, String subscriptionId) throws MollieException {
-        return cancelSubscription(customerId, subscriptionId, QueryParams.EMPTY);
+        return cancelSubscription(customerId, subscriptionId, new QueryParams());
     }
 
     /**
@@ -147,7 +147,7 @@ public class SubscriptionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<SubscriptionListResponse> listSubscriptions(String customerId) throws MollieException {
-        return listSubscriptions(customerId, QueryParams.EMPTY);
+        return listSubscriptions(customerId, new QueryParams());
     }
 
 
@@ -185,7 +185,7 @@ public class SubscriptionHandler extends AbstractHandler {
      */
     public Pagination<PaymentListResponse> listSubscriptionPayments(String customerId, String subscriptionId)
             throws MollieException {
-        return listSubscriptionPayments(customerId, subscriptionId, QueryParams.EMPTY);
+        return listSubscriptionPayments(customerId, subscriptionId, new QueryParams());
     }
 
     /**
@@ -226,7 +226,7 @@ public class SubscriptionHandler extends AbstractHandler {
      */
     public SubscriptionResponse updateSubscription(String customerId, String subscriptionId,
                                                    UpdateSubscriptionRequest body) throws MollieException {
-        return updateSubscription(customerId, subscriptionId, body, QueryParams.EMPTY);
+        return updateSubscription(customerId, subscriptionId, body, new QueryParams());
     }
 
     /**

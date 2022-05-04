@@ -33,7 +33,7 @@ public class OnboardingHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OnboardingResponse getOnboardingStatus() throws MollieException {
-        return getOnboardingStatus(QueryParams.EMPTY);
+        return getOnboardingStatus(new QueryParams());
     }
 
     /**
@@ -64,7 +64,7 @@ public class OnboardingHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void submitOnboardingData(OnboardingRequest body) throws MollieException {
-        submitOnboardingData(body, QueryParams.EMPTY);
+        submitOnboardingData(body, new QueryParams());
     }
 
     /**

@@ -57,7 +57,7 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public RefundResponse createRefund(String paymentId, RefundRequest body) throws MollieException {
-        return createRefund(paymentId, body, QueryParams.EMPTY);
+        return createRefund(paymentId, body, new QueryParams());
     }
 
     /**
@@ -111,7 +111,7 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public RefundResponse getRefund(String paymentId, String refundId) throws MollieException {
-        return getRefund(paymentId, refundId, QueryParams.EMPTY);
+        return getRefund(paymentId, refundId, new QueryParams());
     }
 
     /**
@@ -147,7 +147,7 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void cancelRefund(String paymentId, String refundId) throws MollieException {
-        cancelRefund(paymentId, refundId, QueryParams.EMPTY);
+        cancelRefund(paymentId, refundId, new QueryParams());
     }
 
     /**
@@ -183,7 +183,7 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<RefundListResponse> listRefunds() throws MollieException {
-        return listRefunds(QueryParams.EMPTY);
+        return listRefunds(new QueryParams());
     }
 
     /**
@@ -225,7 +225,7 @@ public class RefundHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<RefundListResponse> listRefunds(String paymentId) throws MollieException {
-        return listRefunds(paymentId, QueryParams.EMPTY);
+        return listRefunds(paymentId, new QueryParams());
     }
 
     /**

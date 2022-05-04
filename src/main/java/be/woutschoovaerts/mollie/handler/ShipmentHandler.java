@@ -43,7 +43,7 @@ public class ShipmentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ShipmentResponse createShipment(String orderId, ShipmentRequest body) throws MollieException {
-        return createShipment(orderId, body, QueryParams.EMPTY);
+        return createShipment(orderId, body, new QueryParams());
     }
 
     /**
@@ -82,7 +82,7 @@ public class ShipmentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ShipmentResponse getShipment(String orderId, String shipmentId) throws MollieException {
-        return getShipment(orderId, shipmentId, QueryParams.EMPTY);
+        return getShipment(orderId, shipmentId, new QueryParams());
     }
 
     /**
@@ -116,7 +116,7 @@ public class ShipmentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ShipmentListResponse> getShipments(String orderId) throws MollieException {
-        return getShipments(orderId, QueryParams.EMPTY);
+        return getShipments(orderId, new QueryParams());
     }
 
     /**
@@ -154,7 +154,7 @@ public class ShipmentHandler extends AbstractHandler {
      */
     public ShipmentResponse updateShipment(String orderId, String shipmentId, ShipmentUpdateRequest body)
             throws MollieException {
-        return updateShipment(orderId, shipmentId, body, QueryParams.EMPTY);
+        return updateShipment(orderId, shipmentId, body, new QueryParams());
     }
 
     /**

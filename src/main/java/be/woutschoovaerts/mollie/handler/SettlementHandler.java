@@ -42,7 +42,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getSettlement(String id) throws MollieException {
-        return getSettlement(id, QueryParams.EMPTY);
+        return getSettlement(id, new QueryParams());
     }
 
     /**
@@ -76,7 +76,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<SettlementListResponse> getSettlements() throws MollieException {
-        return getSettlements(QueryParams.EMPTY);
+        return getSettlements(new QueryParams());
     }
 
 
@@ -109,7 +109,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getNextSettlement() throws MollieException {
-        return getNextSettlement(QueryParams.EMPTY);
+        return getNextSettlement(new QueryParams());
     }
 
     /**
@@ -140,7 +140,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getOpenSettlement() throws MollieException {
-        return getOpenSettlement(QueryParams.EMPTY);
+        return getOpenSettlement(new QueryParams());
     }
 
     /**
@@ -174,7 +174,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PaymentListResponse> getSettlementPayments(String settlementId) throws MollieException {
-        return getSettlementPayments(settlementId, QueryParams.EMPTY);
+        return getSettlementPayments(settlementId, new QueryParams());
     }
 
     /**
@@ -211,7 +211,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<RefundListResponse> getSettlementRefund(String settlementId) throws MollieException {
-        return getSettlementRefund(settlementId, QueryParams.EMPTY);
+        return getSettlementRefund(settlementId, new QueryParams());
     }
 
     /**
@@ -246,7 +246,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ChargebackListResponse> getSettlementChargebacks(String settlementId) throws MollieException {
-        return getSettlementChargebacks(settlementId, QueryParams.EMPTY);
+        return getSettlementChargebacks(settlementId, new QueryParams());
     }
 
     /**
@@ -283,7 +283,7 @@ public class SettlementHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<CaptureListResponse> getSettlementCaptures(String settlementId) throws MollieException {
-        return getSettlementCaptures(settlementId, QueryParams.EMPTY);
+        return getSettlementCaptures(settlementId, new QueryParams());
     }
 
     /**

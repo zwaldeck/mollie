@@ -37,7 +37,7 @@ public class PermissionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PermissionResponse getPermission(Permission permission) throws MollieException {
-        return getPermission(permission, QueryParams.EMPTY);
+        return getPermission(permission, new QueryParams());
     }
 
     /**
@@ -69,7 +69,7 @@ public class PermissionHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PermissionListResponse> getPermissions() throws MollieException {
-        return getPermissions(QueryParams.EMPTY);
+        return getPermissions(new QueryParams());
     }
 
     /**

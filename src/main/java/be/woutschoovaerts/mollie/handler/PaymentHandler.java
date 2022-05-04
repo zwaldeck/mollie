@@ -41,7 +41,7 @@ public class PaymentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse createPayment(PaymentRequest body) throws MollieException {
-        return createPayment(body, QueryParams.EMPTY);
+        return createPayment(body, new QueryParams());
     }
 
     /**
@@ -73,7 +73,7 @@ public class PaymentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse getPayment(String paymentId) throws MollieException {
-        return getPayment(paymentId, QueryParams.EMPTY);
+        return getPayment(paymentId, new QueryParams());
     }
 
     /**
@@ -110,7 +110,7 @@ public class PaymentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse cancelPayment(String paymentId) throws MollieException {
-        return cancelPayment(paymentId, QueryParams.EMPTY);
+        return cancelPayment(paymentId, new QueryParams());
     }
 
     /**
@@ -147,7 +147,7 @@ public class PaymentHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PaymentListResponse> listPayments() throws MollieException {
-        return listPayments(QueryParams.EMPTY);
+        return listPayments(new QueryParams());
     }
 
 

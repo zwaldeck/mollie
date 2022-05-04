@@ -55,7 +55,7 @@ public class ConnectHandler extends AbstractHandler {
      */
     public TokenResponse generateTokens(String clientId, String clientSecret, TokenRequest body)
             throws MollieException {
-        return generateTokens(clientId, clientSecret, body, QueryParams.EMPTY);
+        return generateTokens(clientId, clientSecret, body, new QueryParams());
     }
 
     /**
@@ -100,7 +100,7 @@ public class ConnectHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void revokeToken(String clientId, String clientSecret, RevokeTokenRequest body) throws MollieException {
-        revokeToken(clientId, clientSecret, body, QueryParams.EMPTY);
+        revokeToken(clientId, clientSecret, body, new QueryParams());
     }
 
     /**

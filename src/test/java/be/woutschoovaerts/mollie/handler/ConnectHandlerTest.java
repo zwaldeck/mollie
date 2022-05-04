@@ -68,7 +68,7 @@ class ConnectHandlerTest {
                 .build();
 
         MollieException ex = assertThrows(MollieException.class, () -> client.connect().generateTokens("",
-                "", request, QueryParams.EMPTY));
+                "", request, new QueryParams()));
 
         String expectedMsg = "Error response from mollie";
         assertEquals(expectedMsg, ex.getMessage());
@@ -82,7 +82,7 @@ class ConnectHandlerTest {
                 .build();
 
         MollieException ex = assertThrows(MollieException.class, () -> client.connect()
-                .revokeToken("", "", request, QueryParams.EMPTY));
+                .revokeToken("", "", request, new QueryParams()));
 
         String expectedMsg = "Error response from mollie";
         assertEquals(expectedMsg, ex.getMessage());

@@ -35,7 +35,7 @@ public class InvoiceHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<InvoicesListResponse> getInvoices() throws MollieException {
-        return getInvoices(QueryParams.EMPTY);
+        return getInvoices(new QueryParams());
     }
 
     /**
@@ -70,7 +70,7 @@ public class InvoiceHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public InvoiceResponse getInvoice(String id) throws MollieException {
-        return getInvoice(id, QueryParams.EMPTY);
+        return getInvoice(id, new QueryParams());
     }
 
     /**

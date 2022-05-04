@@ -43,7 +43,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse createOrder(OrderRequest body) throws MollieException {
-        return createOrder(body, QueryParams.EMPTY);
+        return createOrder(body, new QueryParams());
     }
 
     /**
@@ -81,7 +81,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse getOrder(String orderId) throws MollieException {
-        return getOrder(orderId, QueryParams.EMPTY);
+        return getOrder(orderId, new QueryParams());
     }
 
     /**
@@ -112,7 +112,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<OrderListResponse> getOrders() throws MollieException {
-        return getOrders(QueryParams.EMPTY);
+        return getOrders(new QueryParams());
     }
 
     /**
@@ -148,7 +148,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse updateOrder(String orderId, OrderUpdateRequest body) throws MollieException {
-        return updateOrder(orderId, body, QueryParams.EMPTY);
+        return updateOrder(orderId, body, new QueryParams());
     }
 
     /**
@@ -195,7 +195,7 @@ public class OrderHandler extends AbstractHandler {
      */
     public OrderResponse updateOrderLine(String orderId, String lineId, OrderLineUpdateRequest body)
             throws MollieException {
-        return updateOrderLine(orderId, lineId, body, QueryParams.EMPTY);
+        return updateOrderLine(orderId, lineId, body, new QueryParams());
     }
 
     /**
@@ -245,7 +245,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse cancelOrder(String orderId) throws MollieException {
-        return cancelOrder(orderId, QueryParams.EMPTY);
+        return cancelOrder(orderId, new QueryParams());
     }
 
     /**
@@ -292,7 +292,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void cancelOrderLines(String orderId, CancelOrderLinesRequest body) throws MollieException {
-        cancelOrderLines(orderId, body, QueryParams.EMPTY);
+        cancelOrderLines(orderId, body, new QueryParams());
     }
 
     /**
@@ -336,7 +336,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse createOrderPayment(String orderId, OrderPaymentRequest body) throws MollieException {
-        return createOrderPayment(orderId, body, QueryParams.EMPTY);
+        return createOrderPayment(orderId, body, new QueryParams());
     }
 
     /**
@@ -379,7 +379,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public RefundResponse createOrderRefund(String orderId, OrderRefundRequest body) throws MollieException {
-        return createOrderRefund(orderId, body, QueryParams.EMPTY);
+        return createOrderRefund(orderId, body, new QueryParams());
     }
 
     /**
@@ -417,7 +417,7 @@ public class OrderHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<OrderRefundListResponse> getOrderRefunds(String orderId) throws MollieException {
-        return getOrderRefunds(orderId, QueryParams.EMPTY);
+        return getOrderRefunds(orderId, new QueryParams());
     }
 
     /**

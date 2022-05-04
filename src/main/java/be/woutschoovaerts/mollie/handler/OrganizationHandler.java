@@ -32,7 +32,7 @@ public class OrganizationHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrganizationResponse getMyOrganization() throws MollieException {
-        return getMyOrganization(QueryParams.EMPTY);
+        return getMyOrganization(new QueryParams());
     }
 
     /**
@@ -66,7 +66,7 @@ public class OrganizationHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public OrganizationResponse getOrganization(String organizationId) throws MollieException {
-        return getOrganization(organizationId, QueryParams.EMPTY);
+        return getOrganization(organizationId, new QueryParams());
     }
 
     /**

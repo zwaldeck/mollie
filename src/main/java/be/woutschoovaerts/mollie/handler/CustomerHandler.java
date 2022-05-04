@@ -40,7 +40,7 @@ public class CustomerHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public CustomerResponse createCustomer(CustomerRequest body) throws MollieException {
-        return createCustomer(body, QueryParams.EMPTY);
+        return createCustomer(body, new QueryParams());
     }
 
     /**
@@ -72,7 +72,7 @@ public class CustomerHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public CustomerResponse getCustomer(String customerId) throws MollieException {
-        return getCustomer(customerId, QueryParams.EMPTY);
+        return getCustomer(customerId, new QueryParams());
     }
 
     /**
@@ -104,7 +104,7 @@ public class CustomerHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public CustomerResponse updateCustomer(String customerId, CustomerRequest body) throws MollieException {
-        return updateCustomer(customerId, body, QueryParams.EMPTY);
+        return updateCustomer(customerId, body, new QueryParams());
     }
 
     /**
@@ -136,7 +136,7 @@ public class CustomerHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void deleteCustomer(String customerId) throws MollieException {
-        deleteCustomer(customerId, QueryParams.EMPTY);
+        deleteCustomer(customerId, new QueryParams());
     }
 
     /**
@@ -167,7 +167,7 @@ public class CustomerHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<CustomerListResponse> listCustomers() throws MollieException {
-        return listCustomers(QueryParams.EMPTY);
+        return listCustomers(new QueryParams());
     }
 
     /**
@@ -205,7 +205,7 @@ public class CustomerHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse createCustomerPayment(String customerId, PaymentRequest body) throws MollieException {
-        return createCustomerPayment(customerId, body, QueryParams.EMPTY);
+        return createCustomerPayment(customerId, body, new QueryParams());
     }
 
     /**
@@ -241,7 +241,7 @@ public class CustomerHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PaymentListResponse> listCustomerPayments(String customerId) throws MollieException {
-        return listCustomerPayments(customerId, QueryParams.EMPTY);
+        return listCustomerPayments(customerId, new QueryParams());
     }
 
     /**

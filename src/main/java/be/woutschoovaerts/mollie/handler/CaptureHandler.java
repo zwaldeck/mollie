@@ -39,7 +39,7 @@ public class CaptureHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public CaptureResponse getCapture(String paymentId, String captureId) throws MollieException {
-        return getCapture(paymentId, captureId, QueryParams.EMPTY);
+        return getCapture(paymentId, captureId, new QueryParams());
     }
 
     /**
@@ -79,7 +79,7 @@ public class CaptureHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<CaptureListResponse> listCaptures(String paymentId) throws MollieException {
-        return listCaptures(paymentId, QueryParams.EMPTY);
+        return listCaptures(paymentId, new QueryParams());
     }
 
     /**

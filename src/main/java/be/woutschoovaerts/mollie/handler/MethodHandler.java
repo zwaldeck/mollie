@@ -41,7 +41,7 @@ public class MethodHandler extends AbstractHandler {
      * @throws MollieException When something goes wrong
      */
     public Pagination<MethodListResponse> listMethods() throws MollieException {
-        return listMethods(QueryParams.EMPTY);
+        return listMethods(new QueryParams());
     }
 
     /**
@@ -80,7 +80,7 @@ public class MethodHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public MethodResponse getMethod(String methodId) throws MollieException {
-        return getMethod(methodId, QueryParams.EMPTY);
+        return getMethod(methodId, new QueryParams());
     }
 
     /**

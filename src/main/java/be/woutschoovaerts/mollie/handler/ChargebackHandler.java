@@ -37,7 +37,7 @@ public class ChargebackHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public ChargebackResponse getChargeback(String paymentId, String chargebackId) throws MollieException {
-        return getChargeback(paymentId, chargebackId, QueryParams.EMPTY);
+        return getChargeback(paymentId, chargebackId, new QueryParams());
     }
 
     /**
@@ -74,7 +74,7 @@ public class ChargebackHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ChargebackListResponse> listChargebacks() throws MollieException {
-        return listChargebacks(QueryParams.EMPTY);
+        return listChargebacks(new QueryParams());
     }
 
     /**
@@ -111,7 +111,7 @@ public class ChargebackHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ChargebackListResponse> listChargebacks(String paymentId) throws MollieException {
-        return listChargebacks(paymentId, QueryParams.EMPTY);
+        return listChargebacks(paymentId, new QueryParams());
     }
 
     /**

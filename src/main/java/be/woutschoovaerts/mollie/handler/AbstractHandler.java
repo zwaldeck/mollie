@@ -29,7 +29,7 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> get(String uri) throws IOException, MollieException {
-        return get(uri, QueryParams.EMPTY);
+        return get(uri, new QueryParams());
     }
 
     protected HttpResponse<String> get(String uri, QueryParams params) throws IOException, MollieException {
@@ -70,7 +70,7 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> post(String uri, Object body) throws IOException, MollieException {
-        return post(uri, body, QueryParams.EMPTY);
+        return post(uri, body, new QueryParams());
     }
 
     protected HttpResponse<String> post(String uri, Object body, QueryParams params)
@@ -92,7 +92,7 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> patch(String uri, Object body) throws IOException, MollieException {
-        return patch(uri, body, QueryParams.EMPTY);
+        return patch(uri, body, new QueryParams());
     }
 
     protected HttpResponse<String> patch(String uri, Object body, QueryParams params)
@@ -114,7 +114,7 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> delete(String uri) throws IOException, MollieException {
-        return delete(uri, QueryParams.EMPTY);
+        return delete(uri, new QueryParams());
     }
 
     protected HttpResponse<String> delete(String uri, QueryParams params) throws IOException, MollieException {
