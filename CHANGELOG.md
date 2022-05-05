@@ -1,3 +1,6 @@
+## 3.6.4
+- Bugfix: Somme endpoints do not support 'testmode' parameter
+
 ## 3.6.3
  - Deprecated QueryParams.EMPTY
  - Added the list all payment methods endpoint
