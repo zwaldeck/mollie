@@ -49,7 +49,7 @@ public class InvoiceHandler extends AbstractHandler {
         try {
             String uri = "/invoices";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<InvoicesListResponse>>() {
@@ -87,7 +87,7 @@ public class InvoiceHandler extends AbstractHandler {
         try {
             String uri = "/invoices/" + id;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), InvoiceResponse.class);
         } catch (UnirestException | IOException ex) {

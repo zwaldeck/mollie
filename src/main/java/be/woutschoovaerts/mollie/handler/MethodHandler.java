@@ -61,7 +61,7 @@ public class MethodHandler extends AbstractHandler {
         try {
             String uri = "/methods";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<MethodListResponse>>() {
@@ -95,7 +95,7 @@ public class MethodHandler extends AbstractHandler {
         try {
             String uri = "/methods/all";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<MethodListResponse>>() {
@@ -129,7 +129,7 @@ public class MethodHandler extends AbstractHandler {
         try {
             String uri = "/methods/" + methodId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<MethodResponse>() {

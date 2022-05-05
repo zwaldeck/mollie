@@ -58,7 +58,7 @@ public class CaptureHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/captures/" + captureId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<CaptureResponse>() {
@@ -96,7 +96,7 @@ public class CaptureHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/captures";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<CaptureListResponse>>() {

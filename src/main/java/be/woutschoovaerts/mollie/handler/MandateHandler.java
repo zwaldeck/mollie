@@ -94,7 +94,7 @@ public class MandateHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/mandates/" + mandateId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), MandateResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -127,7 +127,7 @@ public class MandateHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/mandates/" + mandateId;
 
-            HttpResponse<String> response = delete(uri, params);
+            HttpResponse<String> response = delete(uri, params, true);
 
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
@@ -163,7 +163,7 @@ public class MandateHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/mandates";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<MandateListResponse>>() {

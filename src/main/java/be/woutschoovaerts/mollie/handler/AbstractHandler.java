@@ -33,7 +33,11 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> get(String uri, QueryParams params) throws IOException, MollieException {
-        if (config.shouldAddTestMode() && !params.containsKey("testmode")) {
+        return get(uri, params, true);
+    }
+
+    protected HttpResponse<String> get(String uri, QueryParams params, boolean allowsTestMode) throws IOException, MollieException {
+        if (allowsTestMode && config.shouldAddTestMode() && !params.containsKey("testmode")) {
             params.put("testmode", "true");
         }
 
@@ -118,8 +122,12 @@ public abstract class AbstractHandler {
     }
 
     protected HttpResponse<String> delete(String uri, QueryParams params) throws IOException, MollieException {
+        return delete(uri, params, true);
+    }
+
+    protected HttpResponse<String> delete(String uri, QueryParams params, boolean allowsTestMode) throws IOException, MollieException {
         Map<String, Object> body = new HashMap<>();
-        if (config.shouldAddTestMode()) {
+        if (allowsTestMode && config.shouldAddTestMode()) {
             body.put("testmode", "true");
         }
 

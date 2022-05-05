@@ -86,7 +86,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + id;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -120,7 +120,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/me";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -184,7 +184,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + id;
 
-            delete(uri, params);
+            delete(uri, params, false);
 
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
@@ -258,7 +258,7 @@ public class ProfileHandler extends AbstractHandler {
      * @throws MollieException when something went wrong
      */
     public void disableMyPaymentMethod(PaymentMethod paymentMethod) throws MollieException {
-        enablePaymentMethod("me", paymentMethod, new QueryParams());
+        disablePaymentMethod("me", paymentMethod, new QueryParams());
     }
 
     /**
@@ -297,7 +297,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
 
-            delete(uri, params);
+            delete(uri, params, false);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -325,7 +325,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ProfileListResponse>>() {

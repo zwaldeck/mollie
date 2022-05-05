@@ -93,7 +93,7 @@ public class SubscriptionHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SubscriptionResponse.class);
@@ -129,7 +129,7 @@ public class SubscriptionHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
-            HttpResponse<String> response = delete(uri, params);
+            HttpResponse<String> response = delete(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SubscriptionResponse.class);
@@ -164,7 +164,7 @@ public class SubscriptionHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/subscriptions";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<SubscriptionListResponse>>() {
@@ -202,7 +202,7 @@ public class SubscriptionHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PaymentListResponse>>() {

@@ -52,7 +52,7 @@ public class PermissionHandler extends AbstractHandler {
         try {
             String uri = "/permissions/" + permission.getValue();
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), PermissionResponse.class);
@@ -83,7 +83,7 @@ public class PermissionHandler extends AbstractHandler {
         try {
             String uri = "/permissions";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PermissionListResponse>>() {

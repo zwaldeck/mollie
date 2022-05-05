@@ -99,7 +99,7 @@ public class ShipmentHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ShipmentResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -132,7 +132,7 @@ public class ShipmentHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId + "/shipments";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ShipmentListResponse>>() {

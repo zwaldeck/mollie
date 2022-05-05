@@ -54,7 +54,7 @@ public class ChargebackHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/chargebacks/" + chargebackId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<ChargebackResponse>() {
@@ -90,7 +90,7 @@ public class ChargebackHandler extends AbstractHandler {
         try {
             String uri = "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {
@@ -130,7 +130,7 @@ public class ChargebackHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {

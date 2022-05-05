@@ -96,7 +96,7 @@ public class OrderHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -126,7 +126,7 @@ public class OrderHandler extends AbstractHandler {
         try {
             String uri = "/orders";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<OrderListResponse>>() {
@@ -267,7 +267,7 @@ public class OrderHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId;
 
-            HttpResponse<String> response = delete(uri, params);
+            HttpResponse<String> response = delete(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
         } catch (UnirestException | IOException ex) {

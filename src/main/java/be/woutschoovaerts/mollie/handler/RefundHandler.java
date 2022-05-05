@@ -127,7 +127,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -164,7 +164,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            HttpResponse<String> response = delete(uri, params);
+            HttpResponse<String> response = delete(uri, params, true);
 
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
@@ -201,7 +201,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/refunds";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<RefundListResponse>>() {
@@ -244,7 +244,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/refunds";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<RefundListResponse>>() {

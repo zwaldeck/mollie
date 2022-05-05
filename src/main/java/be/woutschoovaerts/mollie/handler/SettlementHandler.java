@@ -59,7 +59,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements/" + id;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SettlementResponse.class);
@@ -91,7 +91,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<SettlementListResponse>>() {
@@ -123,7 +123,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements/next";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SettlementResponse.class);
@@ -154,7 +154,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements/open";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), SettlementResponse.class);
@@ -192,7 +192,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements/" + settlementId + "/payments";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PaymentListResponse>>() {
@@ -227,7 +227,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements/" + settlementId + "/refunds";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<RefundListResponse>>() {
@@ -262,7 +262,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements/" + settlementId + "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<ChargebackListResponse>>() {
@@ -301,7 +301,7 @@ public class SettlementHandler extends AbstractHandler {
         try {
             String uri = "/settlements/" + settlementId + "/captures";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<CaptureListResponse>>() {

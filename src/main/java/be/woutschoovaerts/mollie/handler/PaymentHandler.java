@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-// TODO support Mollie Connect/OAuth parameters
 // TODO support QR codes
 
 /**
@@ -89,7 +88,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -129,7 +128,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId;
 
-            HttpResponse<String> response = delete(uri, params);
+            HttpResponse<String> response = delete(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
         } catch (UnirestException | IOException ex) {
@@ -164,7 +163,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
                     new TypeReference<Pagination<PaymentListResponse>>() {

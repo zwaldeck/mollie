@@ -46,7 +46,7 @@ public class OrganizationHandler extends AbstractHandler {
         try {
             String uri = "/organizations/me";
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), OrganizationResponse.class);
@@ -83,7 +83,7 @@ public class OrganizationHandler extends AbstractHandler {
         try {
             String uri = "/organizations/" + organizationId;
 
-            HttpResponse<String> response = get(uri, params);
+            HttpResponse<String> response = get(uri, params, false);
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), OrganizationResponse.class);
