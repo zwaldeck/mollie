@@ -1,3 +1,6 @@
+## 3.6.5
+ - Updated the object mapper
+
 ## 3.6.4
 - Bugfix: Somme endpoints do not support 'testmode' parameter
 

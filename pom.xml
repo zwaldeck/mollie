@@ -6,7 +6,7 @@
 
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>3.6.4</version>
+    <version>3.6.5</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
