@@ -1,21 +1,12 @@
 package be.woutschoovaerts.mollie;
 
-import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import kong.unirest.ObjectMapper;
 
 import java.io.IOException;
 
-public class OAuthAwareObjectMapper implements ObjectMapper {
-
-    private final Config config;
-
-    public OAuthAwareObjectMapper(Config config) {
-        this.config = config;
-    }
+public class JacksonObjectMapper implements ObjectMapper {
 
     @Override
     public <T> T readValue(String value, Class<T> type) {
@@ -29,14 +20,6 @@ public class OAuthAwareObjectMapper implements ObjectMapper {
     @Override
     public String writeValue(Object value) {
         try {
-            if (config.shouldAddTestMode()) {
-                JsonNode node = ObjectMapperService.getInstance().getMapper().valueToTree(value);
-                if (node.isObject()) {
-                    ObjectNode object = (ObjectNode) node;
-                    object.put("testmode", true);
-                    return ObjectMapperService.getInstance().getMapper().writeValueAsString(object);
-                }
-            }
             return ObjectMapperService.getInstance().getMapper().writeValueAsString(value);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

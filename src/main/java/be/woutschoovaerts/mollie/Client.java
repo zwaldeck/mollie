@@ -240,7 +240,7 @@ public class Client {
 
     private void initUniRest(ClientProxy proxy) {
         Unirest.config()
-            .setObjectMapper(new OAuthAwareObjectMapper(config));
+            .setObjectMapper(new JacksonObjectMapper());
 
         if (proxy != null) {
             Unirest.config().proxy(proxy.getHost(), proxy.getPort(), proxy.getUsername(), proxy.getPassword());
