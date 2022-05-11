@@ -18,7 +18,7 @@ This library requires Java 8+.
 <dependency>
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>3.6.5</version>
+    <version>3.6.6</version>
 </dependency>
 ```
 

@@ -1,3 +1,6 @@
+## 3.6.6
+ - Added testmode to PaymentRequest
+
 ## 3.6.5
  - Updated the object mapper
 
