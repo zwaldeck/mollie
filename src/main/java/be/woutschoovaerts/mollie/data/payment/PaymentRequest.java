@@ -70,4 +70,7 @@ public class PaymentRequest {
 
     // OAuth params
     private Optional<String> profileId = Optional.empty();
+
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
 }
