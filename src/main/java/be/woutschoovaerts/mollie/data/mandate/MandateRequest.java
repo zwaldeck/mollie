@@ -27,4 +27,7 @@ public class MandateRequest {
     private Optional<LocalDate> signatureDate = Optional.empty();
 
     private Optional<String> mandateReference = Optional.empty();
+
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
 }

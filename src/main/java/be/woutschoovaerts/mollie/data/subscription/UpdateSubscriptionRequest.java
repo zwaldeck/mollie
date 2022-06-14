@@ -34,4 +34,7 @@ public class UpdateSubscriptionRequest {
     private Optional<String> webhookUrl = Optional.empty();
 
     private Map<String, Object> metadata;
+
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
 }

@@ -38,6 +38,9 @@ public class SubscriptionRequest {
 
     private Map<String, Object> metadata;
 
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
+
     private Optional<String> profileId = Optional.empty();
 
     private Optional<ApplicationFee> applicationFee = Optional.empty();

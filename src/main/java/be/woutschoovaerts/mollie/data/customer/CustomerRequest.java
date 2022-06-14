@@ -22,4 +22,7 @@ public class CustomerRequest {
     private Optional<Locale> locale = Optional.empty();
 
     private Map<String, Object> metadata;
+
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
 }

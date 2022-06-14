@@ -20,4 +20,7 @@ public class RefundRequest {
     private Optional<String> description = Optional.empty();
 
     private HashMap<String, Object> metadata;
+
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
 }
