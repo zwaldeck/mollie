@@ -1,3 +1,6 @@
+## 3.6.7
+ - Added testmode optionals to Request objects that needed it
+
 ## 3.6.6
  - Added testmode to PaymentRequest
 
