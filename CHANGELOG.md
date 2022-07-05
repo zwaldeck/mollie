@@ -1,3 +1,6 @@
+## 3.6.8
+ - Sending testmode as boolean instead of String
+
 ## 3.6.7
  - Added testmode optionals to Request objects that needed it
 
