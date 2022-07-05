@@ -130,7 +130,7 @@ public abstract class AbstractHandler {
             throws IOException, MollieException {
         Map<String, Object> body = new HashMap<>();
         if (allowsTestMode && config.shouldAddTestMode()) {
-            body.put("testmode", "true");
+            body.put("testmode", true);
         }
 
         String url = baseUrl + uri + params.toString();
