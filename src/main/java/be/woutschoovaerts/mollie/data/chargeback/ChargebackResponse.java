@@ -27,6 +27,8 @@ public class ChargebackResponse {
 
     private OffsetDateTime createdAt;
 
+    private Optional<ChargebackReason> reason;
+
     private OffsetDateTime reversedAt;
 
     private String paymentId;
