@@ -1,3 +1,6 @@
+## 3.7.0
+ - Add support for the chargeback reason field
+
 ## 3.6.8
  - Sending testmode as boolean instead of String
 

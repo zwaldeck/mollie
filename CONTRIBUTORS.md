@@ -5,3 +5,4 @@
 - [Dániel Szabó](https://github.com/szada92)
 - [Tim Smelik](https://github.com/timsmelik)
 - [Thomas van Putten](https://github.com/delta11)
+- [Robbert-Jan Roos](https://github.com/rjroos)
