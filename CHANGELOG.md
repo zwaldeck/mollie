@@ -1,3 +1,6 @@
+## 3.7.1
+ - Make chargeback reason a working Optional instead of null.
+
 ## 3.7.0
  - Add support for the chargeback reason field
 
