@@ -27,7 +27,7 @@ public class ChargebackResponse {
 
     private OffsetDateTime createdAt;
 
-    private Optional<ChargebackReason> reason;
+    private Optional<ChargebackReason> reason = Optional.empty();
 
     private OffsetDateTime reversedAt;
 
