@@ -91,6 +91,14 @@ class SubscriptionHandlerIntegrationTest {
     }
 
     @Test
+    void listAllSubscriptions() throws MollieException {
+
+        Pagination<SubscriptionListResponse> subscriptions = client.subscriptions().listAllSubscriptions();
+
+        assertNotNull(subscriptions);
+    }
+
+    @Test
     void listSubscriptionPayments() throws MollieException {
         CustomerResponse customer = createCustomer();
 

@@ -150,6 +150,38 @@ public class SubscriptionHandler extends AbstractHandler {
         return listSubscriptions(customerId, new QueryParams());
     }
 
+    /**
+     * Retrieve all subscriptions
+     *
+     * @return paginated list of Subscription objects
+     * @throws MollieException when something went wrong
+     */
+    public Pagination<SubscriptionListResponse> listAllSubscriptions() throws MollieException {
+        return listAllSubscriptions(new QueryParams());
+    }
+
+    /**
+     * Retrieve all subscriptions
+     *
+     * @param params A map of query params
+     * @return paginated list of Subscription objects
+     * @throws MollieException when something went wrong
+     */
+    public Pagination<SubscriptionListResponse> listAllSubscriptions(QueryParams params) throws MollieException {
+        try {
+            String uri = "/subscriptions";
+
+            HttpResponse<String> response = get(uri, params,true);
+
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
+                    new TypeReference<Pagination<SubscriptionListResponse>>() {
+                    });
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
 
     /**
      * Retrieve all subscriptions of a customer.
