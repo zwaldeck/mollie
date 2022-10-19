@@ -52,8 +52,8 @@
         <maven-jdk-tools-wrapper.version>0.1</maven-jdk-tools-wrapper.version>
         <mockito-core.version>4.8.0</mockito-core.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <unirest-java.version>3.13.6</unirest-java.version>
         <slf4j-api.version>2.0.3</slf4j-api.version>
+        <unirest-java.version>3.13.11</unirest-java.version>
     </properties>
 
     <dependencies>
