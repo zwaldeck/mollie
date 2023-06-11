@@ -87,6 +87,15 @@ public class Client {
     }
 
     /**
+     * Handles payment link actions
+     *
+     * @return PaymentLinkHandler object
+     */
+    public PaymentLinkHandler paymentLinks() {
+        return new PaymentLinkHandler(endpoint, config);
+    }
+
+    /**
      * Handles method actions
      *
      * @return MethodHandler object

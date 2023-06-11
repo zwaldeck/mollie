@@ -1,3 +1,6 @@
+## 3.7.2
+ - Added payment link support
+
 ## 3.7.1
  - Make chargeback reason a working Optional instead of null.
 

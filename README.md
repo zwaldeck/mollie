@@ -44,6 +44,11 @@ PaymentResponse payment = client.payments().getPayment("my-payment-id");
     - [X] Cancel payment
     - [X] List payment
 
+- [X] **Payment links**
+    - [X] Create payment link
+    - [X] Get payment link
+    - [X] List payment links
+
 - [X] **Methods**
     - [X] List payment methods
     - [X] Get payment method
