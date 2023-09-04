@@ -26,6 +26,8 @@ public class PaymentRequest {
 
     private Optional<String> redirectUrl = Optional.empty();
 
+    private Optional<String> cancelUrl = Optional.empty();
+    
     private Optional<String> webhookUrl = Optional.empty();
 
     private Optional<Locale> locale = Optional.empty();
