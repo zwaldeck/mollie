@@ -30,6 +30,8 @@ public class ProfileResponse {
 
     private int categoryCode;
 
+    private BusinessCategory businessCategory;
+
     private ProfileStatus status;
 
     private ProfileReviewResponse review;

@@ -5,6 +5,7 @@ import be.woutschoovaerts.mollie.ClientBuilder;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.method.MethodResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
+import be.woutschoovaerts.mollie.data.profile.BusinessCategory;
 import be.woutschoovaerts.mollie.data.profile.ProfileListResponse;
 import be.woutschoovaerts.mollie.data.profile.ProfileRequest;
 import be.woutschoovaerts.mollie.data.profile.ProfileResponse;
@@ -38,6 +39,7 @@ class ProfileHandlerTest {
 
         assertNotNull(response);
         assertEquals("profile", response.getResource());
+        assertEquals(BusinessCategory.HOME_IMPROVEMENT, response.getBusinessCategory());
     }
 
     @Test
@@ -119,7 +121,7 @@ class ProfileHandlerTest {
                 .website("https://feelio.be")
                 .email("info@thisdoesnotexists123456789azerty.be")
                 .phone("+32499999999")
-                .categoryCode(Optional.of(5499))
+                .businessCategory(Optional.of(BusinessCategory.HOME_IMPROVEMENT))
                 .mode(Optional.of("test"))
                 .build();
 

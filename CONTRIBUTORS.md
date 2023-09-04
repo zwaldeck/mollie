@@ -6,5 +6,6 @@
 - [Tim Smelik](https://github.com/timsmelik)
 - [Thomas van Putten](https://github.com/delta11)
 - [Robbert-Jan Roos](https://github.com/rjroos)
+- [Kim Scholte](https://github.com/kimscholte)
 - [Nils Bokdam](https://github.com/nbokdam)
 - [Niek Knuiman](https://github.com/niek1414)
