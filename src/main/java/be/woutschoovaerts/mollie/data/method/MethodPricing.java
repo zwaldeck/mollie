@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,4 +19,6 @@ public class MethodPricing {
     private Amount fixed;
 
     private String variable;
+
+    private Optional<String> feeRegion = Optional.empty();
 }

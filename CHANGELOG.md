@@ -1,3 +1,7 @@
+## 3.8.0
+ - Add fee region to method pricing
+ - Fix integration tests for chargeback reason and order expiry date
+
 ## 3.7.2
  - Added payment link support
 
