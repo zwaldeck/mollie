@@ -1,6 +1,14 @@
 package be.woutschoovaerts.mollie;
 
-import be.woutschoovaerts.mollie.handler.*;
+import be.woutschoovaerts.mollie.handler.business.InvoiceHandler;
+import be.woutschoovaerts.mollie.handler.business.SettlementHandler;
+import be.woutschoovaerts.mollie.handler.connect.*;
+import be.woutschoovaerts.mollie.handler.orders.OrderHandler;
+import be.woutschoovaerts.mollie.handler.orders.ShipmentHandler;
+import be.woutschoovaerts.mollie.handler.payments.*;
+import be.woutschoovaerts.mollie.handler.recurring.CustomerHandler;
+import be.woutschoovaerts.mollie.handler.recurring.MandateHandler;
+import be.woutschoovaerts.mollie.handler.recurring.SubscriptionHandler;
 import be.woutschoovaerts.mollie.util.Config;
 import kong.unirest.Unirest;
 import lombok.Getter;
@@ -228,14 +236,6 @@ public class Client {
      */
     public InvoiceHandler invoices() {
         return new InvoiceHandler(endpoint, config);
-    }
-
-    /**
-     * @deprecated replaced by {@link #wallet()}
-     */
-    @Deprecated
-    public MiscellaneousHandler miscellaneous() {
-        return new MiscellaneousHandler(endpoint, config);
     }
 
     /**

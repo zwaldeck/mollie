@@ -21,7 +21,7 @@ public abstract class AbstractHandler {
     private final ObjectMapper mapper;
     protected final Config config;
 
-    AbstractHandler(String baseUrl, Logger log, Config config) {
+    protected AbstractHandler(String baseUrl, Logger log, Config config) {
         this.baseUrl = baseUrl;
         this.log = log;
         this.mapper = ObjectMapperService.getInstance().getMapper();
