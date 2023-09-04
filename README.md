@@ -104,6 +104,7 @@ PaymentResponse payment = client.payments().getPayment("my-payment-id");
     - [X] Update subscription
     - [X] Cancel subscription
     - [X] List subscriptions
+    - [X] List all subscriptions
 
 - [X] **Connect**
     - [X] Authorize
