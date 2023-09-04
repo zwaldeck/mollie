@@ -153,7 +153,7 @@ class OrderHandlerTest {
         assertNotNull(ex);
         assertEquals(422, ex.getDetails().get("status"));
         assertEquals("Unprocessable Entity", ex.getDetails().get("title"));
-        assertEquals("expiryDate", ex.getDetails().get("field"));
+        assertEquals("Expiry date is too far in the future.", ex.getDetails().get("detail"));
     }
 
     @Test

@@ -1,6 +1,12 @@
+## 3.8.0
+ - Add fee region to method pricing
+ - Fix integration tests for chargeback reason and order expiry date
+
 ## 3.7.2
-- Mark 'categoryCode' parameter in Profile API as deprecated
-- Added 'businessCategory' as parameter in Profile API together with a new BusinessCategory enumeration
+ - Added payment link support
+ - Mark 'categoryCode' parameter in Profile API as deprecated
+ - Added 'businessCategory' as parameter in Profile API together with a new BusinessCategory enumeration
+
 
 ## 3.7.1
  - Make chargeback reason a working Optional instead of null.
