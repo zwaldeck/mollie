@@ -4,10 +4,7 @@ import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
-import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
-import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
-import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
+import be.woutschoovaerts.mollie.data.payment.*;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +35,7 @@ public class PaymentHandlerIntegrationTest {
                         .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
+                .redirectUrl("https://webshop.example.org/order/12345/")
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -54,7 +51,7 @@ public class PaymentHandlerIntegrationTest {
                         .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
+                .redirectUrl("https://webshop.example.org/order/12345/")
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         MollieException ex = assertThrows(MollieException.class, () -> client.payments().createPayment(request));
@@ -73,7 +70,7 @@ public class PaymentHandlerIntegrationTest {
                         .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
+                .redirectUrl("https://webshop.example.org/order/12345/")
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -83,6 +80,31 @@ public class PaymentHandlerIntegrationTest {
         response = client.payments().getPayment(response.getId());
 
         assertNotNull(response);
+    }
+
+    @Test
+    void updatePayment_success() throws MollieException {
+        PaymentRequest request = PaymentRequest.builder()
+                .amount(Amount.builder()
+                        .currency("EUR")
+                        .value(new BigDecimal("10.00"))
+                        .build())
+                .description("My first payment")
+                .redirectUrl("https://webshop.example.org/order/12345/")
+                .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
+                .build();
+        PaymentResponse response = client.payments().createPayment(request);
+
+        assertNotNull(response);
+
+        UpdatePaymentRequest updatePaymentRequest = UpdatePaymentRequest.builder()
+                .description(Optional.of("Updated description"))
+                .build();
+
+        response = client.payments().updatePayment(response.getId(), updatePaymentRequest);
+
+        assertNotNull(response);
+        assertEquals("Updated description", response.getDescription());
     }
 
     @Test
@@ -96,7 +118,7 @@ public class PaymentHandlerIntegrationTest {
                         .build())
                 .description("My first payment")
                 .method(Optional.of(Collections.singletonList(PaymentMethod.PAY_SAFE_CARD)))
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
+                .redirectUrl("https://webshop.example.org/order/12345/")
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -126,7 +148,7 @@ public class PaymentHandlerIntegrationTest {
                         .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
+                .redirectUrl("https://webshop.example.org/order/12345/")
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
@@ -152,7 +174,7 @@ public class PaymentHandlerIntegrationTest {
                         .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
+                .redirectUrl("https://webshop.example.org/order/12345/")
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);

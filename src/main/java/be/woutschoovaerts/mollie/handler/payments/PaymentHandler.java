@@ -4,6 +4,7 @@ import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
+import be.woutschoovaerts.mollie.data.payment.UpdatePaymentRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.handler.AbstractHandler;
 import be.woutschoovaerts.mollie.util.Config;
@@ -16,8 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-
-// TODO support QR codes
 
 /**
  * Handles the Payments API <a href="https://docs.mollie.com/reference/v2/payments-api/create-payment">Mollie docs</a>
@@ -99,6 +98,41 @@ public class PaymentHandler extends AbstractHandler {
     }
 
     /**
+     * This endpoint can be used to update some details of a created payment.
+     *
+     * @param paymentId payment token
+     * @param request The update request body
+     * @return The payment response from mollie
+     * @throws MollieException when something went wrong
+     */
+    public PaymentResponse updatePayment(String paymentId, UpdatePaymentRequest request) throws MollieException {
+        return updatePayment(paymentId, request, new QueryParams());
+    }
+
+    /**
+     * This endpoint can be used to update some details of a created payment.
+     *
+     * @param paymentId payment token
+     * @param request The update request body
+     * @param params    A map of query parameters
+     * @return The payment response from mollie
+     * @throws MollieException when something went wrong
+     */
+    public PaymentResponse updatePayment(String paymentId, UpdatePaymentRequest request, QueryParams params)
+            throws MollieException {
+        try {
+            String uri = "/payments/" + paymentId;
+
+            HttpResponse<String> response = patch(uri, request, params);
+
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    /**
      * Some payment methods are cancellable for an amount of time, usually until the next day.
      * Or as long as the payment status is open.
      * Payments may be canceled manually from the Dashboard, or automatically by using this endpoint.
@@ -167,7 +201,7 @@ public class PaymentHandler extends AbstractHandler {
             HttpResponse<String> response = get(uri, params, true);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<PaymentListResponse>>() {
+                    new TypeReference<>() {
                     });
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);

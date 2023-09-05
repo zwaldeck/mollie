@@ -37,8 +37,6 @@ public class PaymentResponse {
 
     private Optional<OffsetDateTime> canceledAt = Optional.empty();
 
-    private OffsetDateTime expiresAt;
-
     private Optional<OffsetDateTime> expiredAt = Optional.empty();
 
     private Optional<OffsetDateTime> failedAt = Optional.empty();
@@ -51,42 +49,48 @@ public class PaymentResponse {
 
     private Optional<Amount> amountCaptured = Optional.empty();
 
+    private Optional<Amount> amountChargedBack = Optional.empty();
+
+    private Optional<Amount> settlementAmount = Optional.empty();
+
     private String description;
 
     private String redirectUrl;
 
+    private Optional<String> cancelUrl = Optional.empty();
+
     private Optional<String> webhookUrl = Optional.empty();
-
-    private PaymentMethod method;
-
-    private Map<String, Object> metadata;
 
     private Locale locale;
 
     private Optional<String> countryCode = Optional.empty();
 
-    private String profileId;
+    private PaymentMethod method;
 
-    private Optional<Amount> settlementAmount = Optional.empty();
+    private Optional<String> restrictPaymentMethodsToCountry = Optional.empty();
+
+    private Map<String, Object> metadata;
+
+    private String profileId;
 
     private Optional<String> settlementId = Optional.empty();
 
-    private Optional<String> customerId = Optional.empty();
+    private Optional<String> orderId = Optional.empty();
+
+    @JsonProperty("_links")
+    private PaymentLinks links;
 
     private SequenceType sequenceType;
+
+    private Optional<String> customerId = Optional.empty();
 
     private Optional<String> mandateId = Optional.empty();
 
     private Optional<String> subscriptionId = Optional.empty();
 
-    private Optional<String> orderId = Optional.empty();
+    private PaymentDetailsResponse details;
 
     private Optional<ApplicationFee> applicationFee = Optional.empty();
-
-    @JsonProperty("_links")
-    private PaymentLinks links;
-
-    private PaymentDetailsResponse details;
 
     @JsonProperty("_embedded")
     private PaymentEmbedded embedded;
