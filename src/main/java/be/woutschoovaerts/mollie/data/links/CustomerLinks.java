@@ -14,6 +14,8 @@ public class CustomerLinks {
 
     private Link self;
 
+    private Link dashboard;
+
     private Link mandates;
 
     private Link subscriptions;
