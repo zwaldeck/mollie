@@ -32,14 +32,18 @@ public class PaymentLinkResponse {
 
     private String redirectUrl;
 
+    @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();
 
     private OffsetDateTime createdAt;
 
+    @Builder.Default
     private Optional<OffsetDateTime> paidAt = Optional.empty();
 
+    @Builder.Default
     private Optional<OffsetDateTime> updatedAt = Optional.empty();
 
+    @Builder.Default
     private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
     @JsonProperty("_links")

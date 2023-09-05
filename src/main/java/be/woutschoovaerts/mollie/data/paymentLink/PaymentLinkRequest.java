@@ -19,13 +19,17 @@ public class PaymentLinkRequest {
 
     private Amount amount;
 
+    @Builder.Default
     private Optional<String> redirectUrl = Optional.empty();
 
+    @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();
 
+    @Builder.Default
     private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
     // OAuth params
+    @Builder.Default
     private Optional<String> profileId = Optional.empty();
 
     @Builder.Default
