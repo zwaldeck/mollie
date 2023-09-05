@@ -27,7 +27,7 @@ public class ChargebackResponse {
 
     private OffsetDateTime createdAt;
 
-    private Optional<ChargebackReason> reason = Optional.empty();
+    private ChargebackReason reason;
 
     private OffsetDateTime reversedAt;
 
@@ -37,5 +37,6 @@ public class ChargebackResponse {
     private ChargebackLinks links;
 
     @JsonProperty("_embedded")
+    @Builder.Default
     private Optional<ChargebackEmbedded> embedded = Optional.empty();
 }
