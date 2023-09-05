@@ -21,6 +21,8 @@ public class MandateResponse {
 
     private String id;
 
+    private String mode;
+
     private MandateStatus status;
 
     private MandatePaymentMethod method;
