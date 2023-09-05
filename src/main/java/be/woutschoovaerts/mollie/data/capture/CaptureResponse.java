@@ -29,8 +29,10 @@ public class CaptureResponse {
 
     private String paymentId;
 
+    @Builder.Default
     private Optional<String> shipmentId = Optional.empty();
 
+    @Builder.Default
     private Optional<String> settlementId  = Optional.empty();
 
     private OffsetDateTime createdAt;
