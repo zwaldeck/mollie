@@ -13,10 +13,15 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderLineUpdateRequest {
+public class UpdateOrderLineRequest implements OrderLineOperationDataRequest {
+
+    private String id;
 
     @Builder.Default
     private Optional<String> name = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> sku = Optional.empty();
 
     @Builder.Default
     private Optional<String> imageUrl = Optional.empty();
@@ -25,29 +30,23 @@ public class OrderLineUpdateRequest {
     private Optional<String> productUrl = Optional.empty();
 
     @Builder.Default
-    private Optional<String> sku = Optional.empty();
-
-    private Map<String, Object> metadata;
-
-    @Builder.Default
     private Optional<Integer> quantity = Optional.empty();
 
     @Builder.Default
     private Optional<Amount> unitPrice = Optional.empty();
 
     @Builder.Default
-    private Optional<Amount> discountAmount = Optional.empty();
-
-    @Builder.Default
-    private Optional<Amount> totalAmount = Optional.empty();
-
-    @Builder.Default
-    private Optional<Amount> vatAmount = Optional.empty();
+    private Optional<Amount> discountPrice = Optional.empty();
 
     @Builder.Default
     private Optional<String> vatRate = Optional.empty();
 
     @Builder.Default
-    private Optional<Boolean> testmode = Optional.empty();
+    private Optional<Amount> vatAmount = Optional.empty();
 
+    @Builder.Default
+    private Optional<Amount> totalAmount = Optional.empty();
+
+    @Builder.Default
+    private Optional<Map<String, Object>> metadata = Optional.empty();
 }

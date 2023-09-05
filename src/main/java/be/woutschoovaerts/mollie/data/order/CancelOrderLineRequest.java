@@ -12,7 +12,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CancelOrderLineRequest {
+public class CancelOrderLineRequest implements OrderLineOperationDataRequest{
 
     private String id;
 

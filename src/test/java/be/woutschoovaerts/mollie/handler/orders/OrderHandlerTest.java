@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -113,6 +114,30 @@ class OrderHandlerTest {
 
         assertNotNull(order);
         assertEquals(request.getName().get(), order.getLines().get(0).getName());
+    }
+
+    @Test
+    @Disabled // TODO: Enable again when mollie stops throwing 500s
+    void manageOrderLines() throws MollieException {
+        OrderResponse order = create();
+
+        assertNotNull(order);
+
+        ManageOrderLineRequest request = ManageOrderLineRequest.builder()
+                .operations(List.of(
+                        OrderLineOperationRequest.updateOperation(
+                                UpdateOrderLineRequest.builder()
+                                        .id(order.getLines().get(0).getId())
+                                        .name(Optional.of("UPDATED NAME"))
+                                        .build()
+                        )))
+                .build();
+
+        order = client.orders().manageOrderLines(order.getId(), request);
+
+        assertNotNull(order);
+        assertEquals("UPDATED NAME", order.getLines().get(0).getName());
+
     }
 
     @Test
@@ -237,7 +262,7 @@ class OrderHandlerTest {
                         .build())
                 .orderNumber(RandomStringUtils.randomNumeric(5))
                 .lines(Collections.singletonList(createOrderLineRequest()))
-                .billingAddress(OrderAddressRequest.builder()
+                .billingAddress(Optional.of(OrderAddressRequest.builder()
                         .givenName("John")
                         .familyName("Doe")
                         .email("john.doe@feelio.be")
@@ -245,7 +270,7 @@ class OrderHandlerTest {
                         .postalCode("1000")
                         .city("Brussels")
                         .country("BE")
-                        .build())
+                        .build()))
                 .locale(Locale.nl_BE)
                 .method(Optional.of(Collections.singletonList(PaymentMethod.BANK_TRANSFER)))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"));

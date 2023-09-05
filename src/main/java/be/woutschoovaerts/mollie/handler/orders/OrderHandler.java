@@ -277,6 +277,24 @@ public class OrderHandler extends AbstractHandler {
         }
     }
 
+    public OrderResponse manageOrderLines(String orderId, ManageOrderLineRequest request) throws MollieException {
+        return manageOrderLines(orderId, request, new QueryParams());
+    }
+
+    private OrderResponse manageOrderLines(String orderId, ManageOrderLineRequest request, QueryParams params)
+            throws MollieException {
+        try {
+            String uri = "/orders/" + orderId + "/lines";
+
+            HttpResponse<String> response = patch(uri, request, params);
+
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), OrderResponse.class);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
     /**
      * This endpoint can be used to cancel one or more order lines that were previously authorized using a pay after delivery payment method. Use the Cancel Order API if you want to cancel the entire order or the remainder of the order.
      * <p>
@@ -425,7 +443,7 @@ public class OrderHandler extends AbstractHandler {
      * Retrieve all order refunds.
      *
      * @param orderId An order ID
-     * @param params A map of query params
+     * @param params  A map of query params
      * @return Pagination<OrderRefundListResponse> object
      * @throws MollieException when something went wrong
      */

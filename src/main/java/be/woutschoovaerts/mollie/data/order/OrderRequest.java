@@ -27,7 +27,8 @@ public class OrderRequest {
 
     private List<OrderLineRequest> lines;
 
-    private OrderAddressRequest billingAddress;
+    @Builder.Default
+    private Optional<OrderAddressRequest> billingAddress = Optional.empty();
 
     @Builder.Default
     private Optional<OrderAddressRequest> shippingAddress = Optional.empty();
@@ -37,6 +38,9 @@ public class OrderRequest {
 
     @Builder.Default
     private Optional<String> redirectUrl = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> cancelUrl = Optional.empty();
 
     @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();
@@ -51,7 +55,11 @@ public class OrderRequest {
 
     private Map<String, Object> metadata;
 
+    @Builder.Default
     private Optional<LocalDate> expiresAt = Optional.empty();
+
+    @Builder.Default
+    private Optional<Boolean> shopperCountryMustMatchBillingCountry = Optional.empty();
 
     // OAuth Params
     @Builder.Default
