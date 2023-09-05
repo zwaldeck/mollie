@@ -16,6 +16,10 @@ public class SubscriptionLinks {
 
     private Link customer;
 
+    private Link profile;
+
+    private Link payments;
+
     private Link documentation;
 
 }
