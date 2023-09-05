@@ -1,5 +1,6 @@
 package be.woutschoovaerts.mollie.handler.connect;
 
+import be.woutschoovaerts.mollie.data.organization.OrganizationPartnerResponse;
 import be.woutschoovaerts.mollie.data.organization.OrganizationResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.handler.AbstractHandler;
@@ -88,6 +89,37 @@ public class OrganizationHandler extends AbstractHandler {
 
             return ObjectMapperService.getInstance().getMapper()
                     .readValue(response.getBody(), OrganizationResponse.class);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    /**
+     * Retrieve details about the partner status of the currently authenticated organization.
+     *
+     * @return OrganizationPartnerResponse object
+     * @throws MollieException when something went wrong
+     */
+    public OrganizationPartnerResponse getPartner() throws MollieException {
+        return getPartner(new QueryParams());
+    }
+
+    /**
+     * Retrieve details about the partner status of the currently authenticated organization.
+     *
+     * @param params         a map of query params
+     * @return OrganizationPartnerResponse object
+     * @throws MollieException when something went wrong
+     */
+    public OrganizationPartnerResponse getPartner(QueryParams params) throws MollieException {
+        try {
+            String uri = "/organizations/me/partner";
+
+            HttpResponse<String> response = get(uri, params, false);
+
+            return ObjectMapperService.getInstance().getMapper()
+                    .readValue(response.getBody(), OrganizationPartnerResponse.class);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
