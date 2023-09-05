@@ -36,11 +36,23 @@ public enum Permission {
     ORGANIZATIONS_READ,
     ORGANIZATIONS_WRITE,
     ONBOARDING_READ,
-    ONBOARDING_WRITE;
+    ONBOARDING_WRITE,
+    PAYMENT_LINKS_READ,
+    PAYMENT_LINKS_WRITE,
+    TERMINALS_READ,
+    TERMINALS_WRITE;
 
 
     @JsonValue
     public String getValue() {
+        if (this == PAYMENT_LINKS_READ) {
+            return "payment-links.read";
+        }
+
+        if (this == PAYMENT_LINKS_WRITE) {
+            return "payment-links.write";
+        }
+
         String result = StringUtils.reverse(this.name().toLowerCase());
         result = result.replaceFirst("_", ".");
         result = StringUtils.reverse(result);
