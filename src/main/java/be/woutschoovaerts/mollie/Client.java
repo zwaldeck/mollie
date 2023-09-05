@@ -77,12 +77,12 @@ public class Client {
     }
 
     /**
-     * Handles connect actions
+     * Handles OAuth actions
      *
-     * @return ConnectHandler object
+     * @return OAuthHandler object
      */
-    public ConnectHandler connect() {
-        return new ConnectHandler(config);
+    public OAuthHandler oAuth() {
+        return new OAuthHandler(config);
     }
 
     /**

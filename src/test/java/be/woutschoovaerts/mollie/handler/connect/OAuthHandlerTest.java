@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 //https://www.mollie.com/oauth2/authorize?client_id=*client_id*&state=random&scope=payments.read&response_type=code&approval_prompt=auto
 
-class ConnectHandlerTest {
+class OAuthHandlerTest {
 
     private Client client;
 
@@ -40,7 +40,7 @@ class ConnectHandlerTest {
                 "&redirect_uri=https%3A%2F%2Fgoogle.be&state=ABC&scope=scope1+scope2" +
                 "&response_type=code&approval_prompt=auto";
 
-        assertEquals(expected, client.connect().createAuthorizeUrl(request));
+        assertEquals(expected, client.oAuth().createAuthorizeUrl(request));
     }
 
     @Test
@@ -56,7 +56,7 @@ class ConnectHandlerTest {
         String expected = "https://www.mollie.com/oauth2/authorize?client_id=client_123" +
                 "&state=ABC&scope=scope1+scope2&response_type=code&approval_prompt=auto";
 
-        assertEquals(expected, client.connect().createAuthorizeUrl(request));
+        assertEquals(expected, client.oAuth().createAuthorizeUrl(request));
     }
 
     @Test
@@ -67,7 +67,7 @@ class ConnectHandlerTest {
                 .redirectUri(Optional.of("https://github.com/Feel-IO/mollie"))
                 .build();
 
-        MollieException ex = assertThrows(MollieException.class, () -> client.connect().generateTokens("",
+        MollieException ex = assertThrows(MollieException.class, () -> client.oAuth().generateTokens("",
                 "", request, new QueryParams()));
 
         String expectedMsg = "Error response from mollie";
@@ -81,7 +81,7 @@ class ConnectHandlerTest {
                 .token("token")
                 .build();
 
-        MollieException ex = assertThrows(MollieException.class, () -> client.connect()
+        MollieException ex = assertThrows(MollieException.class, () -> client.oAuth()
                 .revokeToken("", "", request, new QueryParams()));
 
         String expectedMsg = "Error response from mollie";

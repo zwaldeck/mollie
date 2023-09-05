@@ -23,11 +23,11 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class ConnectHandler extends AbstractHandler {
+public class OAuthHandler extends AbstractHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ConnectHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(OAuthHandler.class);
 
-    public ConnectHandler(Config config) {
+    public OAuthHandler(Config config) {
         super(null, log, config);
     }
 
