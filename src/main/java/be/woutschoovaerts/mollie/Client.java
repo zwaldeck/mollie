@@ -1,5 +1,6 @@
 package be.woutschoovaerts.mollie;
 
+import be.woutschoovaerts.mollie.handler.business.BalanceHandler;
 import be.woutschoovaerts.mollie.handler.business.InvoiceHandler;
 import be.woutschoovaerts.mollie.handler.business.SettlementHandler;
 import be.woutschoovaerts.mollie.handler.connect.*;
@@ -245,6 +246,15 @@ public class Client {
      */
     public WalletHandler wallet() {
         return new WalletHandler(endpoint, config);
+    }
+
+    /**
+     * Handles balances actions
+     *
+     * @return BalanceHandler object
+     */
+    public BalanceHandler balances() {
+        return new BalanceHandler(endpoint, config);
     }
 
     private void initUniRest(ClientProxy proxy) {

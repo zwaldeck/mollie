@@ -146,7 +146,7 @@ class SubscriptionHandlerIntegrationTest {
         MandateRequest mandateRequest = MandateRequest.builder()
                 .method("directdebit")
                 .consumerName("John Doe")
-                .consumerAccount("NL55INGB0000000000")
+                .consumerAccount(Optional.of("NL55INGB0000000000"))
                 .consumerBic(Optional.of("INGBNL2A"))
                 .signatureDate(Optional.of(LocalDate.now()))
                 .mandateReference(Optional.of("YOUR-COMPANY-MD13804"))
