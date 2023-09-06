@@ -63,7 +63,9 @@ public class OnboardingHandler extends AbstractHandler {
      *
      * @param body   OnboardingRequest object
      * @throws MollieException when something went wrong
+     * @deprecated Use ClientLinkHandler.createClientLink()
      */
+    @Deprecated
     public void submitOnboardingData(OnboardingRequest body) throws MollieException {
         submitOnboardingData(body, new QueryParams());
     }
@@ -74,7 +76,9 @@ public class OnboardingHandler extends AbstractHandler {
      * @param body   OnboardingRequest object
      * @param params A map of query params
      * @throws MollieException when something went wrong
+     * @deprecated Use ClientLinkHandler.createClientLink()
      */
+    @Deprecated
     public void submitOnboardingData(OnboardingRequest body, QueryParams params) throws MollieException {
         try {
             String uri = "/onboarding/me";
