@@ -16,4 +16,6 @@ public class PeriodResponse {
     private List<PeriodRevenueResponse> revenue;
 
     private List<PeriodCostResponse> costs;
+
+    private String invoiceId;
 }
