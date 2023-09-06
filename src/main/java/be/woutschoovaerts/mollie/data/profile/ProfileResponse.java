@@ -18,16 +18,17 @@ public class ProfileResponse {
 
     private String id;
 
+    private String mode;
+
     private String name;
 
     private String website;
-
-    private String mode;
 
     private String email;
 
     private String phone;
 
+    @Deprecated
     private int categoryCode;
 
     private BusinessCategory businessCategory;

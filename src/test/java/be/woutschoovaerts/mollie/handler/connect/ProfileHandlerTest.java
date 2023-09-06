@@ -5,10 +5,7 @@ import be.woutschoovaerts.mollie.ClientBuilder;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.method.MethodResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
-import be.woutschoovaerts.mollie.data.profile.BusinessCategory;
-import be.woutschoovaerts.mollie.data.profile.ProfileListResponse;
-import be.woutschoovaerts.mollie.data.profile.ProfileRequest;
-import be.woutschoovaerts.mollie.data.profile.ProfileResponse;
+import be.woutschoovaerts.mollie.data.profile.*;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -63,13 +60,8 @@ class ProfileHandlerTest {
 
         String updatedName = response.getName() + "_updated";
 
-        ProfileRequest update = ProfileRequest.builder()
-                .name(updatedName)
-                .website(response.getWebsite())
-                .email(response.getEmail())
-                .phone(response.getPhone())
-                .categoryCode(Optional.of(response.getCategoryCode()))
-                .mode(Optional.of("test"))
+        UpdateProfileRequest update = UpdateProfileRequest.builder()
+                .name(Optional.of(updatedName))
                 .build();
 
         response = client.profiles().updateProfile(response.getId(), update);

@@ -10,21 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProfileLinks {
+public class IssuerLinks {
 
     private Link self;
-
-    private Link dashboard;
-
-    private Link chargebacks;
-
-    private Link methods;
-
-    private Link payments;
-
-    private Link refunds;
-
-    private Link checkoutPreviewUrl;
 
     private Link documentation;
 }

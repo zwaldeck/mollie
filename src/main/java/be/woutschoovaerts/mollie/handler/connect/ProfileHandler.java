@@ -3,9 +3,7 @@ package be.woutschoovaerts.mollie.handler.connect;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.method.MethodResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
-import be.woutschoovaerts.mollie.data.profile.ProfileListResponse;
-import be.woutschoovaerts.mollie.data.profile.ProfileRequest;
-import be.woutschoovaerts.mollie.data.profile.ProfileResponse;
+import be.woutschoovaerts.mollie.data.profile.*;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.handler.AbstractHandler;
 import be.woutschoovaerts.mollie.util.Config;
@@ -138,7 +136,7 @@ public class ProfileHandler extends AbstractHandler {
      * @return ProfileResponse object
      * @throws MollieException when something went wrong
      */
-    public ProfileResponse updateProfile(String id, ProfileRequest body) throws MollieException {
+    public ProfileResponse updateProfile(String id, UpdateProfileRequest body) throws MollieException {
         return updateProfile(id, body, new QueryParams());
     }
 
@@ -151,7 +149,7 @@ public class ProfileHandler extends AbstractHandler {
      * @return ProfileResponse object
      * @throws MollieException when something went wrong
      */
-    public ProfileResponse updateProfile(String id, ProfileRequest body, QueryParams params) throws MollieException {
+    public ProfileResponse updateProfile(String id, UpdateProfileRequest body, QueryParams params) throws MollieException {
         try {
             String uri = "/profiles/" + id;
 
@@ -337,4 +335,83 @@ public class ProfileHandler extends AbstractHandler {
         }
     }
 
+    public GiftCardIssuerResponse enableMyGiftCardIssuer(String issuer) throws MollieException {
+        return enableMyGiftCardIssuer(issuer, new QueryParams());
+    }
+
+    public GiftCardIssuerResponse enableMyGiftCardIssuer(String issuer, QueryParams queryParams) throws MollieException {
+        return enableGiftCardIssuer("me", issuer, queryParams);
+    }
+
+    public GiftCardIssuerResponse enableGiftCardIssuer(String profileId, String issuer) throws MollieException {
+        return enableGiftCardIssuer(profileId, issuer, new QueryParams());
+    }
+
+    public GiftCardIssuerResponse enableGiftCardIssuer(String profileId, String issuer, QueryParams queryParams) throws MollieException {
+        try {
+            String uri = "/profiles/" + profileId + "/methods/giftcard/issuers/" + issuer;
+
+            HttpResponse<String> response = post(uri, null, queryParams);
+
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), new TypeReference<>() {
+            });
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    public void disableMyGiftCardIssuer(String issuer) throws MollieException {
+        disableMyGiftCardIssuer(issuer, new QueryParams());
+    }
+
+    public void disableMyGiftCardIssuer(String issuer, QueryParams queryParams) throws MollieException {
+        disableGiftCardIssuer("me", issuer, queryParams);
+    }
+
+    public void disableGiftCardIssuer(String profileId, String issuer) throws MollieException {
+        disableGiftCardIssuer(profileId, issuer, new QueryParams());
+    }
+
+    public void disableGiftCardIssuer(String profileId, String issuer, QueryParams params) throws MollieException {
+        try {
+            String uri = "/profiles/" + profileId + "/methods/giftcard/issuers/" + issuer;
+
+            delete(uri, params, false);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    public VoucherIssuerResponse enableMyVoucherIssuer(String issuer, EnableVoucherIssuerRequest request)
+            throws MollieException {
+        return enableVoucherIssuer("me", issuer, request, new QueryParams());
+    }
+
+    public VoucherIssuerResponse enableMyVoucherIssuer(String issuer, EnableVoucherIssuerRequest request, QueryParams queryParams)
+            throws MollieException {
+        return enableVoucherIssuer("me", issuer, request, queryParams);
+    }
+
+    public VoucherIssuerResponse enableVoucherIssuer(String profileId, String issuer, EnableVoucherIssuerRequest request)
+            throws MollieException {
+        return enableVoucherIssuer(profileId, issuer, request, new QueryParams());
+    }
+
+    public VoucherIssuerResponse enableVoucherIssuer(String profileId, String issuer,
+                                                     EnableVoucherIssuerRequest request, QueryParams queryParams)
+            throws MollieException {
+        try {
+            String uri = "/profiles/" + profileId + "/methods/voucher/issuers/" + issuer;
+
+            HttpResponse<String> response = post(uri, request, queryParams);
+
+            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), new TypeReference<>() {
+            });
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
 }
