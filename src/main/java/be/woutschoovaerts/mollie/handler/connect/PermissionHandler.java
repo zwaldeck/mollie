@@ -5,13 +5,11 @@ import be.woutschoovaerts.mollie.data.permission.Permission;
 import be.woutschoovaerts.mollie.data.permission.PermissionListResponse;
 import be.woutschoovaerts.mollie.data.permission.PermissionResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +20,17 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class PermissionHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class PermissionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(PermissionHandler.class);
 
-    public PermissionHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<PermissionResponse> PERMISSION_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<PermissionListResponse>> PERMISSIONS_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * All API actions through OAuth are by default protected for privacy and/or money related reasons and therefore require specific permissions. These permissions can be requested by apps during the OAuth authorization flow. The Permissions resource allows the app to check whether an API action is (still) allowed by the authorization.
@@ -53,10 +55,7 @@ public class PermissionHandler extends AbstractHandler {
         try {
             String uri = "/permissions/" + permission.getValue();
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), PermissionResponse.class);
+            return restService.get(uri, params, false, PERMISSION_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -84,11 +83,7 @@ public class PermissionHandler extends AbstractHandler {
         try {
             String uri = "/permissions";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<PermissionListResponse>>() {
-                    });
+            return restService.get(uri, params, false, PERMISSIONS_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

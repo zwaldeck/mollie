@@ -5,13 +5,11 @@ import be.woutschoovaerts.mollie.data.method.MethodResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
 import be.woutschoovaerts.mollie.data.profile.*;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +20,23 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class ProfileHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class ProfileHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ProfileHandler.class);
 
-    public ProfileHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<ProfileResponse> PROFILE_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<MethodResponse> METHOD_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<ProfileListResponse>> PROFILE_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<GiftCardIssuerResponse> GIFT_CARD_ISSUER_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<VoucherIssuerResponse> VOUCHER_ISSUER_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * In order to process payments, you need to create a website profile. A website profile can easily be created via the Dashboard manually. However, the Mollie API also allows automatic profile creation via the Profiles API.
@@ -53,9 +61,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
+            return restService.post(uri, body, params, PROFILE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -85,9 +91,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + id;
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
+            return  restService.get(uri, params, false, PROFILE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -119,9 +123,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/me";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
+            return restService.get(uri, params, false, PROFILE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -153,9 +155,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + id;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ProfileResponse.class);
+            return restService.patch(uri, body, params, PROFILE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -183,8 +183,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + id;
 
-            delete(uri, params, false);
-
+            restService.delete(uri, params, false, new TypeReference<Void>(){});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -241,9 +240,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
 
-            HttpResponse<String> response = postWithoutBody(uri, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), MethodResponse.class);
+            return restService.postWithoutBody(uri, params, METHOD_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -296,7 +293,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
 
-            delete(uri, params, false);
+            restService.delete(uri, params, false, new TypeReference<Void>(){});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -324,11 +321,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ProfileListResponse>>() {
-                    });
+            return restService.get(uri, params, false, PROFILE_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -351,10 +344,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + profileId + "/methods/giftcard/issuers/" + issuer;
 
-            HttpResponse<String> response = post(uri, null, queryParams);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), new TypeReference<>() {
-            });
+            return restService.postWithoutBody(uri, queryParams, GIFT_CARD_ISSUER_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -377,7 +367,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + profileId + "/methods/giftcard/issuers/" + issuer;
 
-            delete(uri, params, false);
+            restService.delete(uri, params, false, new TypeReference<Void>(){});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -405,10 +395,7 @@ public class ProfileHandler extends AbstractHandler {
         try {
             String uri = "/profiles/" + profileId + "/methods/voucher/issuers/" + issuer;
 
-            HttpResponse<String> response = post(uri, request, queryParams);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), new TypeReference<>() {
-            });
+            return restService.post(uri, request, queryParams, VOUCHER_ISSUER_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

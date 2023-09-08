@@ -4,13 +4,11 @@ import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.method.MethodListResponse;
 import be.woutschoovaerts.mollie.data.method.MethodResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +19,19 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class MethodHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class MethodHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MethodHandler.class);
 
-    public MethodHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<Pagination<MethodListResponse>> METHOD_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<MethodResponse> METHOD_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+
+    private final RestService restService;
+
 
     /**
      * Retrieve all available payment methods. The results are not paginated.
@@ -62,11 +66,7 @@ public class MethodHandler extends AbstractHandler {
         try {
             String uri = "/methods";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<MethodListResponse>>() {
-                    });
+            return restService.get(uri, params, true, METHOD_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -96,11 +96,7 @@ public class MethodHandler extends AbstractHandler {
         try {
             String uri = "/methods/all";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<MethodListResponse>>() {
-                    });
+            return restService.get(uri, params, false, METHOD_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -130,11 +126,7 @@ public class MethodHandler extends AbstractHandler {
         try {
             String uri = "/methods/" + methodId;
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<MethodResponse>() {
-                    });
+            return restService.get(uri, params, true, METHOD_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

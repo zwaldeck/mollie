@@ -4,13 +4,11 @@ import be.woutschoovaerts.mollie.data.chargeback.ChargebackListResponse;
 import be.woutschoovaerts.mollie.data.chargeback.ChargebackResponse;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +19,17 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class ChargebackHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class ChargebackHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ChargebackHandler.class);
 
-    public ChargebackHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<ChargebackResponse> CHARGEBACK_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<ChargebackListResponse>> CHARGEBACK_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * Retrieve a single chargeback by its ID. Note the original payment’s ID is needed as well.
@@ -55,11 +57,7 @@ public class ChargebackHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/chargebacks/" + chargebackId;
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<ChargebackResponse>() {
-                    });
+            return restService.get(uri, params, false, CHARGEBACK_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -91,11 +89,7 @@ public class ChargebackHandler extends AbstractHandler {
         try {
             String uri = "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ChargebackListResponse>>() {
-                    });
+            return restService.get(uri, params, false, CHARGEBACK_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -131,11 +125,7 @@ public class ChargebackHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/chargebacks";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ChargebackListResponse>>() {
-                    });
+            return restService.get(uri, params, false, CHARGEBACK_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

@@ -1,41 +1,87 @@
 package be.woutschoovaerts.mollie.handler.business;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.balance.BalanceResponse;
-import be.woutschoovaerts.mollie.data.balance.BalancesListResponse;
-import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.exception.MollieException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
-// TODO: Figure out how to integration test with the connect flow
+@ExtendWith(MockitoExtension.class)
 class BalanceHandlerTest {
 
-    private Client client;
+    @Mock
+    private RestService restService;
 
-    @BeforeEach
-    void setup() {
-        client = new ClientBuilder().withApiKey(API_KEY).build();
+    @InjectMocks
+    private BalanceHandler handler;
+
+    @Test
+    void getPrimaryBalance() throws Exception {
+        String uri = "/balances/primary";
+
+        handler.getPrimaryBalance();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    @Disabled
-    void getBalance() throws MollieException  {
-        BalanceResponse balance = client.balances().getBalance("");
+    void getBalance() throws Exception {
+        String uri = "/balances/balance_id";
 
-        assertNotNull(balance);
+        handler.getBalance("balance_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    @Disabled
-    void listBalance() throws MollieException  {
-        Pagination<BalancesListResponse> balances = client.balances().getBalances();
+    void getBalances() throws Exception {
+        String uri = "/balances";
 
-        assertNotNull(balances);
+        handler.getBalances();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getPrimaryBalanceReport() throws Exception {
+        String uri = "/balances/primary/report";
+
+        handler.getPrimaryBalanceReport();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getBalanceReport() throws Exception {
+        String uri = "/balances/balance_id/report";
+
+        handler.getBalanceReport("balance_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getPrimaryBalanceTransactions() throws Exception {
+        String uri = "/balances/primary/transactions";
+
+        handler.getPrimaryBalanceTransactions();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getBalanceTransactions() throws Exception {
+        String uri = "/balances/balance_id/transactions";
+
+        handler.getBalanceTransactions("balance_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 }

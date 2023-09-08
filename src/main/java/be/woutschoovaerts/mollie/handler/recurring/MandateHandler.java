@@ -5,13 +5,11 @@ import be.woutschoovaerts.mollie.data.mandate.MandateListResponse;
 import be.woutschoovaerts.mollie.data.mandate.MandateRequest;
 import be.woutschoovaerts.mollie.data.mandate.MandateResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +20,17 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class MandateHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class MandateHandler {
 
     private static final Logger log = LoggerFactory.getLogger(MandateHandler.class);
 
-    public MandateHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<MandateResponse> MANDATE_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<MandateListResponse>> MANDATE_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * Create a mandate for a specific customer. Mandates allow you to charge a customer’s credit card or bank account recurrently.
@@ -60,9 +62,7 @@ public class MandateHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/mandates";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), MandateResponse.class);
+            return restService.post(uri, body, params, MANDATE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -95,9 +95,7 @@ public class MandateHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/mandates/" + mandateId;
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), MandateResponse.class);
+            return restService.get(uri, params, true, MANDATE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -128,8 +126,7 @@ public class MandateHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/mandates/" + mandateId;
 
-            HttpResponse<String> response = delete(uri, params, true);
-
+            restService.delete(uri, params, true, new TypeReference<Void>() {});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -164,11 +161,7 @@ public class MandateHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/mandates";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<MandateListResponse>>() {
-                    });
+            return restService.get(uri, params, true, MANDATE_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

@@ -5,14 +5,14 @@ import be.woutschoovaerts.mollie.data.connect.RevokeTokenRequest;
 import be.woutschoovaerts.mollie.data.connect.TokenRequest;
 import be.woutschoovaerts.mollie.data.connect.TokenResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import be.woutschoovaerts.mollie.util.UrlUtils;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,13 +23,12 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class OAuthHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class OAuthHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OAuthHandler.class);
 
-    public OAuthHandler(Config config) {
-        super(null, log, config);
-    }
+    private final RestService restService;
 
     /**
      * The Authorize endpoint is the endpoint on Mollie web site where the merchant logs in, and grants authorization to your client application. E.g. when the merchant clicks on the Connect with Mollie button, you should redirect the merchant to the Authorize endpoint.
@@ -82,7 +81,7 @@ public class OAuthHandler extends AbstractHandler {
                     .asString();
 
 
-            validateResponse(response);
+            restService.validateResponse(response);
             log.info("Successful response 'POST {}'", url);
 
             return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), TokenResponse.class);
@@ -126,7 +125,7 @@ public class OAuthHandler extends AbstractHandler {
                     .asString();
 
 
-            validateResponse(response);
+            restService.validateResponse(response);
             log.info("Successful response 'DELETE {}'", url);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);

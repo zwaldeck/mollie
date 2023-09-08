@@ -1,55 +1,51 @@
 package be.woutschoovaerts.mollie.handler.payments;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.chargeback.ChargebackListResponse;
-import be.woutschoovaerts.mollie.data.common.Amount;
-import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
-import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
-import be.woutschoovaerts.mollie.exception.MollieException;
-import org.junit.jupiter.api.BeforeEach;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.util.Optional;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@ExtendWith(MockitoExtension.class)
 class ChargebackHandlerTest {
 
-    private Client client;
+    @Mock
+    private RestService restService;
 
-    @BeforeEach
-    void setUp() {
-        client = new ClientBuilder().withApiKey(API_KEY).build();
+    @InjectMocks
+    private ChargebackHandler handler;
+
+    @Test
+    void getChargeback() throws Exception {
+        String uri = "/payments/payment_id/chargebacks/chargeback_id";
+
+        handler.getChargeback("payment_id", "chargeback_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    void getChargebacks() throws MollieException {
-        Pagination<ChargebackListResponse> response = client.chargebacks().listChargebacks();
+    void listChargebacks_payment() throws Exception {
+        String uri = "/payments/payment_id/chargebacks";
 
-        assertNotNull(response);
+        handler.listChargebacks("payment_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    void getChargebacks_withPaymentId() throws MollieException {
-        PaymentRequest request = PaymentRequest.builder()
-                .amount(Amount.builder()
-                        .currency("EUR")
-                        .value(new BigDecimal("10.00"))
-                        .build())
-                .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
-                .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
-                .build();
-        PaymentResponse payment = client.payments().createPayment(request);
+    void listChargebacks() throws Exception {
+        String uri = "/chargebacks";
 
-        assertNotNull(payment);
+        handler.listChargebacks();
 
-        Pagination<ChargebackListResponse> response = client.chargebacks().listChargebacks(payment.getId());
-
-        assertNotNull(response);
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 }

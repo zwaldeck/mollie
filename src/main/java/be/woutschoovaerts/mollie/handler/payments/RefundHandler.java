@@ -5,13 +5,11 @@ import be.woutschoovaerts.mollie.data.refund.RefundListResponse;
 import be.woutschoovaerts.mollie.data.refund.RefundRequest;
 import be.woutschoovaerts.mollie.data.refund.RefundResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +20,17 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class RefundHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class RefundHandler {
 
     private static final Logger log = LoggerFactory.getLogger(RefundHandler.class);
 
-    public RefundHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<RefundResponse> REFUND_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<RefundListResponse>> REFUND_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * Most payment methods support refunds. This means you can request your payment to be refunded to your customer. The refunded amount will be withheld from your next settlement.
@@ -94,9 +96,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/refunds";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
+            return restService.post(uri, body, params, REFUND_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -128,9 +128,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), RefundResponse.class);
+            return restService.get(uri, params, true, REFUND_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -165,8 +163,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
-            HttpResponse<String> response = delete(uri, params, true);
-
+            restService.delete(uri, params, true, new TypeReference<Void>(){});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -202,11 +199,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/refunds";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<RefundListResponse>>() {
-                    });
+            return restService.get(uri, params, true, REFUND_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -245,11 +238,7 @@ public class RefundHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/refunds";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<RefundListResponse>>() {
-                    });
+            return restService.get(uri, params, true, REFUND_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

@@ -1,50 +1,42 @@
 package be.woutschoovaerts.mollie.handler.business;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.invoice.InvoiceResponse;
-import be.woutschoovaerts.mollie.data.invoice.InvoicesListResponse;
-import be.woutschoovaerts.mollie.exception.MollieException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.ORGANISATION_TOKEN;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class InvoiceHandlerTest {
 
-    private Client client;
+    @Mock
+    private RestService restService;
 
-    @BeforeEach
-    void setup() {
-        client = new ClientBuilder()
-                .withApiKey(API_KEY)
-                .withOrganizationToken(ORGANISATION_TOKEN)
-                .build();
+    @InjectMocks
+    private InvoiceHandler handler;
+
+    @Test
+    void getInvoices() throws Exception {
+        String uri = "/invoices";
+
+        handler.getInvoices();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
-    void getInvoices() throws MollieException {
-        Pagination<InvoicesListResponse> invoices = client.invoices().getInvoices();
+    void getInvoice() throws Exception {
+        String uri = "/invoices/invoice_id";
 
-        assertNotNull(invoices);
-    }
+        handler.getInvoice("invoice_id");
 
-    @Test
-    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
-    void getInvoice() throws MollieException {
-        Pagination<InvoicesListResponse> invoices = client.invoices().getInvoices();
-
-        assertNotNull(invoices);
-
-        InvoiceResponse response = client.invoices().getInvoice(invoices.getEmbedded().getInvoices().get(0).getId());
-
-        assertNotNull(response);
-        assertEquals("invoice", response.getResource());
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 }

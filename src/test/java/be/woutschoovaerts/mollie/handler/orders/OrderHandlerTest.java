@@ -1,299 +1,155 @@
 package be.woutschoovaerts.mollie.handler.orders;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
 import be.woutschoovaerts.mollie.data.common.Amount;
-import be.woutschoovaerts.mollie.data.common.Locale;
-import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.order.*;
-import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
-import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
-import be.woutschoovaerts.mollie.data.refund.RefundResponse;
-import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class OrderHandlerTest {
 
-    private static final int ORDER_MAX_EXPIRY_DAYS = 100;
+    @Mock
+    private RestService restService;
 
-    private Client client;
-
-    @BeforeEach
-    void setup() {
-        client = new ClientBuilder().withApiKey(API_KEY).build();
-    }
+    @InjectMocks
+    private OrderHandler handler;
 
     @Test
-    void createOrder() throws MollieException {
-        OrderResponse response = create();
+    void createOrder() throws Exception {
+        String uri = "/orders";
 
-        assertNotNull(response);
-    }
-
-    @Test
-    void getOrder() throws MollieException {
-        OrderResponse order = create();
-
-        assertNotNull(order);
-
-        QueryParams params = new QueryParams();
-        params.put("embed", "payments,refunds");
-
-        order = client.orders().getOrder(order.getId(), params);
-
-        assertNotNull(order);
-    }
-
-    @Test
-    void createOrderLineWithSpecificCategory() throws MollieException {
-        OrderRequest orderRequest = createOrderRequest();
-
-        orderRequest.getLines().get(0).setCategory(Optional.of(OrderLineCategory.ECO));
-
-        OrderResponse orderResponse = client.orders().createOrder(orderRequest);
-
-        // can't assert line category is persisted correctly, it's not included in Mollie's order response
-        assertNotNull(orderResponse);
-    }
-
-    @Test
-    void getOrders() throws MollieException {
-        OrderResponse order = create();
-
-        assertNotNull(order);
-
-        Pagination<OrderListResponse> orders = client.orders().getOrders();
-
-        assertNotNull(orders);
-        assertTrue(orders.getCount() > 0);
-    }
-
-    @Test
-    void updateOrder() throws MollieException {
-        OrderResponse order = create();
-
-        assertNotNull(order);
-
-        OrderUpdateRequest updateRequest = OrderUpdateRequest.builder()
-                .orderNumber(Optional.of("new_order_number-" + order.getOrderNumber()))
+        OrderRequest request = OrderRequest.builder()
+                .amount(Amount.builder().currency("EUR").value(new BigDecimal("10.00")).build())
+                .orderNumber("ord-001")
+                .lines(List.of())
                 .build();
 
-        order = client.orders().updateOrder(order.getId(), updateRequest);
+        handler.createOrder(request);
 
-        assertNotNull(order);
-        assertEquals(updateRequest.getOrderNumber().get(), order.getOrderNumber());
+        verify(restService).post(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
     }
 
     @Test
-    void updateOrderLine() throws MollieException {
-        OrderResponse order = create();
+    void getOrder() throws Exception {
+        String uri = "/orders/order_id";
 
-        assertNotNull(order);
+        handler.getOrder("order_id");
 
-        OrderLineResponse orderLine = order.getLines().get(0);
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(true), any(TypeReference.class));
+    }
+
+    @Test
+    void getOrders() throws Exception {
+        String uri = "/orders";
+
+        handler.getOrders();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(true), any(TypeReference.class));
+    }
+
+    @Test
+    void updateOrder() throws Exception {
+        String uri = "/orders/order_id";
+
+        OrderUpdateRequest request = OrderUpdateRequest.builder()
+                .orderNumber(Optional.of("updated_id"))
+                .build();
+
+        handler.updateOrder("order_id", request);
+
+        verify(restService).patch(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
+    }
+
+    @Test
+    void updateOrderLine() throws Exception {
+        String uri = "/orders/order_id/lines/line_id";
 
         OrderLineUpdateRequest request = OrderLineUpdateRequest.builder()
-                .name(Optional.of("updated_name_" + orderLine.getName()))
+                .name(Optional.of("updated_name"))
                 .build();
 
-        order = client.orders().updateOrderLine(order.getId(), orderLine.getId(), request);
+        handler.updateOrderLine("order_id", "line_id", request);
 
-        assertNotNull(order);
-        assertEquals(request.getName().get(), order.getLines().get(0).getName());
+        verify(restService).patch(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
     }
 
     @Test
-    @Disabled // TODO: Enable again when mollie stops throwing 500s
-    void manageOrderLines() throws MollieException {
-        OrderResponse order = create();
+    void cancelOrder() throws Exception {
+        String uri = "/orders/order_id";
 
-        assertNotNull(order);
+        handler.cancelOrder("order_id");
+
+        verify(restService).delete(eq(uri), any(QueryParams.class), eq(true), any(TypeReference.class));
+    }
+
+    @Test
+    void manageOrderLines() throws Exception {
+        String uri = "/orders/order_id/lines";
 
         ManageOrderLineRequest request = ManageOrderLineRequest.builder()
                 .operations(List.of(
-                        OrderLineOperationRequest.updateOperation(
-                                UpdateOrderLineRequest.builder()
-                                        .id(order.getLines().get(0).getId())
-                                        .name(Optional.of("UPDATED NAME"))
-                                        .build()
-                        )))
+                        OrderLineOperationRequest.cancelOperation(CancelOrderLineRequest.builder().build())
+                ))
                 .build();
 
-        order = client.orders().manageOrderLines(order.getId(), request);
+        handler.manageOrderLines("order_id", request);
 
-        assertNotNull(order);
-        assertEquals("UPDATED NAME", order.getLines().get(0).getName());
-
+        verify(restService).patch(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
     }
 
     @Test
-    void cancelOrder() throws MollieException {
-        OrderResponse order = create();
+    void cancelOrderLines() throws Exception {
+        String uri = "/orders/order_id/lines";
 
-        assertNotNull(order);
+        CancelOrderLinesRequest request = CancelOrderLinesRequest.builder().build();
 
-        order = client.orders().cancelOrder(order.getId());
+        handler.cancelOrderLines("order_id", request);
 
-        assertNotNull(order);
-        assertEquals(OrderStatus.CANCELED, order.getStatus());
+        verify(restService).delete(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
     }
 
     @Test
-    void createOrderWithExpiry() throws MollieException {
-        LocalDate maxExpiry = LocalDate.now().plusDays(ORDER_MAX_EXPIRY_DAYS);
+    void createOrderPayment() throws Exception {
+        String uri = "/orders/order_id/payments";
 
-        OrderRequest orderRequest = createOrderRequestBuilder()
-                .expiresAt(Optional.of(maxExpiry))
-                .build();
+        OrderPaymentRequest request = OrderPaymentRequest.builder().build();
 
-        OrderResponse response = client.orders().createOrder(orderRequest);
+        handler.createOrderPayment("order_id", request);
 
-        assertNotNull(response);
+        verify(restService).post(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
     }
 
     @Test
-    void createOrderWithExpiryTooFarInFuture() {
-        LocalDate maxExpiry = LocalDate.now().plusDays(ORDER_MAX_EXPIRY_DAYS + 1);
-
-        OrderRequest orderRequest = createOrderRequestBuilder()
-                .expiresAt(Optional.of(maxExpiry))
-                .build();
-
-        MollieException ex = assertThrows(MollieException.class, () -> client.orders().createOrder(orderRequest));
-
-        assertNotNull(ex);
-        assertEquals(422, ex.getDetails().get("status"));
-        assertEquals("Unprocessable Entity", ex.getDetails().get("title"));
-        assertEquals("Expiry date is too far in the future.", ex.getDetails().get("detail"));
-    }
-
-    @Test
-    @Disabled // Todo extend the test so we have the correct order line status to cancel
-    void cancelOrderLine() throws MollieException {
-        OrderResponse order = create();
-
-        assertNotNull(order);
-
-        CancelOrderLinesRequest body = CancelOrderLinesRequest.builder()
-                .lines(Arrays.asList(
-                        CancelOrderLineRequest.builder()
-                        .id(order.getLines().get(0).getId())
-                        .build()
-                )).build();
-
-        client.orders().cancelOrderLines(order.getId(), body);
-    }
-
-    @Test
-    @Disabled // Not really possible to integration test, to execute this we should have an expired payment
-    void createOrderPayment() throws MollieException {
-        OrderResponse order = create();
-
-        assertNotNull(order);
-
-        OrderPaymentRequest body = OrderPaymentRequest.builder()
-                .method(Optional.of(Arrays.asList(PaymentMethod.BANK_TRANSFER)))
-                .build();
-
-        PaymentResponse response = client.orders().createOrderPayment(order.getId(), body);
-
-        assertNotNull(response);
-        assertEquals("payment", response.getResource());
-    }
-
-    @Test
-    @Disabled // Not really possible to integration test, to execute this we should have a paid or completed order
     void createOrderRefund() throws Exception {
-        OrderResponse order = create();
+        String uri = "/orders/order_id/refunds";
 
-        assertNotNull(order);
+        OrderRefundRequest request = OrderRefundRequest.builder().build();
 
-        OrderRefundRequest body = OrderRefundRequest.builder()
-                .lines(Collections.emptyList())
-                .description(Optional.of("A nice refund description"))
-                .build();
+        handler.createOrderRefund("order_id", request);
 
-        RefundResponse response = client.orders().createOrderRefund(order.getId(), body);
-
-        assertNotNull(response);
-        assertEquals("A nice refund description", response.getDescription());
+        verify(restService).post(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
     }
 
     @Test
-    void getOrderRefunds() throws MollieException {
-        OrderResponse order = create();
+    void getOrderRefunds() throws Exception {
+        String uri = "/orders/order_id/refunds";
 
-        assertNotNull(order);
+        handler.getOrderRefunds("order_id");
 
-        Pagination<OrderRefundListResponse> response = client.orders().getOrderRefunds(order.getId());
-
-        assertNotNull(response);
-    }
-
-    private OrderResponse create() throws MollieException {
-        OrderRequest orderRequest = createOrderRequest();
-
-        return client.orders().createOrder(orderRequest);
-    }
-
-    private OrderRequest createOrderRequest() {
-        return createOrderRequestBuilder().build();
-    }
-
-    private OrderRequest.OrderRequestBuilder createOrderRequestBuilder() {
-        return OrderRequest.builder()
-                .amount(Amount.builder()
-                        .currency("EUR")
-                        .value(new BigDecimal("10.00"))
-                        .build())
-                .orderNumber(RandomStringUtils.randomNumeric(5))
-                .lines(Collections.singletonList(createOrderLineRequest()))
-                .billingAddress(Optional.of(OrderAddressRequest.builder()
-                        .givenName("John")
-                        .familyName("Doe")
-                        .email("john.doe@feelio.be")
-                        .streetAndNumber("wetstraat 1")
-                        .postalCode("1000")
-                        .city("Brussels")
-                        .country("BE")
-                        .build()))
-                .locale(Locale.nl_BE)
-                .method(Optional.of(Collections.singletonList(PaymentMethod.BANK_TRANSFER)))
-                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"));
-    }
-
-    private OrderLineRequest createOrderLineRequest() {
-        return OrderLineRequest.builder()
-                .name("Orderline name")
-                .quantity(10)
-                .unitPrice(Amount.builder()
-                        .currency("EUR")
-                        .value(new BigDecimal("1.00"))
-                        .build())
-                .totalAmount(Amount.builder()
-                        .currency("EUR")
-                        .value(new BigDecimal("10.00"))
-                        .build())
-                .vatRate("21.00")
-                .vatAmount(Amount.builder()
-                        .currency("EUR")
-                        .value(new BigDecimal("1.74"))
-                        .build())
-                .sku(Optional.of(RandomStringUtils.randomAlphabetic(5)))
-                .build();
+        verify(restService).get(eq(uri), any(QueryParams.class), any(TypeReference.class));
     }
 }

@@ -6,13 +6,11 @@ import be.woutschoovaerts.mollie.data.balance.BalanceTransactionsListResponse;
 import be.woutschoovaerts.mollie.data.balance.BalancesListResponse;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,13 +21,17 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class BalanceHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class BalanceHandler {
 
     private static final Logger log = LoggerFactory.getLogger(BalanceHandler.class);
 
-    public BalanceHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<BalanceResponse> BALANCE_RESPONSE_TYPE = new TypeReference<>() {};
+    private static final TypeReference<Pagination<BalancesListResponse>> BALANCE_LIST_RESPONSE_TYPE = new TypeReference<>() {};
+    private static final TypeReference<BalanceReportResponse> BALANCE_REPORT_RESPONSE_TYPE = new TypeReference<>() {};
+    private static final TypeReference<Pagination<BalanceTransactionsListResponse>> BALANCE_TRANSACTIONS_LIST_RESPONSE_TYPE = new TypeReference<>() {};
+
+    private final RestService restService;
 
     /**
      * Retrieve the primary balance. This is the balance of your account’s primary currency, where all payments are settled to by default.
@@ -87,11 +89,7 @@ public class BalanceHandler extends AbstractHandler {
         try {
             String uri = "/balances/" + balanceId;
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<>() {
-                    });
+            return restService.get(uri, params, false, BALANCE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -119,11 +117,7 @@ public class BalanceHandler extends AbstractHandler {
         try {
             String uri = "/balances";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<>() {
-                    });
+            return restService.get(uri, params, false, BALANCE_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -178,11 +172,7 @@ public class BalanceHandler extends AbstractHandler {
         try {
             String uri = "/balances/" + balanceId + "/report";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<>() {
-                    });
+            return restService.get(uri, params, false, BALANCE_REPORT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -233,11 +223,7 @@ public class BalanceHandler extends AbstractHandler {
         try {
             String uri = "/balances/" + balanceId + "/transactions";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<>() {
-                    });
+            return restService.get(uri, params, false, BALANCE_TRANSACTIONS_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

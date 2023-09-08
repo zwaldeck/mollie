@@ -6,13 +6,11 @@ import be.woutschoovaerts.mollie.data.shipment.ShipmentRequest;
 import be.woutschoovaerts.mollie.data.shipment.ShipmentResponse;
 import be.woutschoovaerts.mollie.data.shipment.ShipmentUpdateRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,13 +21,16 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class ShipmentHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class ShipmentHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ShipmentHandler.class);
 
-    public ShipmentHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<ShipmentResponse> SHIPMENT_RESPONSE_TYPE = new TypeReference<>() {
+    };private static final TypeReference<Pagination<ShipmentListResponse>> SHIPMENT_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * In addition to the Orders API, the create shipment endpoint can be used to ship order lines.
@@ -65,9 +66,7 @@ public class ShipmentHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId + "/shipments";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ShipmentResponse.class);
+            return restService.post(uri, body, params, SHIPMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -100,9 +99,7 @@ public class ShipmentHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ShipmentResponse.class);
+            return restService.get(uri, params, true, SHIPMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -133,11 +130,7 @@ public class ShipmentHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId + "/shipments";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<ShipmentListResponse>>() {
-                    });
+            return restService.get(uri, params, true, SHIPMENT_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -173,9 +166,7 @@ public class ShipmentHandler extends AbstractHandler {
         try {
             String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), ShipmentResponse.class);
+            return restService.patch(uri, body, params, SHIPMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

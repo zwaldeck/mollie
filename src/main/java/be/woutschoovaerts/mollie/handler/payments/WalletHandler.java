@@ -3,25 +3,24 @@ package be.woutschoovaerts.mollie.handler.payments;
 import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionRequest;
 import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
-import kong.unirest.HttpResponse;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class WalletHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class WalletHandler {
 
     private static final Logger log = LoggerFactory.getLogger(WalletHandler.class);
 
-    private static final String WALLETS_APPLEPAY_SESSIONS_URI = "/wallets/applepay/sessions";
+    private static final TypeReference<ApplePaySessionResponse> APPLE_PAY_SESSION_RESPONSE_TYPE = new TypeReference<>() {
+    };
 
-    public WalletHandler(String baseApiUrl, Config config) {
-        super(baseApiUrl, log, config);
-    }
+    private final RestService restService;
 
     /**
      * For integrating Apple Pay in your own checkout on the web, you need to provide merchant validation. This is normally done using Apple’s Requesting Apple Pay Session. The merchant validation proves (to Apple) that a validated merchant is calling the Apple Pay Javascript APIs.
@@ -45,10 +44,7 @@ public class WalletHandler extends AbstractHandler {
      */
     public ApplePaySessionResponse requestApplePaySession(ApplePaySessionRequest body) throws MollieException {
         try {
-            HttpResponse<String> response = post(WALLETS_APPLEPAY_SESSIONS_URI, body);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), ApplePaySessionResponse.class);
+            return restService.post("/wallets/applepay/sessions", body, APPLE_PAY_SESSION_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

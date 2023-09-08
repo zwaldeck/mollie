@@ -4,13 +4,11 @@ import be.woutschoovaerts.mollie.data.client.ClientResponse;
 import be.woutschoovaerts.mollie.data.client.ClientsListResponse;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +19,18 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-// TODO: Write integration tests with connect
-public class ClientHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class ClientHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ClientHandler.class);
 
-    public ClientHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<Pagination<ClientsListResponse>> CLIENTS_LIST_RESPONSE_TYPE = new TypeReference<Pagination<ClientsListResponse>>() {
+    };
+    private static final TypeReference<ClientResponse> CLIENT_RESPONSE_TYPE = new TypeReference<ClientResponse>() {
+    };
+
+
+    private final RestService restService;
 
     /**
      * Retrieve all clients linked to your partner account.
@@ -51,11 +53,7 @@ public class ClientHandler extends AbstractHandler {
         try {
             String uri = "/clients";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<>() {
-                    });
+            return restService.get(uri, params, false, CLIENTS_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -85,11 +83,7 @@ public class ClientHandler extends AbstractHandler {
         try {
             String uri = "/clients/" + clientId;
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<>() {
-                    });
+            return restService.get(uri, params, false, CLIENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

@@ -1,48 +1,43 @@
 package be.woutschoovaerts.mollie.handler.payments;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.capture.CaptureListResponse;
-import be.woutschoovaerts.mollie.data.common.Amount;
-import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
-import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
-import be.woutschoovaerts.mollie.exception.MollieException;
-import org.junit.jupiter.api.BeforeEach;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.math.BigDecimal;
-import java.util.Optional;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@ExtendWith(MockitoExtension.class)
 class CaptureHandlerTest {
 
-    private Client client;
+    @Mock
+    private RestService restService;
 
-    @BeforeEach
-    void setup() {
-        client = new ClientBuilder().withApiKey(API_KEY).build();
+    @InjectMocks
+    private CaptureHandler handler;
+
+    @Test
+    void getCapture() throws Exception {
+        String uri = "/payments/payment_id/captures/capture_id";
+
+        handler.getCapture("payment_id", "capture_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(true), any(TypeReference.class));
     }
 
     @Test
-    void getCaptures() throws MollieException {
-        PaymentRequest request = PaymentRequest.builder()
-                .amount(Amount.builder()
-                        .currency("EUR")
-                        .value(new BigDecimal("10.00"))
-                        .build())
-                .description("My first payment")
-                .redirectUrl("https://webshop.example.org/order/12345/")
-                .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
-                .build();
-        PaymentResponse payment = client.payments().createPayment(request);
+    void listCaptures() throws Exception {
+        String uri = "/payments/payment_id/captures";
 
-        assertNotNull(payment);
+        handler.listCaptures("payment_id");
 
-        Pagination<CaptureListResponse> response = client.captures().listCaptures(payment.getId());
-
-        assertNotNull(response);
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(true), any(TypeReference.class));
     }
+
 }

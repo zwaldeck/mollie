@@ -1,43 +1,51 @@
 package be.woutschoovaerts.mollie.handler.connect;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.organization.OrganizationResponse;
-import be.woutschoovaerts.mollie.exception.MollieException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.ORGANISATION_TOKEN;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class OrganizationHandlerTest {
 
-    private Client client;
+    @Mock
+    private RestService restService;
 
-    @BeforeEach
-    void setup() {
-        client = new ClientBuilder()
-                .withApiKey(API_KEY)
-                .withOrganizationToken(ORGANISATION_TOKEN)
-                .build();
+    @InjectMocks
+    private OrganizationHandler handler;
+
+    @Test
+    void getMyOrganization() throws Exception {
+        String uri = "/organizations/me";
+
+        handler.getMyOrganization();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
-    void getMyOrganization() throws MollieException {
-        OrganizationResponse response = client.organizations().getMyOrganization();
+    void getOrganization() throws Exception {
+        String uri = "/organizations/organization_id";
 
-        assertNotNull(response);
+        handler.getOrganization("organization_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    @Disabled // This test works if you fill in an organisation token and remove the @Disabled
-    void getOrganization()  throws MollieException{
-        OrganizationResponse myOrganisation = client.organizations().getMyOrganization();
-        OrganizationResponse response = client.organizations().getOrganization(myOrganisation.getId());
+    void getPartner() throws Exception {
+        String uri = "/organizations/me/partner";
 
-        assertNotNull(response);
+        handler.getPartner();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 }

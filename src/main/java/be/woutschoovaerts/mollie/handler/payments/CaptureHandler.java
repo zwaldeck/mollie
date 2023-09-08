@@ -4,13 +4,11 @@ import be.woutschoovaerts.mollie.data.capture.CaptureListResponse;
 import be.woutschoovaerts.mollie.data.capture.CaptureResponse;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +19,17 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class CaptureHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class CaptureHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CaptureHandler.class);
 
-    public CaptureHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<CaptureResponse> CAPTURE_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<CaptureListResponse>> CAPTURE_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * Retrieve a single capture by its ID. Note the original payment’s ID is needed as well.
@@ -59,11 +61,7 @@ public class CaptureHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/captures/" + captureId;
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<CaptureResponse>() {
-                    });
+            return restService.get(uri, params, true, CAPTURE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -97,12 +95,7 @@ public class CaptureHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId + "/captures";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<CaptureListResponse>>() {
-                    });
-
+            return restService.get(uri, params, true, CAPTURE_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

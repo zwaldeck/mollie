@@ -3,12 +3,11 @@ package be.woutschoovaerts.mollie.handler.connect;
 import be.woutschoovaerts.mollie.data.organization.OrganizationPartnerResponse;
 import be.woutschoovaerts.mollie.data.organization.OrganizationResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
-import kong.unirest.HttpResponse;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +18,18 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class OrganizationHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class OrganizationHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OrganizationHandler.class);
 
-    public OrganizationHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<OrganizationResponse> ORGANIZATION_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<OrganizationPartnerResponse> ORGANIZATION_PARTNER_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+
+    private final RestService restService;
 
     /**
      * Retrieve the currently authenticated organization.
@@ -48,10 +52,7 @@ public class OrganizationHandler extends AbstractHandler {
         try {
             String uri = "/organizations/me";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OrganizationResponse.class);
+            return restService.get(uri, params, false, ORGANIZATION_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -85,10 +86,7 @@ public class OrganizationHandler extends AbstractHandler {
         try {
             String uri = "/organizations/" + organizationId;
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OrganizationResponse.class);
+            return restService.get(uri, params, false, ORGANIZATION_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -116,10 +114,7 @@ public class OrganizationHandler extends AbstractHandler {
         try {
             String uri = "/organizations/me/partner";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OrganizationPartnerResponse.class);
+            return restService.get(uri, params, false, ORGANIZATION_PARTNER_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

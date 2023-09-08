@@ -3,12 +3,11 @@ package be.woutschoovaerts.mollie.handler.connect;
 import be.woutschoovaerts.mollie.data.onboarding.OnboardingRequest;
 import be.woutschoovaerts.mollie.data.onboarding.OnboardingResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
-import kong.unirest.HttpResponse;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +18,15 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class OnboardingHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class OnboardingHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OnboardingHandler.class);
 
-    public OnboardingHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<OnboardingResponse> ONBOARDING_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * Get the status of onboarding of the authenticated organization.
@@ -48,10 +49,7 @@ public class OnboardingHandler extends AbstractHandler {
         try {
             String uri = "/onboarding/me";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper()
-                    .readValue(response.getBody(), OnboardingResponse.class);
+            return restService.get(uri, params, false, ONBOARDING_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -83,7 +81,7 @@ public class OnboardingHandler extends AbstractHandler {
         try {
             String uri = "/onboarding/me";
 
-            post(uri, body, params);
+            restService.post(uri, body, params, new TypeReference<Void>() {});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

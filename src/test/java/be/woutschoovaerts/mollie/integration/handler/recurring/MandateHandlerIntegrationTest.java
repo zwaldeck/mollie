@@ -1,4 +1,4 @@
-package be.woutschoovaerts.mollie.handler.recurring;
+package be.woutschoovaerts.mollie.integration.handler.recurring;
 
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;

@@ -4,13 +4,11 @@ import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.invoice.InvoiceResponse;
 import be.woutschoovaerts.mollie.data.invoice.InvoicesListResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +19,15 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class InvoiceHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class InvoiceHandler {
 
     private static final Logger log = LoggerFactory.getLogger(InvoiceHandler.class);
 
-    public InvoiceHandler(String baseApiUrl, Config config) {
-        super(baseApiUrl, log, config);
-    }
+    private static final TypeReference<Pagination<InvoicesListResponse>> INVOICES_LIST_RESPONSE_TYPE = new TypeReference<>() {};
+    private static final TypeReference<InvoiceResponse> INVOICE_RESPONSE_TYPE = new TypeReference<>() {};
+
+    private final RestService restService;
 
     /**
      * Retrieve all invoices on the account. Optionally filter on year or invoice number..
@@ -50,11 +50,7 @@ public class InvoiceHandler extends AbstractHandler {
         try {
             String uri = "/invoices";
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<InvoicesListResponse>>() {
-                    });
+            return restService.get(uri, params, false, INVOICES_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -88,9 +84,7 @@ public class InvoiceHandler extends AbstractHandler {
         try {
             String uri = "/invoices/" + id;
 
-            HttpResponse<String> response = get(uri, params, false);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), InvoiceResponse.class);
+            return restService.get(uri, params, false, INVOICE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

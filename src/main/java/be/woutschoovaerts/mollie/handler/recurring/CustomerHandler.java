@@ -8,13 +8,11 @@ import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
 import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,13 +23,21 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class CustomerHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class CustomerHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CustomerHandler.class);
 
-    public CustomerHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
-    }
+    private static final TypeReference<CustomerResponse> CUSTOMER_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<CustomerListResponse>> CUSTOMER_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<PaymentResponse> PAYMENT_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<PaymentListResponse>> PAYMENT_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+
+    private final RestService restService;
 
     /**
      * Creates a simple minimal representation of a customer in the Mollie API to use for the Mollie Checkout and Recurring features.
@@ -56,9 +62,7 @@ public class CustomerHandler extends AbstractHandler {
         try {
             String uri = "/customers";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), CustomerResponse.class);
+            return restService.post(uri, body, params, CUSTOMER_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -88,9 +92,7 @@ public class CustomerHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId;
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), CustomerResponse.class);
+            return restService.get(uri, params, true, CUSTOMER_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -121,9 +123,7 @@ public class CustomerHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId;
 
-            HttpResponse<String> response = patch(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), CustomerResponse.class);
+            return restService.patch(uri, body, params, CUSTOMER_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -151,8 +151,7 @@ public class CustomerHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId;
 
-            HttpResponse<String> response = delete(uri, params, true);
-
+            restService.delete(uri, params, true, new TypeReference<Void>() {});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -184,11 +183,7 @@ public class CustomerHandler extends AbstractHandler {
         try {
             String uri = "/customers";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<CustomerListResponse>>() {
-                    });
+            return restService.get(uri, params, true, CUSTOMER_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -225,9 +220,7 @@ public class CustomerHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/payments";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
+            return restService.post(uri, body, params, PAYMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -258,11 +251,7 @@ public class CustomerHandler extends AbstractHandler {
         try {
             String uri = "/customers/" + customerId + "/payments";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<Pagination<PaymentListResponse>>() {
-                    });
+            return restService.get(uri, params, true, PAYMENT_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

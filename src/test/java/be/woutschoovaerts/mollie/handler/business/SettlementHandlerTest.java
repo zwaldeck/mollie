@@ -1,49 +1,96 @@
 package be.woutschoovaerts.mollie.handler.business;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.common.Pagination;
-import be.woutschoovaerts.mollie.data.settlement.SettlementListResponse;
-import be.woutschoovaerts.mollie.data.settlement.SettlementResponse;
-import be.woutschoovaerts.mollie.exception.MollieException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.ORGANISATION_TOKEN;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class SettlementHandlerTest {
 
-    private Client client;
+    @Mock
+    private RestService restService;
 
-    @BeforeEach
-    void setup() {
-        client = new ClientBuilder()
-                .withApiKey(API_KEY)
-                .withOrganizationToken(ORGANISATION_TOKEN)
-                .build();
+    @InjectMocks
+    private SettlementHandler handler;
+
+    @Test
+    void getSettlement() throws Exception {
+        String uri = "/settlements/settlement_id";
+
+        handler.getSettlement("settlement_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
-    void getSettlement() throws MollieException {
-        Pagination<SettlementListResponse> list = client.settlements().getSettlements();
+    void getSettlements() throws Exception {
+        String uri = "/settlements";
 
-        assertNotNull(list);
+        handler.getSettlements();
 
-        SettlementResponse response = client.settlements()
-                .getSettlement(list.getEmbedded().getSettlements().get(0).getId());
-
-        assertNotNull(response);
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 
     @Test
-    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
-    void getSettlements() throws MollieException {
-        Pagination<SettlementListResponse> response = client.settlements().getSettlements();
+    void getNextSettlement() throws Exception {
+        String uri = "/settlements/next";
 
-        assertNotNull(response);
+        handler.getNextSettlement();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getOpenSettlement() throws Exception {
+        String uri = "/settlements/open";
+
+        handler.getOpenSettlement();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getSettlementPayments() throws Exception {
+        String uri = "/settlements/settlement_id/payments";
+
+        handler.getSettlementPayments("settlement_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getSettlementRefund() throws Exception {
+        String uri = "/settlements/settlement_id/refunds";
+
+        handler.getSettlementRefund("settlement_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getSettlementChargebacks() throws Exception {
+        String uri = "/settlements/settlement_id/chargebacks";
+
+        handler.getSettlementChargebacks("settlement_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
+    }
+
+    @Test
+    void getSettlementCaptures() throws Exception {
+        String uri = "/settlements/settlement_id/captures";
+
+        handler.getSettlementCaptures("settlement_id");
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 }

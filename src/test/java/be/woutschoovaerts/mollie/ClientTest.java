@@ -13,7 +13,6 @@ class ClientTest {
     void constructor() {
         Client client = new Client("apiKey");
 
-        assertEquals("https://api.mollie.com/v2", client.getEndpoint());
         assertEquals("apiKey", client.getConfig().getApiKey());
 
         Unirest.config().shutDown(true);

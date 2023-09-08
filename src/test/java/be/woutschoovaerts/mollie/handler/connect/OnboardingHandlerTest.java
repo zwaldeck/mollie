@@ -1,46 +1,33 @@
 package be.woutschoovaerts.mollie.handler.connect;
 
-import be.woutschoovaerts.mollie.Client;
-import be.woutschoovaerts.mollie.ClientBuilder;
-import be.woutschoovaerts.mollie.data.onboarding.OnboardingProfileRequest;
-import be.woutschoovaerts.mollie.data.onboarding.OnboardingRequest;
-import be.woutschoovaerts.mollie.exception.MollieException;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
-import static be.woutschoovaerts.mollie.IntegrationTestConstants.ORGANISATION_TOKEN;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@ExtendWith(MockitoExtension.class)
 class OnboardingHandlerTest {
 
-    private Client client;
+    @Mock
+    private RestService restService;
 
-    @BeforeEach
-    void setup() {
-        client = new ClientBuilder()
-                .withApiKey(API_KEY)
-                .withOrganizationToken(ORGANISATION_TOKEN)
-                .build();
-    }
+    @InjectMocks
+    private OnboardingHandler handler;
 
     @Test
-    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
-    void getOnboardingStatus() throws MollieException {
-        assertNotNull(client.onboarding().getOnboardingStatus());
-    }
+    void getOnboardingStatus() throws Exception {
+        String uri = "/onboarding/me";
 
-    @Test
-    @Disabled        // This test works if you fill in an organisation token and remove the @Disabled
-    void submitOnboardingData() throws MollieException{
-        client.onboarding().submitOnboardingData(OnboardingRequest.builder()
-                .profile(Optional.of(OnboardingProfileRequest.builder()
-                        .name(Optional.of("Update_name" + RandomStringUtils.randomAlphabetic(5)))
-                        .build()))
-                .build());
+        handler.getOnboardingStatus();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(false), any(TypeReference.class));
     }
 }

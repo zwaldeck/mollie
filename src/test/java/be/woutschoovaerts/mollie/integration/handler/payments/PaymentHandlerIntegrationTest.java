@@ -1,4 +1,4 @@
-package be.woutschoovaerts.mollie.handler.payments;
+package be.woutschoovaerts.mollie.integration.handler.payments;
 
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;

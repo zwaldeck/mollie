@@ -1,48 +1,44 @@
-package be.woutschoovaerts.mollie.handler;
+package be.woutschoovaerts.mollie.util;
 
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
-import be.woutschoovaerts.mollie.util.QueryParams;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
-import org.slf4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractHandler {
+@Slf4j
+public class RestService {
 
-    private final Logger log;
-    private final String baseUrl;
+    private static final String BASE_URL = "https://api.mollie.com/v2";
+
     private final ObjectMapper mapper;
-    protected final Config config;
+    private final Config config;
 
-    protected AbstractHandler(String baseUrl, Logger log, Config config) {
-        this.baseUrl = baseUrl;
-        this.log = log;
-        this.mapper = ObjectMapperService.getInstance().getMapper();
+    public RestService(Config config) {
+        mapper = ObjectMapperService.getInstance().getMapper();
         this.config = config;
     }
 
-    protected HttpResponse<String> get(String uri) throws IOException, MollieException {
-        return get(uri, new QueryParams());
+    public <T> T get(String uri, TypeReference<T> typeRef) throws IOException, MollieException {
+        return get(uri, new QueryParams(), typeRef);
     }
 
-    protected HttpResponse<String> get(String uri, QueryParams params) throws IOException, MollieException {
-        return get(uri, params, true);
+    public <T> T get(String uri, QueryParams params, TypeReference<T> typeRef) throws IOException, MollieException {
+        return get(uri, params, true, typeRef);
     }
 
-    protected HttpResponse<String> get(String uri, QueryParams params, boolean allowsTestMode)
+    public <T> T get(String uri, QueryParams params, boolean allowsTestMode, TypeReference<T> typeRef)
             throws IOException, MollieException {
         if (allowsTestMode && config.shouldAddTestMode() && !params.containsKey("testmode")) {
             params.put("testmode", "true");
         }
 
-        String url = baseUrl + uri + params.toString();
+        String url = BASE_URL + uri + params.toString();
 
         log.info("Executing 'GET {}'", url);
 
@@ -54,12 +50,13 @@ public abstract class AbstractHandler {
         validateResponse(response);
         log.info("Successful response 'GET {}'", url);
 
-        return response;
+        return convertResponseBodyToObject(response.getBody(), typeRef);
+
     }
 
-    protected HttpResponse<String> postWithoutBody(String uri, QueryParams params)
+    public <T> T postWithoutBody(String uri, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = baseUrl + uri + params.toString();
+        String url = BASE_URL + uri + params.toString();
 
         log.info("Executing 'POST {}'", url);
 
@@ -71,16 +68,16 @@ public abstract class AbstractHandler {
         validateResponse(response);
         log.info("Successful response 'POST {}'", url);
 
-        return response;
+        return convertResponseBodyToObject(response.getBody(), typeRef);
     }
 
-    protected HttpResponse<String> post(String uri, Object body) throws IOException, MollieException {
-        return post(uri, body, new QueryParams());
+    public <T> T post(String uri, Object body, TypeReference<T> typeRef) throws IOException, MollieException {
+        return post(uri, body, new QueryParams(), typeRef);
     }
 
-    protected HttpResponse<String> post(String uri, Object body, QueryParams params)
+    public <T> T post(String uri, Object body, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = baseUrl + uri + params.toString();
+        String url = BASE_URL + uri + params.toString();
 
         log.info("Executing 'POST {}'", url);
 
@@ -93,16 +90,16 @@ public abstract class AbstractHandler {
         validateResponse(response);
         log.info("Successful response 'POST {}'", url);
 
-        return response;
+        return convertResponseBodyToObject(response.getBody(), typeRef);
     }
 
-    protected HttpResponse<String> patch(String uri, Object body) throws IOException, MollieException {
-        return patch(uri, body, new QueryParams());
+    public <T> T patch(String uri, Object body, TypeReference<T> typeRef) throws IOException, MollieException {
+        return patch(uri, body, new QueryParams(), typeRef);
     }
 
-    protected HttpResponse<String> patch(String uri, Object body, QueryParams params)
+    public <T> T patch(String uri, Object body, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = baseUrl + uri + params.toString();
+        String url = BASE_URL + uri + params.toString();
 
         log.info("Executing 'PATCH {}'", url);
 
@@ -115,25 +112,25 @@ public abstract class AbstractHandler {
         validateResponse(response);
         log.info("Successful response 'PATCH {}'", url);
 
-        return response;
+        return convertResponseBodyToObject(response.getBody(), typeRef);
     }
 
-    protected HttpResponse<String> delete(String uri) throws IOException, MollieException {
-        return delete(uri, new QueryParams());
+    public <T> T delete(String uri, TypeReference<T> typeRef) throws IOException, MollieException {
+        return delete(uri, new QueryParams(), typeRef);
     }
 
-    protected HttpResponse<String> delete(String uri, QueryParams params) throws IOException, MollieException {
-        return delete(uri, params, true);
+    public <T> T delete(String uri, QueryParams params, TypeReference<T> typeRef) throws IOException, MollieException {
+        return delete(uri, params, true, typeRef);
     }
 
-    protected HttpResponse<String> delete(String uri, QueryParams params, boolean allowsTestMode)
+    public <T> T delete(String uri, QueryParams params, boolean allowsTestMode, TypeReference<T> typeRef)
             throws IOException, MollieException {
         Map<String, Object> body = new HashMap<>();
         if (allowsTestMode && config.shouldAddTestMode()) {
             body.put("testmode", true);
         }
 
-        String url = baseUrl + uri + params.toString();
+        String url = BASE_URL + uri + params.toString();
 
         log.info("Executing 'DELETE {}'", url);
 
@@ -146,12 +143,12 @@ public abstract class AbstractHandler {
         validateResponse(response);
         log.info("Successful response 'DELETE {}'", url);
 
-        return response;
+        return convertResponseBodyToObject(response.getBody(), typeRef);
     }
 
-    protected HttpResponse<String> delete(String uri, Object body, QueryParams params)
+    public <T> T delete(String uri, Object body, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = baseUrl + uri + params.toString();
+        String url = BASE_URL + uri + params.toString();
 
         log.info("Executing 'DELETE {}'", url);
 
@@ -164,10 +161,10 @@ public abstract class AbstractHandler {
         validateResponse(response);
         log.info("Successful response 'DELETE {}'", url);
 
-        return response;
+        return convertResponseBodyToObject(response.getBody(), typeRef);
     }
 
-    protected void validateResponse(HttpResponse<String> response) throws IOException, MollieException {
+    public void validateResponse(HttpResponse<String> response) throws IOException, MollieException {
         if (response.getStatus() < 200 || response.getStatus() > 300) {
             log.error("Error response from mollie with status code '{}' and body: {}",
                     response.getStatus(), response.getBody());
@@ -186,5 +183,13 @@ public abstract class AbstractHandler {
         config.getUserAgentString().ifPresent(userAgentString -> map.put("User-Agent", userAgentString));
 
         return map;
+    }
+
+    private <T> T convertResponseBodyToObject(String body, TypeReference<T> typeRef) throws IOException {
+        if (typeRef.getType().equals(Void.TYPE) || typeRef.getType().equals(Void.class)) {
+            return null;
+        }
+
+        return ObjectMapperService.getInstance().getMapper().readValue(body, typeRef);
     }
 }

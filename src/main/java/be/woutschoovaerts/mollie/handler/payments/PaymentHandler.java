@@ -6,13 +6,11 @@ import be.woutschoovaerts.mollie.data.payment.PaymentRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentResponse;
 import be.woutschoovaerts.mollie.data.payment.UpdatePaymentRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.handler.AbstractHandler;
-import be.woutschoovaerts.mollie.util.Config;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
+import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.HttpResponse;
 import kong.unirest.UnirestException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,14 +21,17 @@ import java.io.IOException;
  *
  * @author Wout Schoovaerts
  */
-public class PaymentHandler extends AbstractHandler {
+@RequiredArgsConstructor
+public class PaymentHandler {
 
     private static final Logger log = LoggerFactory.getLogger(PaymentHandler.class);
 
-    public PaymentHandler(String baseUrl, Config config) {
-        super(baseUrl, log, config);
+    private static final TypeReference<PaymentResponse> PAYMENT_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<PaymentListResponse>> PAYMENT_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
 
-    }
+    private final RestService restService;
 
     /**
      * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
@@ -46,7 +47,7 @@ public class PaymentHandler extends AbstractHandler {
     /**
      * Payment creation is elemental to the Mollie API: this is where most payment implementations start off.
      *
-     * @param body PaymentRequest can be build with the builder pattern
+     * @param body   PaymentRequest can be build with the builder pattern
      * @param params A map of query parameters
      * @return The payment response from mollie
      * @throws MollieException when something went wrong
@@ -55,9 +56,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments";
 
-            HttpResponse<String> response = post(uri, body, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
+            return restService.post(uri, body, params, PAYMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -88,9 +87,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId;
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
+            return restService.get(uri, params, true, PAYMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -101,7 +98,7 @@ public class PaymentHandler extends AbstractHandler {
      * This endpoint can be used to update some details of a created payment.
      *
      * @param paymentId payment token
-     * @param request The update request body
+     * @param request   The update request body
      * @return The payment response from mollie
      * @throws MollieException when something went wrong
      */
@@ -113,7 +110,7 @@ public class PaymentHandler extends AbstractHandler {
      * This endpoint can be used to update some details of a created payment.
      *
      * @param paymentId payment token
-     * @param request The update request body
+     * @param request   The update request body
      * @param params    A map of query parameters
      * @return The payment response from mollie
      * @throws MollieException when something went wrong
@@ -123,9 +120,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId;
 
-            HttpResponse<String> response = patch(uri, request, params);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
+            return restService.patch(uri, request, params, PAYMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -163,9 +158,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments/" + paymentId;
 
-            HttpResponse<String> response = delete(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), PaymentResponse.class);
+            return restService.delete(uri, params, true, PAYMENT_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
@@ -198,11 +191,7 @@ public class PaymentHandler extends AbstractHandler {
         try {
             String uri = "/payments";
 
-            HttpResponse<String> response = get(uri, params, true);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(),
-                    new TypeReference<>() {
-                    });
+            return restService.get(uri, params, true, PAYMENT_LIST_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
