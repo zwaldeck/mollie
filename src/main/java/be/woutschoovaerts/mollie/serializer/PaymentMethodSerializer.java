@@ -14,7 +14,7 @@ public class PaymentMethodSerializer extends JsonSerializer<Optional<List<Paymen
     public void serialize(Optional<List<PaymentMethod>> paymentMethods,
                           JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
-        if (!paymentMethods.isPresent()) {
+        if (paymentMethods.isEmpty()) {
             jsonGenerator.writeNull();
             return;
         }

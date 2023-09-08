@@ -32,6 +32,7 @@ public class SettlementResponse {
 
     private HashMap<Integer, HashMap<Integer, PeriodResponse>> periods;
 
+    @Deprecated
     private String invoiceId;
 
     @JsonProperty("_links")

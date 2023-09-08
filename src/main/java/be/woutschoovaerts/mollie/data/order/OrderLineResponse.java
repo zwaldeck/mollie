@@ -21,6 +21,8 @@ public class OrderLineResponse {
 
     private String id;
 
+    private String orderId;
+
     private OrderLineType type;
 
     private String name;

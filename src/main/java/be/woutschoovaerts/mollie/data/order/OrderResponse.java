@@ -24,6 +24,9 @@ public class  OrderResponse {
 
     private String profileId;
 
+    @Builder.Default
+    private List<OrderLineResponse> lines = new ArrayList<>();
+
     private String method;
 
     private String mode;
@@ -42,6 +45,8 @@ public class  OrderResponse {
 
     private OrderAddressResponse billingAddress;
 
+    private boolean shopperCountryMustMatchBillingCountry;
+
     @Builder.Default
     private Optional<LocalDate> consumerDateOfBirth = Optional.empty();
 
@@ -56,8 +61,7 @@ public class  OrderResponse {
 
     private String redirectUrl;
 
-    @Builder.Default
-    private List<OrderLineResponse> lines = new ArrayList<>();
+    private String cancelUrl;
 
     @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();

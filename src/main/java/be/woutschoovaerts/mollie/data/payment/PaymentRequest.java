@@ -24,7 +24,7 @@ public class PaymentRequest {
 
     private String description;
 
-    private Optional<String> redirectUrl = Optional.empty();
+    private String redirectUrl;
 
     private Optional<String> cancelUrl = Optional.empty();
     
@@ -34,7 +34,11 @@ public class PaymentRequest {
 
     private Optional<List<PaymentMethod>> method = Optional.empty();
 
+    private Optional<String> restrictPaymentMethodsToCountry = Optional.empty();
+
     private Map<String, Object> metadata;
+
+    // Params for recurring payments
 
     private Optional<SequenceType> sequenceType = Optional.empty();
 
@@ -66,13 +70,24 @@ public class PaymentRequest {
 
     private Optional<String> consumerAccount = Optional.empty();
 
-    private Optional<ApplicationFee> applicationFee = Optional.empty();
-
     private Optional<String> applePayPaymentToken = Optional.empty();
+
+    private Optional<String> company = Optional.empty();
+
+    private Optional<String> sessionId = Optional.empty();
+
+    private Optional<Boolean> digitalGoods = Optional.empty();
+
+    private Optional<String> terminalId = Optional.empty();
 
     // OAuth params
     private Optional<String> profileId = Optional.empty();
 
     @Builder.Default
     private Optional<Boolean> testmode = Optional.empty();
+
+    // Connect params
+    private Optional<ApplicationFee> applicationFee = Optional.empty();
+
+
 }

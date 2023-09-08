@@ -13,7 +13,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderLineRequest {
+public class OrderLineRequest implements OrderLineOperationDataRequest {
 
     @Builder.Default
     private Optional<OrderLineType> type = Optional.empty();

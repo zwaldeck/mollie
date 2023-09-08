@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -19,6 +20,14 @@ public class OrderLineUpdateRequest {
 
     @Builder.Default
     private Optional<String> imageUrl = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> productUrl = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> sku = Optional.empty();
+
+    private Map<String, Object> metadata;
 
     @Builder.Default
     private Optional<Integer> quantity = Optional.empty();

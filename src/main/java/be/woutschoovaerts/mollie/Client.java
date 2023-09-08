@@ -1,30 +1,40 @@
 package be.woutschoovaerts.mollie;
 
-import be.woutschoovaerts.mollie.handler.*;
+import be.woutschoovaerts.mollie.handler.business.BalanceHandler;
+import be.woutschoovaerts.mollie.handler.business.InvoiceHandler;
+import be.woutschoovaerts.mollie.handler.business.SettlementHandler;
+import be.woutschoovaerts.mollie.handler.client.ClientHandler;
+import be.woutschoovaerts.mollie.handler.connect.*;
+import be.woutschoovaerts.mollie.handler.orders.OrderHandler;
+import be.woutschoovaerts.mollie.handler.orders.ShipmentHandler;
+import be.woutschoovaerts.mollie.handler.payments.*;
+import be.woutschoovaerts.mollie.handler.recurring.CustomerHandler;
+import be.woutschoovaerts.mollie.handler.recurring.MandateHandler;
+import be.woutschoovaerts.mollie.handler.recurring.SubscriptionHandler;
 import be.woutschoovaerts.mollie.util.Config;
+import be.woutschoovaerts.mollie.util.RestService;
 import kong.unirest.Unirest;
 import lombok.Getter;
 
 public class Client {
 
     @Getter
-    private final String endpoint;
-
-    @Getter
     private final Config config;
+
+    private final RestService restService;
 
     public Client(String apiKey) {
         this(apiKey, null);
     }
 
     public Client(String apiKey, ClientProxy proxy) {
-        this.endpoint = "https://api.mollie.com/v2";
-
         // TODO: Check valid api key
         config = new Config();
         config.setApiKey(apiKey);
         config.setAccessToken(null);
         config.setTestMode(false);
+
+        restService = new RestService(config);
 
         initUniRest(proxy);
     }
@@ -69,12 +79,12 @@ public class Client {
     }
 
     /**
-     * Handles connect actions
+     * Handles OAuth actions
      *
-     * @return ConnectHandler object
+     * @return OAuthHandler object
      */
-    public ConnectHandler connect() {
-        return new ConnectHandler(config);
+    public OAuthHandler oAuth() {
+        return new OAuthHandler(restService);
     }
 
     /**
@@ -83,7 +93,7 @@ public class Client {
      * @return PaymentHandler object
      */
     public PaymentHandler payments() {
-        return new PaymentHandler(endpoint, config);
+        return new PaymentHandler(restService);
     }
 
     /**
@@ -92,7 +102,7 @@ public class Client {
      * @return PaymentLinkHandler object
      */
     public PaymentLinkHandler paymentLinks() {
-        return new PaymentLinkHandler(endpoint, config);
+        return new PaymentLinkHandler(restService);
     }
 
     /**
@@ -101,7 +111,7 @@ public class Client {
      * @return MethodHandler object
      */
     public MethodHandler methods() {
-        return new MethodHandler(endpoint, config);
+        return new MethodHandler(restService);
     }
 
     /**
@@ -110,7 +120,7 @@ public class Client {
      * @return RefundHandler object
      */
     public RefundHandler refunds() {
-        return new RefundHandler(endpoint, config);
+        return new RefundHandler(restService);
     }
 
     /**
@@ -119,7 +129,7 @@ public class Client {
      * @return ChargebackHandler object
      */
     public ChargebackHandler chargebacks() {
-        return new ChargebackHandler(endpoint, config);
+        return new ChargebackHandler(restService);
     }
 
     /**
@@ -128,7 +138,7 @@ public class Client {
      * @return CaptureHandler object
      */
     public CaptureHandler captures() {
-        return new CaptureHandler(endpoint, config);
+        return new CaptureHandler(restService);
     }
 
     /**
@@ -137,7 +147,7 @@ public class Client {
      * @return OrderHandler object
      */
     public OrderHandler orders() {
-        return new OrderHandler(endpoint, config);
+        return new OrderHandler(restService);
     }
 
     /**
@@ -146,7 +156,7 @@ public class Client {
      * @return ShipmentHandler object
      */
     public ShipmentHandler shipments() {
-        return new ShipmentHandler(endpoint, config);
+        return new ShipmentHandler(restService);
     }
 
     /**
@@ -155,7 +165,7 @@ public class Client {
      * @return CustomerHandler object
      */
     public CustomerHandler customers() {
-        return new CustomerHandler(endpoint, config);
+        return new CustomerHandler(restService);
     }
 
     /**
@@ -164,7 +174,7 @@ public class Client {
      * @return MandateHandler object
      */
     public MandateHandler mandates() {
-        return new MandateHandler(endpoint, config);
+        return new MandateHandler(restService);
     }
 
     /**
@@ -173,7 +183,7 @@ public class Client {
      * @return MethodHandler object
      */
     public SubscriptionHandler subscriptions() {
-        return new SubscriptionHandler(endpoint, config);
+        return new SubscriptionHandler(restService);
     }
 
     /**
@@ -182,7 +192,7 @@ public class Client {
      * @return PermissionHandler object
      */
     public PermissionHandler permissions() {
-        return new PermissionHandler(endpoint, config);
+        return new PermissionHandler(restService);
     }
 
     /**
@@ -191,7 +201,7 @@ public class Client {
      * @return OrganizationHandler object
      */
     public OrganizationHandler organizations() {
-        return new OrganizationHandler(endpoint, config);
+        return new OrganizationHandler(restService);
     }
 
     /**
@@ -200,7 +210,7 @@ public class Client {
      * @return ProfileHandler object
      */
     public ProfileHandler profiles() {
-        return new ProfileHandler(endpoint, config);
+        return new ProfileHandler(restService);
     }
 
     /**
@@ -209,7 +219,7 @@ public class Client {
      * @return OnboardingHandler object
      */
     public OnboardingHandler onboarding() {
-        return new OnboardingHandler(endpoint, config);
+        return new OnboardingHandler(restService);
     }
 
     /**
@@ -218,7 +228,7 @@ public class Client {
      * @return SettlementHandler object
      */
     public SettlementHandler settlements() {
-        return new SettlementHandler(endpoint, config);
+        return new SettlementHandler(restService);
     }
 
     /**
@@ -227,15 +237,7 @@ public class Client {
      * @return InvoiceHandler object
      */
     public InvoiceHandler invoices() {
-        return new InvoiceHandler(endpoint, config);
-    }
-
-    /**
-     * @deprecated replaced by {@link #wallet()}
-     */
-    @Deprecated
-    public MiscellaneousHandler miscellaneous() {
-        return new MiscellaneousHandler(endpoint, config);
+        return new InvoiceHandler(restService);
     }
 
     /**
@@ -244,7 +246,25 @@ public class Client {
      * @return WalletHandler object
      */
     public WalletHandler wallet() {
-        return new WalletHandler(endpoint, config);
+        return new WalletHandler(restService);
+    }
+
+    /**
+     * Handles balances actions
+     *
+     * @return BalanceHandler object
+     */
+    public BalanceHandler balances() {
+        return new BalanceHandler(restService);
+    }
+
+    /**
+     * Handles clients actions
+     *
+     * @return ClientHandler object
+     */
+    public ClientHandler clients() {
+        return new ClientHandler(restService);
     }
 
     private void initUniRest(ClientProxy proxy) {

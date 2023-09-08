@@ -25,7 +25,6 @@ public class OrderPaymentRequest {
     @Builder.Default
     private Optional<String> customerId = Optional.empty();
 
-
     @Builder.Default
     private Optional<String> mandateId = Optional.empty();
 

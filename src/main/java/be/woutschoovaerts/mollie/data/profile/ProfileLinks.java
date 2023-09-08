@@ -14,6 +14,8 @@ public class ProfileLinks {
 
     private Link self;
 
+    private Link dashboard;
+
     private Link chargebacks;
 
     private Link methods;

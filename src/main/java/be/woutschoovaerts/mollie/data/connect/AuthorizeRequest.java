@@ -32,9 +32,11 @@ public class AuthorizeRequest {
     @JsonProperty("approval_prompt")
     private ApprovalPrompt approvalPrompt;
 
-    private Locale locale;
+    @Builder.Default
+    private Optional<Locale> locale = Optional.empty();
 
     @JsonProperty("landing_page")
+    @Builder.Default
     private LandingPageType landingPage = LandingPageType.LOGIN;
 
 }

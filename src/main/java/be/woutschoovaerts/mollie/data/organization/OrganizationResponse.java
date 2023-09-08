@@ -29,6 +29,8 @@ public class OrganizationResponse {
 
     private String vatNumber;
 
+    private String vatRegulation;
+
     @JsonProperty("_links")
     private OrganizationLinks links;
 

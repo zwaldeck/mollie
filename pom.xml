@@ -6,7 +6,7 @@
 
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>3.8.0</version>
+    <version>4.0.0</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
@@ -22,15 +22,9 @@
     <developers>
         <developer>
             <name>Wout Schoovaerts</name>
-            <email>schoovaertswout@live.be</email>
-            <organization>Wout Schoovaerts</organization>
+            <email>wout@z-soft.be</email>
+            <organization>Z-Soft</organization>
             <organizationUrl>https://z-soft.be</organizationUrl>
-        </developer>
-        <developer>
-            <name>Paul van Eijden</name>
-            <email>paul@unicornify.com</email>
-            <organization>Unicornify</organization>
-            <organizationUrl>https://unicornify.com</organizationUrl>
         </developer>
     </developers>
 
@@ -41,21 +35,20 @@
     </scm>
 
     <properties>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
-        <jackson.version>2.13.2</jackson.version>
-        <jackson-databind.version>2.13.4.2</jackson-databind.version>
-        <java.version>1.8</java.version>
+        <commons-lang3.version>3.13.0</commons-lang3.version>
+        <jackson.version>2.15.2</jackson.version>
+        <java.version>11</java.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
-        <jaxb-core.version>3.0.1</jaxb-core.version>
-        <junit-jupiter-engine.version>5.8.2</junit-jupiter-engine.version>
-        <log4j.version>2.17.1</log4j.version>
-        <lombok.version>1.18.22</lombok.version>
-        <lombok-maven-plugin.version>1.18.0.0</lombok-maven-plugin.version>
+        <jaxb-core.version>4.0.3</jaxb-core.version>
+        <junit-jupiter-engine.version>5.10.0</junit-jupiter-engine.version>
+        <log4j.version>2.20.0</log4j.version>
+        <lombok.version>1.18.28</lombok.version>
+        <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <maven-jdk-tools-wrapper.version>0.1</maven-jdk-tools-wrapper.version>
-        <mockito-core.version>4.3.1</mockito-core.version>
+        <mockito-core.version>5.5.0</mockito-core.version>
+        <slf4j-api.version>2.0.9</slf4j-api.version>
+        <unirest-java.version>3.14.5</unirest-java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <slf4j-api.version>1.7.35</slf4j-api.version>
-        <unirest-java.version>3.13.6</unirest-java.version>
     </properties>
 
     <dependencies>
@@ -85,7 +78,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind.version}</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <dependency>
@@ -154,8 +147,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
             <version>${log4j.version}</version>
             <scope>test</scope>
         </dependency>
@@ -166,52 +167,14 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>checkstyle</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <failOnViolation>true</failOnViolation>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>1.1.0</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.5.1</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
-                        <version>5.5.1</version>
-                    </dependency>
-                </dependencies>
+                <version>3.1.2</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -222,7 +185,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -236,7 +199,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -279,13 +242,42 @@
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>ci_cd</id>
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.13</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>2.5.3</version>
+                        <configuration>
+                            <tagNameFormat>@{project.version}</tagNameFormat>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <goals>
+                                    <goal>perform</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -303,34 +295,8 @@
                             </execution>
                         </executions>
                     </plugin>
-
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                            <stagingProgressTimeoutMinutes>60</stagingProgressTimeoutMinutes>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>java11+</id>
-            <activation>
-                <jdk>[11,)</jdk>
-            </activation>
-            <properties>
-                <!--
-                Workaround for "javadoc: error - The code being documented uses modules but the packages
-                defined in https://docs.oracle.com/javase/8/docs/api/ are in the unnamed module."
-                -->
-                <maven.javadoc.skip>true</maven.javadoc.skip>
-            </properties>
         </profile>
     </profiles>
 

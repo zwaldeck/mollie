@@ -23,6 +23,15 @@ public class OrderUpdateRequest {
     private Optional<String> orderNumber = Optional.empty();
 
     @Builder.Default
+    private Optional<String> redirectUrl = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> cancelUrl = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> webhookUrl = Optional.empty();
+
+    @Builder.Default
     private Optional<Boolean> testmode = Optional.empty();
 
 }

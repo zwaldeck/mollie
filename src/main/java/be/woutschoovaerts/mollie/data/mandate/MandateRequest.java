@@ -19,14 +19,23 @@ public class MandateRequest {
 
     private String consumerName;
 
-    private String consumerAccount;
+    @Builder.Default
+    private Optional<String> consumerAccount = Optional.empty();
 
+    @Builder.Default
     private Optional<String> consumerBic = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> consumerEmail = Optional.empty();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Optional<LocalDate> signatureDate = Optional.empty();
 
+    @Builder.Default
     private Optional<String> mandateReference = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> paypalBillingAgreementId = Optional.empty();
 
     @Builder.Default
     private Optional<Boolean> testmode = Optional.empty();
