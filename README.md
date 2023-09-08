@@ -1,6 +1,8 @@
 # Mollie API with Java 11+
 
-[![Maven Central badge](https://maven-badges.herokuapp.com/maven-central/be.woutschoovaerts/mollie/badge.svg)](https://search.maven.org/artifact/be.woutschoovaerts/mollie) [![Javadocs](https://www.javadoc.io/badge/be.woutschoovaerts/mollie.svg?color=red)](https://www.javadoc.io/doc/be.woutschoovaerts/mollie)
+![Build & Test](https://github.com/zwaldeck/mollie/actions/workflows/build.yml/badge.svg) 
+[![Maven Central badge](https://maven-badges.herokuapp.com/maven-central/be.woutschoovaerts/mollie/badge.svg)](https://search.maven.org/artifact/be.woutschoovaerts/mollie) 
+[![Javadocs](https://www.javadoc.io/badge/be.woutschoovaerts/mollie.svg?color=red)](https://www.javadoc.io/doc/be.woutschoovaerts/mollie)
 
 
 ## License
