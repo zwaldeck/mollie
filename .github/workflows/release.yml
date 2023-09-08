@@ -1,5 +1,6 @@
-# Will run after a git tag has been created
+name: Publish to Maven Central
 
+# Will run after a git tag has been created
 on:
   push:
     tags:
@@ -9,7 +10,7 @@ jobs:
   publish:
     runs-on: ubuntu-22.04
     steps:
-      - actions/checkout@v3
+      - uses: actions/checkout@v3
       - name: Set up Java for publishing to Maven Central Repository
         uses: actions/setup-java@v3
         with:
