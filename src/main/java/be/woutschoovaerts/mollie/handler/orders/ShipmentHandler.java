@@ -9,12 +9,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the shipments API <a href="https://docs.mollie.com/reference/v2/shipments-api/create-shipment">Mollie docs</a>
@@ -23,8 +18,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class ShipmentHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(ShipmentHandler.class);
 
     private static final TypeReference<ShipmentResponse> SHIPMENT_RESPONSE_TYPE = new TypeReference<>() {
     };private static final TypeReference<Pagination<ShipmentListResponse>> SHIPMENT_LIST_RESPONSE_TYPE = new TypeReference<>() {
@@ -63,14 +56,9 @@ public class ShipmentHandler {
      */
     public ShipmentResponse createShipment(String orderId, ShipmentRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/shipments";
 
             return restService.post(uri, body, params, SHIPMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -96,14 +84,9 @@ public class ShipmentHandler {
      */
     public ShipmentResponse getShipment(String orderId, String shipmentId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
 
             return restService.get(uri, params, true, SHIPMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -127,14 +110,9 @@ public class ShipmentHandler {
      */
     public Pagination<ShipmentListResponse> getShipments(String orderId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/shipments";
 
             return restService.get(uri, params, true, SHIPMENT_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
 
@@ -163,13 +141,8 @@ public class ShipmentHandler {
     public ShipmentResponse updateShipment(String orderId, String shipmentId,
                                            ShipmentUpdateRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/shipments/" + shipmentId;
 
             return restService.patch(uri, body, params, SHIPMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

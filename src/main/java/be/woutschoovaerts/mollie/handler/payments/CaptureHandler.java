@@ -7,12 +7,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the capture API <a href="https://docs.mollie.com/reference/v2/captures-api/get-capture">Mollie docs</a>
@@ -21,8 +16,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class CaptureHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(CaptureHandler.class);
 
     private static final TypeReference<CaptureResponse> CAPTURE_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -58,14 +51,9 @@ public class CaptureHandler {
      */
     public CaptureResponse getCapture(String paymentId, String captureId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/captures/" + captureId;
 
             return restService.get(uri, params, true, CAPTURE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -92,13 +80,8 @@ public class CaptureHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<CaptureListResponse> listCaptures(String paymentId, QueryParams params) throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/captures";
 
             return restService.get(uri, params, true, CAPTURE_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

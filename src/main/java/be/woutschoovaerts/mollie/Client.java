@@ -13,8 +13,9 @@ import be.woutschoovaerts.mollie.handler.recurring.MandateHandler;
 import be.woutschoovaerts.mollie.handler.recurring.SubscriptionHandler;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.RestService;
-import kong.unirest.Unirest;
 import lombok.Getter;
+
+import java.util.Optional;
 
 public class Client {
 
@@ -34,10 +35,9 @@ public class Client {
         config.setAccessToken(null);
         config.setTestMode(false);
         config.setIdempotencyKey(null);
+        config.setProxy(Optional.ofNullable(proxy));
 
         restService = new RestService(config);
-
-        initUniRest(proxy);
     }
 
 
@@ -84,7 +84,7 @@ public class Client {
      * Set the user agent string
      */
     public void setUserAgentString(String userAgentString) {
-        config.setUserAgentString(userAgentString);
+        config.setUserAgentString(Optional.of(userAgentString));
     }
 
     /**
@@ -274,14 +274,5 @@ public class Client {
      */
     public ClientHandler clients() {
         return new ClientHandler(restService);
-    }
-
-    private void initUniRest(ClientProxy proxy) {
-        Unirest.config()
-            .setObjectMapper(new JacksonObjectMapper());
-
-        if (proxy != null) {
-            Unirest.config().proxy(proxy.getHost(), proxy.getPort(), proxy.getUsername(), proxy.getPassword());
-        }
     }
 }

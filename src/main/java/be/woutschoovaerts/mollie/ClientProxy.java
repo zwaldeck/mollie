@@ -13,6 +13,9 @@ public class ClientProxy {
 
     private String host;
     private int port;
+    /**
+     * Basic auth only works after setting: System.setProperty("jdk.http.auth.tunneling.disabledSchemes", "");
+     */
     private String username;
     private String password;
 }

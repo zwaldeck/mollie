@@ -5,18 +5,13 @@ import be.woutschoovaerts.mollie.data.connect.RevokeTokenRequest;
 import be.woutschoovaerts.mollie.data.connect.TokenRequest;
 import be.woutschoovaerts.mollie.data.connect.TokenResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
-import be.woutschoovaerts.mollie.util.ObjectMapperService;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import be.woutschoovaerts.mollie.util.UrlUtils;
-import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
-import kong.unirest.UnirestException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import java.net.URI;
 
 /**
  * Handles the Connect API <a href="https://docs.mollie.com/reference/oauth2/authorize">Mollie docs</a>
@@ -26,7 +21,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class OAuthHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuthHandler.class);
+    private static final TypeReference<TokenResponse> TOKEN_RESPONSE_TYPE_REFERENCE = new TypeReference<>() {};
+    private static final TypeReference<Void> VOID_TYPE_REFERENCE = new TypeReference<>() {};
+    private static final String API_MOLLIE_COM_OAUTH_2_TOKENS = "https://api.mollie.com/oauth2/tokens";
 
     private final RestService restService;
 
@@ -41,7 +38,7 @@ public class OAuthHandler {
      * @return The authorize URL
      */
     public String createAuthorizeUrl(AuthorizeRequest request) {
-        return "https://www.mollie.com/oauth2/authorize" + convertAuthorizeRequestToQueryParams(request).toString();
+        return "https://www.mollie.com/oauth2/authorize" + convertAuthorizeRequestToQueryParams(request);
     }
 
     /**
@@ -70,25 +67,8 @@ public class OAuthHandler {
      */
     public TokenResponse generateTokens(String clientId, String clientSecret, TokenRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String url = "https://api.mollie.com/oauth2/tokens" + params.toString();
-
-            log.info("Executing 'POST {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .basicAuth(clientId, clientSecret)
-                    .body(getGenerateTokensBody(body))
-                    .asString();
-
-
-            restService.validateResponse(response);
-            log.info("Successful response 'POST {}'", url);
-
-            return ObjectMapperService.getInstance().getMapper().readValue(response.getBody(), TokenResponse.class);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        URI url = URI.create(API_MOLLIE_COM_OAUTH_2_TOKENS + params);
+        return restService.post(url, clientId, clientSecret, getGenerateTokensBody(body), TOKEN_RESPONSE_TYPE_REFERENCE);
     }
 
     /**
@@ -114,23 +94,8 @@ public class OAuthHandler {
      */
     public void revokeToken(String clientId, String clientSecret, RevokeTokenRequest body, QueryParams params)
             throws MollieException {
-        try {
-            String url = "https://api.mollie.com/oauth2/tokens" + params.toString();
-
-            log.info("Executing 'DELETE {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
-                    .header("Content-Type", "application/x-www-form-urlencoded")
-                    .basicAuth(clientId, clientSecret)
-                    .body(getRevokeTokenBody(body))
-                    .asString();
-
-
-            restService.validateResponse(response);
-            log.info("Successful response 'DELETE {}'", url);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
+        URI url = URI.create(API_MOLLIE_COM_OAUTH_2_TOKENS + params);
+        restService.delete(url, clientId, clientSecret, getRevokeTokenBody(body), VOID_TYPE_REFERENCE);
     }
 
     private QueryParams convertAuthorizeRequestToQueryParams(AuthorizeRequest request) {

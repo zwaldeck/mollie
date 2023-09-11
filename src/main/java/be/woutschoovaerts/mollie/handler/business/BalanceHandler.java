@@ -9,12 +9,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Balances API <a href="https://docs.mollie.com/reference/v2/balances-api/get-balance">Mollie docs</a>
@@ -23,8 +18,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class BalanceHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(BalanceHandler.class);
 
     private static final TypeReference<BalanceResponse> BALANCE_RESPONSE_TYPE = new TypeReference<>() {};
     private static final TypeReference<Pagination<BalancesListResponse>> BALANCE_LIST_RESPONSE_TYPE = new TypeReference<>() {};
@@ -86,14 +79,9 @@ public class BalanceHandler {
      * @return balance response
      */
     public BalanceResponse getBalance(String balanceId, QueryParams params) throws MollieException {
-        try {
             String uri = "/balances/" + balanceId;
 
             return restService.get(uri, params, false, BALANCE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -114,14 +102,9 @@ public class BalanceHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<BalancesListResponse> getBalances(QueryParams params) throws MollieException {
-        try {
             String uri = "/balances";
 
             return restService.get(uri, params, false, BALANCE_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -169,14 +152,9 @@ public class BalanceHandler {
      * @return BalanceReportResponse response
      */
     public BalanceReportResponse getBalanceReport(String balanceId, QueryParams params) throws MollieException {
-        try {
             String uri = "/balances/" + balanceId + "/report";
 
             return restService.get(uri, params, false, BALANCE_REPORT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -220,14 +198,9 @@ public class BalanceHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<BalanceTransactionsListResponse> getBalanceTransactions(String balanceId, QueryParams params) throws MollieException {
-        try {
             String uri = "/balances/" + balanceId + "/transactions";
 
             return restService.get(uri, params, false, BALANCE_TRANSACTIONS_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
 }

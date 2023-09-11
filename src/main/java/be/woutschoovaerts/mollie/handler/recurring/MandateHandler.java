@@ -8,12 +8,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Mandates API <a href="https://docs.mollie.com/reference/v2/mandates-api/create-mandate">Mollie docs</a>
@@ -22,8 +17,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class MandateHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(MandateHandler.class);
 
     private static final TypeReference<MandateResponse> MANDATE_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -59,14 +52,9 @@ public class MandateHandler {
      */
     public MandateResponse createMandate(String customerId, MandateRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/mandates";
 
             return restService.post(uri, body, params, MANDATE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -92,14 +80,9 @@ public class MandateHandler {
      */
     public MandateResponse getMandate(String customerId, String mandateId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/mandates/" + mandateId;
 
             return restService.get(uri, params, true, MANDATE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -123,14 +106,9 @@ public class MandateHandler {
      */
     public void revokeMandate(String customerId, String mandateId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/mandates/" + mandateId;
 
             restService.delete(uri, params, true, new TypeReference<Void>() {});
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -158,13 +136,8 @@ public class MandateHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<MandateListResponse> listMandates(String customerId, QueryParams params) throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/mandates";
 
             return restService.get(uri, params, true, MANDATE_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

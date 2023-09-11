@@ -9,12 +9,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Payments API <a href="https://docs.mollie.com/reference/v2/payments-api/create-payment">Mollie docs</a>
@@ -23,8 +18,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class PaymentHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(PaymentHandler.class);
 
     private static final TypeReference<PaymentResponse> PAYMENT_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -53,14 +46,9 @@ public class PaymentHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse createPayment(PaymentRequest body, QueryParams params) throws MollieException {
-        try {
             String uri = "/payments";
 
             return restService.post(uri, body, params, PAYMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -84,14 +72,9 @@ public class PaymentHandler {
      */
     public PaymentResponse getPayment(String paymentId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/payments/" + paymentId;
 
             return restService.get(uri, params, true, PAYMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -117,14 +100,9 @@ public class PaymentHandler {
      */
     public PaymentResponse updatePayment(String paymentId, UpdatePaymentRequest request, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/payments/" + paymentId;
 
             return restService.patch(uri, request, params, PAYMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -155,14 +133,9 @@ public class PaymentHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse cancelPayment(String paymentId, QueryParams params) throws MollieException {
-        try {
             String uri = "/payments/" + paymentId;
 
             return restService.delete(uri, params, true, PAYMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -188,13 +161,8 @@ public class PaymentHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PaymentListResponse> listPayments(QueryParams params) throws MollieException {
-        try {
             String uri = "/payments";
 
             return restService.get(uri, params, true, PAYMENT_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

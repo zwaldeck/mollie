@@ -1,5 +1,6 @@
 package be.woutschoovaerts.mollie.util;
 
+import be.woutschoovaerts.mollie.ClientProxy;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -20,8 +21,13 @@ public final class Config {
     @Setter
     private boolean testMode;
 
+    @Getter
     @Setter
-    private String userAgentString;
+    private Optional<String> userAgentString = Optional.empty();
+
+    @Getter
+    @Setter
+    private Optional<ClientProxy> proxy = Optional.empty();
 
     @Setter
     private String idempotencyKey;
@@ -32,10 +38,6 @@ public final class Config {
 
     public boolean shouldAddTestMode() {
         return !StringUtils.isBlank(accessToken) && testMode;
-    }
-
-    public Optional<String> getUserAgentString() {
-        return Optional.ofNullable(userAgentString);
     }
 
     public Optional<String> getIdempotencyKey() {

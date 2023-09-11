@@ -10,12 +10,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Subscriptions API <a href="https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription">Mollie docs</a>
@@ -24,8 +19,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class SubscriptionHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(SubscriptionHandler.class);
 
     private static final TypeReference<SubscriptionResponse> SUBSCRIPTION_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -59,14 +52,9 @@ public class SubscriptionHandler {
      */
     public SubscriptionResponse createSubscription(String customerId, SubscriptionRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/subscriptions";
 
             return restService.post(uri, body, params, SUBSCRIPTION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -92,14 +80,9 @@ public class SubscriptionHandler {
      */
     public SubscriptionResponse getSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
             return restService.get(uri, params, true, SUBSCRIPTION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -125,14 +108,9 @@ public class SubscriptionHandler {
      */
     public SubscriptionResponse cancelSubscription(String customerId, String subscriptionId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
             return restService.delete(uri, params, true, SUBSCRIPTION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -164,14 +142,9 @@ public class SubscriptionHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<SubscriptionListResponse> listAllSubscriptions(QueryParams params) throws MollieException {
-        try {
             String uri = "/subscriptions";
 
             return restService.get(uri, params,true, SUBSCRIPTION_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
 
@@ -185,14 +158,9 @@ public class SubscriptionHandler {
      */
     public Pagination<SubscriptionListResponse> listSubscriptions(String customerId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/subscriptions";
 
             return restService.get(uri, params, true, SUBSCRIPTION_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -219,14 +187,9 @@ public class SubscriptionHandler {
      */
     public Pagination<PaymentListResponse> listSubscriptionPayments(String customerId, String subscriptionId,
                                                                     QueryParams params) throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId + "/payments";
 
             return restService.get(uri, params, true, PAYMENT_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -260,13 +223,8 @@ public class SubscriptionHandler {
     public SubscriptionResponse updateSubscription(String customerId, String subscriptionId,
                                                    UpdateSubscriptionRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/subscriptions/" + subscriptionId;
 
             return restService.patch(uri, body, params, SUBSCRIPTION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

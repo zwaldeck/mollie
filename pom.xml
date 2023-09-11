@@ -38,7 +38,7 @@
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <jackson.version>2.15.2</jackson.version>
         <java.version>11</java.version>
-        <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
+        <jaxb-api.version>4.0.0</jaxb-api.version>
         <jaxb-core.version>4.0.3</jaxb-core.version>
         <junit-jupiter-engine.version>5.10.0</junit-jupiter-engine.version>
         <log4j.version>2.20.0</log4j.version>
@@ -47,20 +47,12 @@
         <maven-jdk-tools-wrapper.version>0.1</maven-jdk-tools-wrapper.version>
         <mockito-core.version>5.5.0</mockito-core.version>
         <slf4j-api.version>2.0.9</slf4j-api.version>
-        <unirest-java.version>3.14.5</unirest-java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
 
         <!-- Core dependencies -->
-
-        <dependency>
-            <groupId>com.konghq</groupId>
-            <artifactId>unirest-java</artifactId>
-            <version>${unirest-java.version}</version>
-            <scope>compile</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -108,8 +100,8 @@
 
         <!-- Needed for Java 9+ -->
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
             <version>${jaxb-api.version}</version>
         </dependency>
 

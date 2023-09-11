@@ -8,12 +8,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Order API <a href="https://docs.mollie.com/reference/v2/orders-api/create-order">Mollie docs</a>
@@ -22,8 +17,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class OrderHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(OrderHandler.class);
 
     private static final TypeReference<OrderResponse> ORDER_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -70,14 +63,9 @@ public class OrderHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse createOrder(OrderRequest body, QueryParams params) throws MollieException {
-        try {
             String uri = "/orders";
 
             return restService.post(uri, body, params, ORDER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -100,14 +88,9 @@ public class OrderHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse getOrder(String orderId, QueryParams params) throws MollieException {
-        try {
             String uri = "/orders/" + orderId;
 
             return restService.get(uri, params, true, ORDER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -128,14 +111,9 @@ public class OrderHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<OrderListResponse> getOrders(QueryParams params) throws MollieException {
-        try {
             String uri = "/orders";
 
             return restService.get(uri, params, true, ORDER_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -165,14 +143,9 @@ public class OrderHandler {
      */
     public OrderResponse updateOrder(String orderId, OrderUpdateRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId;
 
             return restService.patch(uri, body, params, ORDER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -217,14 +190,9 @@ public class OrderHandler {
      */
     public OrderResponse updateOrderLine(String orderId, String lineId, OrderLineUpdateRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/lines/" + lineId;
 
             return restService.patch(uri, body, params, ORDER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -261,14 +229,9 @@ public class OrderHandler {
      * @throws MollieException when something went wrong
      */
     public OrderResponse cancelOrder(String orderId, QueryParams params) throws MollieException {
-        try {
             String uri = "/orders/" + orderId;
 
             return restService.delete(uri, params, true, ORDER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     public OrderResponse manageOrderLines(String orderId, ManageOrderLineRequest request) throws MollieException {
@@ -277,14 +240,9 @@ public class OrderHandler {
 
     private OrderResponse manageOrderLines(String orderId, ManageOrderLineRequest request, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/lines";
 
             return restService.patch(uri, request, params, ORDER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -324,15 +282,10 @@ public class OrderHandler {
      */
     public void cancelOrderLines(String orderId, CancelOrderLinesRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/lines";
 
             restService.delete(uri, body, params, new TypeReference<Void>() {
             });
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -366,14 +319,9 @@ public class OrderHandler {
      */
     public PaymentResponse createOrderPayment(String orderId, OrderPaymentRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/payments";
 
             return restService.post(uri, body, params, PAYMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -407,14 +355,9 @@ public class OrderHandler {
      */
     public RefundResponse createOrderRefund(String orderId, OrderRefundRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/refunds";
 
             return restService.post(uri, body, params, REFUND_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -438,13 +381,8 @@ public class OrderHandler {
      */
     public Pagination<OrderRefundListResponse> getOrderRefunds(String orderId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/orders/" + orderId + "/refunds";
 
             return restService.get(uri, params, ORDER_REFUND_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

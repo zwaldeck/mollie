@@ -7,12 +7,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Clients API <a href="https://docs.mollie.com/reference/v2/clients-api/get-client">Mollie docs</a>
@@ -21,8 +16,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class ClientHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(ClientHandler.class);
 
     private static final TypeReference<Pagination<ClientsListResponse>> CLIENTS_LIST_RESPONSE_TYPE = new TypeReference<Pagination<ClientsListResponse>>() {
     };
@@ -50,14 +43,9 @@ public class ClientHandler {
      * @throws MollieException something went wrong
      */
     public Pagination<ClientsListResponse> getClients(QueryParams params) throws MollieException {
-        try {
             String uri = "/clients";
 
             return restService.get(uri, params, false, CLIENTS_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -80,13 +68,8 @@ public class ClientHandler {
      * @throws MollieException something went wrong
      */
     public ClientResponse getClient(String clientId, QueryParams params) throws MollieException {
-        try {
             String uri = "/clients/" + clientId;
 
             return restService.get(uri, params, false, CLIENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

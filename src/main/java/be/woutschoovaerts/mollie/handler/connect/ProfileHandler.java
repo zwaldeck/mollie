@@ -8,12 +8,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the profiles API <a href="https://docs.mollie.com/reference/v2/profiles-api/create-profile">Mollie docs</a>
@@ -22,8 +17,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class ProfileHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(ProfileHandler.class);
 
     private static final TypeReference<ProfileResponse> PROFILE_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -58,14 +51,9 @@ public class ProfileHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse createProfile(ProfileRequest body, QueryParams params) throws MollieException {
-        try {
             String uri = "/profiles";
 
             return restService.post(uri, body, params, PROFILE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -88,14 +76,9 @@ public class ProfileHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse getProfile(String id, QueryParams params) throws MollieException {
-        try {
             String uri = "/profiles/" + id;
 
             return  restService.get(uri, params, false, PROFILE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -120,14 +103,9 @@ public class ProfileHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse getMyProfile(QueryParams params) throws MollieException {
-        try {
             String uri = "/profiles/me";
 
             return restService.get(uri, params, false, PROFILE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -152,14 +130,9 @@ public class ProfileHandler {
      * @throws MollieException when something went wrong
      */
     public ProfileResponse updateProfile(String id, UpdateProfileRequest body, QueryParams params) throws MollieException {
-        try {
             String uri = "/profiles/" + id;
 
             return restService.patch(uri, body, params, PROFILE_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -180,14 +153,9 @@ public class ProfileHandler {
      * @throws MollieException when something went wrong
      */
     public void deleteProfile(String id, QueryParams params) throws MollieException {
-        try {
             String uri = "/profiles/" + id;
 
             restService.delete(uri, params, false, new TypeReference<Void>(){});
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -237,14 +205,9 @@ public class ProfileHandler {
      */
     public MethodResponse enablePaymentMethod(String profileId, PaymentMethod paymentMethod, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
 
             return restService.postWithoutBody(uri, params, METHOD_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -290,14 +253,9 @@ public class ProfileHandler {
      */
     public void disablePaymentMethod(String profileId, PaymentMethod paymentMethod, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/profiles/" + profileId + "/methods/" + paymentMethod.getJsonValue();
 
             restService.delete(uri, params, false, new TypeReference<Void>(){});
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -318,14 +276,9 @@ public class ProfileHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ProfileListResponse> getProfiles(QueryParams params) throws MollieException {
-        try {
             String uri = "/profiles";
 
             return restService.get(uri, params, false, PROFILE_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     public GiftCardIssuerResponse enableMyGiftCardIssuer(String issuer) throws MollieException {
@@ -341,14 +294,9 @@ public class ProfileHandler {
     }
 
     public GiftCardIssuerResponse enableGiftCardIssuer(String profileId, String issuer, QueryParams queryParams) throws MollieException {
-        try {
             String uri = "/profiles/" + profileId + "/methods/giftcard/issuers/" + issuer;
 
             return restService.postWithoutBody(uri, queryParams, GIFT_CARD_ISSUER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     public void disableMyGiftCardIssuer(String issuer) throws MollieException {
@@ -364,14 +312,9 @@ public class ProfileHandler {
     }
 
     public void disableGiftCardIssuer(String profileId, String issuer, QueryParams params) throws MollieException {
-        try {
             String uri = "/profiles/" + profileId + "/methods/giftcard/issuers/" + issuer;
 
             restService.delete(uri, params, false, new TypeReference<Void>(){});
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     public VoucherIssuerResponse enableMyVoucherIssuer(String issuer, EnableVoucherIssuerRequest request)
@@ -392,13 +335,8 @@ public class ProfileHandler {
     public VoucherIssuerResponse enableVoucherIssuer(String profileId, String issuer,
                                                      EnableVoucherIssuerRequest request, QueryParams queryParams)
             throws MollieException {
-        try {
             String uri = "/profiles/" + profileId + "/methods/voucher/issuers/" + issuer;
 
             return restService.post(uri, request, queryParams, VOUCHER_ISSUER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

@@ -6,12 +6,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the onboarding API <a href="https://docs.mollie.com/reference/v2/onboarding-api/get-onboarding-status">Mollie docs</a>
@@ -20,8 +15,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class OnboardingHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(OnboardingHandler.class);
 
     private static final TypeReference<OnboardingResponse> ONBOARDING_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -46,14 +39,9 @@ public class OnboardingHandler {
      * @throws MollieException when something went wrong
      */
     public OnboardingResponse getOnboardingStatus(QueryParams params) throws MollieException {
-        try {
             String uri = "/onboarding/me";
 
             return restService.get(uri, params, false, ONBOARDING_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -78,14 +66,9 @@ public class OnboardingHandler {
      */
     @Deprecated
     public void submitOnboardingData(OnboardingRequest body, QueryParams params) throws MollieException {
-        try {
             String uri = "/onboarding/me";
 
             restService.post(uri, body, params, new TypeReference<Void>() {});
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
 }

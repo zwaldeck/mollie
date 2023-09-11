@@ -11,12 +11,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Settlements API <a href="https://docs.mollie.com/reference/v2/settlements-api/get-settlement">Mollie docs</a>
@@ -25,8 +20,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class SettlementHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(SettlementHandler.class);
 
     private static final TypeReference<SettlementResponse> SETTLEMENT_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -67,14 +60,9 @@ public class SettlementHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getSettlement(String id, QueryParams params) throws MollieException {
-        try {
             String uri = "/settlements/" + id;
 
             return restService.get(uri, params, false, SETTLEMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -96,14 +84,9 @@ public class SettlementHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<SettlementListResponse> getSettlements(QueryParams params) throws MollieException {
-        try {
             String uri = "/settlements";
 
             return restService.get(uri, params, false, SETTLEMENTS_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -124,14 +107,9 @@ public class SettlementHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getNextSettlement(QueryParams params) throws MollieException {
-        try {
             String uri = "/settlements/next";
 
             return restService.get(uri, params, false, SETTLEMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -152,14 +130,9 @@ public class SettlementHandler {
      * @throws MollieException when something went wrong
      */
     public SettlementResponse getOpenSettlement(QueryParams params) throws MollieException {
-        try {
             String uri = "/settlements/open";
 
             return restService.get(uri, params, false, SETTLEMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -187,14 +160,9 @@ public class SettlementHandler {
      */
     public Pagination<PaymentListResponse> getSettlementPayments(String settlementId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/settlements/" + settlementId + "/payments";
 
             return restService.get(uri, params, false, PAYMENTS_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -218,14 +186,9 @@ public class SettlementHandler {
      */
     public Pagination<RefundListResponse> getSettlementRefund(String settlementId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/settlements/" + settlementId + "/refunds";
 
             return restService.get(uri, params, false, REFUND_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -249,14 +212,9 @@ public class SettlementHandler {
      */
     public Pagination<ChargebackListResponse> getSettlementChargebacks(String settlementId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/settlements/" + settlementId + "/chargebacks";
 
             return restService.get(uri, params, false, CHARGEBACK_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -284,14 +242,9 @@ public class SettlementHandler {
      */
     public Pagination<CaptureListResponse> getSettlementCaptures(String settlementId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/settlements/" + settlementId + "/captures";
 
             return restService.get(uri, params, false, CAPTURE_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
 }

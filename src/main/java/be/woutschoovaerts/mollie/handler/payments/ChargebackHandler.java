@@ -7,12 +7,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Charge back API <a href="https://docs.mollie.com/reference/v2/chargebacks-api/get-chargeback">Mollie docs</a>
@@ -21,8 +16,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class ChargebackHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(ChargebackHandler.class);
 
     private static final TypeReference<ChargebackResponse> CHARGEBACK_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -54,14 +47,9 @@ public class ChargebackHandler {
      */
     public ChargebackResponse getChargeback(String paymentId, String chargebackId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/chargebacks/" + chargebackId;
 
             return restService.get(uri, params, false, CHARGEBACK_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -86,14 +74,9 @@ public class ChargebackHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<ChargebackListResponse> listChargebacks(QueryParams params) throws MollieException {
-        try {
             String uri = "/chargebacks";
 
             return restService.get(uri, params, false, CHARGEBACK_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -122,13 +105,8 @@ public class ChargebackHandler {
      */
     public Pagination<ChargebackListResponse> listChargebacks(String paymentId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/chargebacks";
 
             return restService.get(uri, params, false, CHARGEBACK_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

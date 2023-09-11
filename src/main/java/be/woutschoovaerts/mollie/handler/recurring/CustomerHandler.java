@@ -11,12 +11,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Customer API <a href="https://docs.mollie.com/reference/v2/customers-api/create-customer">Mollie docs</a>
@@ -25,8 +20,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class CustomerHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(CustomerHandler.class);
 
     private static final TypeReference<CustomerResponse> CUSTOMER_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -59,14 +52,9 @@ public class CustomerHandler {
      * @throws MollieException when something went wrong
      */
     public CustomerResponse createCustomer(CustomerRequest body, QueryParams params) throws MollieException {
-        try {
             String uri = "/customers";
 
             return restService.post(uri, body, params, CUSTOMER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -89,14 +77,9 @@ public class CustomerHandler {
      * @throws MollieException when something went wrong
      */
     public CustomerResponse getCustomer(String customerId, QueryParams params) throws MollieException {
-        try {
             String uri = "/customers/" + customerId;
 
             return restService.get(uri, params, true, CUSTOMER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -120,14 +103,9 @@ public class CustomerHandler {
      */
     public CustomerResponse updateCustomer(String customerId, CustomerRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId;
 
             return restService.patch(uri, body, params, CUSTOMER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -148,14 +126,9 @@ public class CustomerHandler {
      * @throws MollieException when something went wrong
      */
     public void deleteCustomer(String customerId, QueryParams params) throws MollieException {
-        try {
             String uri = "/customers/" + customerId;
 
             restService.delete(uri, params, true, new TypeReference<Void>() {});
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -180,14 +153,9 @@ public class CustomerHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<CustomerListResponse> listCustomers(QueryParams params) throws MollieException {
-        try {
             String uri = "/customers";
 
             return restService.get(uri, params, true, CUSTOMER_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -217,14 +185,9 @@ public class CustomerHandler {
      */
     public PaymentResponse createCustomerPayment(String customerId, PaymentRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/payments";
 
             return restService.post(uri, body, params, PAYMENT_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -248,13 +211,8 @@ public class CustomerHandler {
      */
     public Pagination<PaymentListResponse> listCustomerPayments(String customerId, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/customers/" + customerId + "/payments";
 
             return restService.get(uri, params, true, PAYMENT_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

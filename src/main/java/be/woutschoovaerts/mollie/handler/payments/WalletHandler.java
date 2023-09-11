@@ -5,17 +5,10 @@ import be.woutschoovaerts.mollie.data.wallet.ApplePaySessionResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 @RequiredArgsConstructor
 public class WalletHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(WalletHandler.class);
 
     private static final TypeReference<ApplePaySessionResponse> APPLE_PAY_SESSION_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -43,11 +36,6 @@ public class WalletHandler {
      * @throws MollieException when something went wrong
      */
     public ApplePaySessionResponse requestApplePaySession(ApplePaySessionRequest body) throws MollieException {
-        try {
             return restService.post("/wallets/applepay/sessions", body, APPLE_PAY_SESSION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

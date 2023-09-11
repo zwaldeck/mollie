@@ -8,12 +8,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Permissions API <a href="https://docs.mollie.com/reference/v2/permissions-api/get-permission">Mollie docs</a>
@@ -22,8 +17,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class PermissionHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(PermissionHandler.class);
 
     private static final TypeReference<PermissionResponse> PERMISSION_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -52,14 +45,9 @@ public class PermissionHandler {
      * @throws MollieException when something went wrong
      */
     public PermissionResponse getPermission(Permission permission, QueryParams params) throws MollieException {
-        try {
             String uri = "/permissions/" + permission.getValue();
 
             return restService.get(uri, params, false, PERMISSION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -80,13 +68,8 @@ public class PermissionHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<PermissionListResponse> getPermissions(QueryParams params) throws MollieException {
-        try {
             String uri = "/permissions";
 
             return restService.get(uri, params, false, PERMISSIONS_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

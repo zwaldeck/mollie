@@ -7,12 +7,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Method API <a href="https://docs.mollie.com/reference/v2/methods-api/list-methods">Mollie docs</a>
@@ -21,8 +16,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class MethodHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(MethodHandler.class);
 
     private static final TypeReference<Pagination<MethodListResponse>> METHOD_LIST_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -63,14 +56,9 @@ public class MethodHandler {
      * @throws MollieException When something goes wrong
      */
     public Pagination<MethodListResponse> listMethods(QueryParams params) throws MollieException {
-        try {
             String uri = "/methods";
 
             return restService.get(uri, params, true, METHOD_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -93,14 +81,9 @@ public class MethodHandler {
      * @throws MollieException When something goes wrong
      */
     public Pagination<MethodListResponse> listAllMethods(QueryParams params) throws MollieException {
-        try {
             String uri = "/methods/all";
 
             return restService.get(uri, params, false, METHOD_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -123,13 +106,8 @@ public class MethodHandler {
      * @throws MollieException when something went wrong
      */
     public MethodResponse getMethod(String methodId, QueryParams params) throws MollieException {
-        try {
             String uri = "/methods/" + methodId;
 
             return restService.get(uri, params, true, METHOD_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

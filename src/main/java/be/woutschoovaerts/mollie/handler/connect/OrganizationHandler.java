@@ -6,12 +6,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the organizations API <a href="https://docs.mollie.com/reference/v2/organizations-api/current-organization">Mollie docs</a>
@@ -20,8 +15,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class OrganizationHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(OrganizationHandler.class);
 
     private static final TypeReference<OrganizationResponse> ORGANIZATION_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -49,14 +42,9 @@ public class OrganizationHandler {
      * @throws MollieException when something went wrong
      */
     public OrganizationResponse getMyOrganization(QueryParams params) throws MollieException {
-        try {
             String uri = "/organizations/me";
 
             return restService.get(uri, params, false, ORGANIZATION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -83,14 +71,9 @@ public class OrganizationHandler {
      * @throws MollieException when something went wrong
      */
     public OrganizationResponse getOrganization(String organizationId, QueryParams params) throws MollieException {
-        try {
             String uri = "/organizations/" + organizationId;
 
             return restService.get(uri, params, false, ORGANIZATION_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -111,13 +94,8 @@ public class OrganizationHandler {
      * @throws MollieException when something went wrong
      */
     public OrganizationPartnerResponse getPartner(QueryParams params) throws MollieException {
-        try {
             String uri = "/organizations/me/partner";
 
             return restService.get(uri, params, false, ORGANIZATION_PARTNER_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }

@@ -8,12 +8,7 @@ import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
-import kong.unirest.UnirestException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Handles the Refund API <a href="https://docs.mollie.com/reference/v2/refunds-api/create-refund">Mollie docs</a>
@@ -22,8 +17,6 @@ import java.io.IOException;
  */
 @RequiredArgsConstructor
 public class RefundHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(RefundHandler.class);
 
     private static final TypeReference<RefundResponse> REFUND_RESPONSE_TYPE = new TypeReference<>() {
     };
@@ -93,14 +86,9 @@ public class RefundHandler {
      */
     public RefundResponse createRefund(String paymentId, RefundRequest body, QueryParams params)
             throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/refunds";
 
             return restService.post(uri, body, params, REFUND_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -125,14 +113,9 @@ public class RefundHandler {
      * @throws MollieException when something went wrong
      */
     public RefundResponse getRefund(String paymentId, String refundId, QueryParams params) throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
             return restService.get(uri, params, true, REFUND_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
 
@@ -160,14 +143,9 @@ public class RefundHandler {
      * @throws MollieException when something went wrong
      */
     public void cancelRefund(String paymentId, String refundId, QueryParams params) throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/refunds/" + refundId;
 
             restService.delete(uri, params, true, new TypeReference<Void>(){});
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
     /**
@@ -196,14 +174,9 @@ public class RefundHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<RefundListResponse> listRefunds(QueryParams params) throws MollieException {
-        try {
             String uri = "/refunds";
 
             return restService.get(uri, params, true, REFUND_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 
 
@@ -235,13 +208,8 @@ public class RefundHandler {
      * @throws MollieException when something went wrong
      */
     public Pagination<RefundListResponse> listRefunds(String paymentId, QueryParams params) throws MollieException {
-        try {
             String uri = "/payments/" + paymentId + "/refunds";
 
             return restService.get(uri, params, true, REFUND_LIST_RESPONSE_TYPE);
-        } catch (UnirestException | IOException ex) {
-            log.error("An unexpected exception occurred", ex);
-            throw new MollieException(ex);
-        }
     }
 }
