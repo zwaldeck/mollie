@@ -11,6 +11,7 @@ import be.woutschoovaerts.mollie.handler.payments.*;
 import be.woutschoovaerts.mollie.handler.recurring.CustomerHandler;
 import be.woutschoovaerts.mollie.handler.recurring.MandateHandler;
 import be.woutschoovaerts.mollie.handler.recurring.SubscriptionHandler;
+import be.woutschoovaerts.mollie.handler.terminals.TerminalHandler;
 import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.RestService;
 import kong.unirest.Unirest;
@@ -94,6 +95,15 @@ public class Client {
      */
     public PaymentHandler payments() {
         return new PaymentHandler(restService);
+    }
+
+    /**
+     * Handles terminal actions
+     *
+     * @return TerminalHandler object
+     */
+    public TerminalHandler terminals() {
+        return new TerminalHandler(restService);
     }
 
     /**
