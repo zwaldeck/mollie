@@ -1,6 +1,7 @@
 package be.woutschoovaerts.mollie.data.common;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import be.woutschoovaerts.mollie.serializer.MoneySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,6 @@ public class Amount {
 
     private String currency;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @JsonSerialize(using = MoneySerializer.class)
     private BigDecimal value;
 }

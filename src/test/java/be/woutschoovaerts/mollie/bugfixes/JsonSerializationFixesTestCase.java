@@ -9,7 +9,7 @@ import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JsonSerializationFixes {
+public class JsonSerializationFixesTestCase {
 
     @Test
     void valueOfAmountShouldBeSerializedAsString() throws Exception {
@@ -20,7 +20,7 @@ public class JsonSerializationFixes {
 
         Amount amountWithDouble = Amount.builder()
                 .currency("EUR")
-                .value(new BigDecimal(12.00).setScale(2, RoundingMode.UP))
+                .value(new BigDecimal(12.00))
                 .build();
 
         String expectedJson = "{\"currency\":\"EUR\",\"value\":\"12.00\"}";
