@@ -181,6 +181,7 @@ public class RestService {
         map.put("Authorization", "Bearer " + config.getBearerToken());
 
         config.getUserAgentString().ifPresent(userAgentString -> map.put("User-Agent", userAgentString));
+        config.getIdempotencyKey().ifPresent(key -> map.put("Idempotency-Key", key));
 
         return map;
     }

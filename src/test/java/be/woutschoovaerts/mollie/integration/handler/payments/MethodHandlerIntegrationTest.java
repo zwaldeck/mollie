@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.UUID;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +28,7 @@ class MethodHandlerIntegrationTest {
 
     @Test
     void listMethods() throws MollieException {
+        client.setIdempotencyKey(UUID.randomUUID().toString());
         Pagination<MethodListResponse> methods = client.methods().listMethods();
 
         assertNotNull(methods);

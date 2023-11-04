@@ -1,3 +1,15 @@
+## 4.1.0
+ - Added API Idempotency
+
+## 4.0.2
+ - Bugfix for BigDecimals serialization
+
+## 4.0.0
+ - Switched to Java 11+
+ - Added Balance endpoints
+ - Added Client endpoints
+ - Removed Miscellaneous handler
+
 ## 3.8.0
  - Add fee region to method pricing
  - Fix integration tests for chargeback reason and order expiry date

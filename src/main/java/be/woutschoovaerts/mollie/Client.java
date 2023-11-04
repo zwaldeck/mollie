@@ -33,6 +33,7 @@ public class Client {
         config.setApiKey(apiKey);
         config.setAccessToken(null);
         config.setTestMode(false);
+        config.setIdempotencyKey(null);
 
         restService = new RestService(config);
 
@@ -69,6 +70,14 @@ public class Client {
      */
     public void disableTestMode() {
         config.setTestMode(false);
+    }
+
+    public void setIdempotencyKey(String key) {
+        config.setIdempotencyKey(key);
+    }
+
+    public void removeIdempotencyKey() {
+        config.setIdempotencyKey(null);
     }
 
     /**

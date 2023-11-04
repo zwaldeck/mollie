@@ -23,6 +23,9 @@ public final class Config {
     @Setter
     private String userAgentString;
 
+    @Setter
+    private String idempotencyKey;
+
     public String getBearerToken() {
         return StringUtils.isBlank(accessToken) ? apiKey : accessToken;
     }
@@ -33,5 +36,9 @@ public final class Config {
 
     public Optional<String> getUserAgentString() {
         return Optional.ofNullable(userAgentString);
+    }
+
+    public Optional<String> getIdempotencyKey() {
+        return StringUtils.isNotBlank(idempotencyKey) ? Optional.of(idempotencyKey) : Optional.empty();
     }
 }
