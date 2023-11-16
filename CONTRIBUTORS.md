@@ -9,3 +9,4 @@
 - [Kim Scholte](https://github.com/kimscholte)
 - [Nils Bokdam](https://github.com/nbokdam)
 - [Niek Knuiman](https://github.com/niek1414)
+- [Jan Allenberg](https://github.com/JanAllenberg)

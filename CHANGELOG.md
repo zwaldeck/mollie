@@ -1,3 +1,6 @@
+## 4.2.0
+ - Add support for payment method TWINT in payment API
+
 ## 4.1.0
  - Added API Idempotency
 
