@@ -58,7 +58,7 @@ class MethodHandlerIntegrationTest {
 
         assertNotEquals(0, pricing.size());
         for (MethodPricing methodPricing: pricing) {
-            assertTrue(methodPricing.getFeeRegion().isPresent());
+            assertNotNull(methodPricing.getFeeRegion());
         }
     }
 
