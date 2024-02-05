@@ -38,9 +38,9 @@ public class UpdateProfileRequest {
     @Builder.Default
     private Optional<String> mode = Optional.empty();
 
-	@Builder.Default
-	private Optional<String> description = Optional.empty();
+    @Builder.Default
+    private Optional<String> description = Optional.empty();
 
-	@Builder.Default
-	private Optional<String[]> countriesOfActivity = Optional.empty();
+    @Builder.Default
+    private Optional<String[]> countriesOfActivity = Optional.empty();
 }
