@@ -10,3 +10,4 @@
 - [Nils Bokdam](https://github.com/nbokdam)
 - [Niek Knuiman](https://github.com/niek1414)
 - [Jan Allenberg](https://github.com/JanAllenberg)
+- [Lukas Deterts](https://github.com/lukasdeterts)
