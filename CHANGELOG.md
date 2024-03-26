@@ -1,3 +1,6 @@
+## 4.2.1
+- Added extra fields to AddressRequest
+
 ## 4.2.0
  - Add support for payment method TWINT in payment API
 
