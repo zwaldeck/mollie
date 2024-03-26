@@ -13,11 +13,15 @@ import java.util.Optional;
 @Builder
 public class AddressRequest {
 
+    private String givenName;
+
+    private String familyName;
+
     private String streetAndNumber;
 
     private Optional<String> streetAdditional = Optional.empty();
 
-    private String postalCode;
+    private Optional<String> postalCode;
 
     private String city;
 

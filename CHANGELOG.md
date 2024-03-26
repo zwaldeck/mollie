@@ -1,7 +1,10 @@
-## 4.2.1
+## 4.2.2
  - Added parameters "description" and "countriesOfActivity" to ProfileRequest
  - Added parameters "description" and "countriesOfActivity" to UpdateProfileRequest
  
+## 4.2.1
+- Added extra fields to AddressRequest
+
 ## 4.2.0
  - Add support for payment method TWINT in payment API
 
