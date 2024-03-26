@@ -118,7 +118,7 @@ public class OAuthHandler {
             String url = "https://api.mollie.com/oauth2/tokens" + params.toString();
 
             log.info("Executing 'DELETE {}'", url);
-            HttpResponse<String> response = Unirest.post(url)
+            HttpResponse<String> response = Unirest.delete(url)
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .basicAuth(clientId, clientSecret)
                     .body(getRevokeTokenBody(body))
