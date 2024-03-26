@@ -28,7 +28,8 @@ public enum PaymentMethod {
     PRZELEWY24("przelewy24"),
     SOFORT("sofort"),
     TWINT("twint"),
-    VOUCHER("voucher");
+    VOUCHER("voucher"),
+    POINT_OFF_SALE("pointofsale");
 
     private final String value;
 

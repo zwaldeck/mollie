@@ -1,6 +1,8 @@
-## 4.2.2
+## 4.3.0
+ - Added Terminals API
  - Added parameters "description" and "countriesOfActivity" to ProfileRequest
  - Added parameters "description" and "countriesOfActivity" to UpdateProfileRequest
+ - Use DELETE instead of POST for revoking tokens
  
 ## 4.2.1
 - Added extra fields to AddressRequest

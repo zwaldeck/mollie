@@ -276,6 +276,15 @@ public class Client {
         return new ClientHandler(restService);
     }
 
+    /**
+     * Handles terminal actions
+     *
+     * @return TerminalHandler object
+     */
+    public TerminalHandler terminals() {
+        return new TerminalHandler(restService);
+    }
+
     private void initUniRest(ClientProxy proxy) {
         Unirest.config()
             .setObjectMapper(new JacksonObjectMapper());
