@@ -11,6 +11,7 @@ public enum PaymentMethod {
     BANK_TRANSFER("banktransfer"),
     BELFIUS("belfius"),
     BILLIE("billie"),
+    BLIK("blik"),
     CREDIT_CARD("creditcard"),
     DIRECT_DEBIT("directdebit"),
     EPS("eps"),
