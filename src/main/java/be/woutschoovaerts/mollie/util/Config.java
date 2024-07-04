@@ -26,6 +26,9 @@ public final class Config {
     @Setter
     private String idempotencyKey;
 
+    @Setter
+    private String baseUrl;
+
     public String getBearerToken() {
         return StringUtils.isBlank(accessToken) ? apiKey : accessToken;
     }
@@ -40,5 +43,9 @@ public final class Config {
 
     public Optional<String> getIdempotencyKey() {
         return StringUtils.isNotBlank(idempotencyKey) ? Optional.of(idempotencyKey) : Optional.empty();
+    }
+
+    public Optional<String> getBaseUrl() {
+        return StringUtils.isNotBlank(baseUrl) ? Optional.of(baseUrl) : Optional.empty();
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 @Slf4j
 public class RestService {
 
-    private static final String BASE_URL = "https://api.mollie.com/v2";
+    private static final String REAL_BASE_URL = "https://api.mollie.com/v2";
 
     private final ObjectMapper mapper;
     private final Config config;
@@ -38,7 +38,7 @@ public class RestService {
             params.put("testmode", "true");
         }
 
-        String url = BASE_URL + uri + params.toString();
+        String url = getBaseUrl() + uri + params.toString();
 
         log.info("Executing 'GET {}'", url);
 
@@ -56,7 +56,7 @@ public class RestService {
 
     public <T> T postWithoutBody(String uri, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = BASE_URL + uri + params.toString();
+        String url = getBaseUrl() + uri + params.toString();
 
         log.info("Executing 'POST {}'", url);
 
@@ -77,7 +77,7 @@ public class RestService {
 
     public <T> T post(String uri, Object body, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = BASE_URL + uri + params.toString();
+        String url = getBaseUrl() + uri + params.toString();
 
         log.info("Executing 'POST {}'", url);
 
@@ -99,7 +99,7 @@ public class RestService {
 
     public <T> T patch(String uri, Object body, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = BASE_URL + uri + params.toString();
+        String url = getBaseUrl() + uri + params.toString();
 
         log.info("Executing 'PATCH {}'", url);
 
@@ -130,7 +130,7 @@ public class RestService {
             body.put("testmode", true);
         }
 
-        String url = BASE_URL + uri + params.toString();
+        String url = getBaseUrl() + uri + params.toString();
 
         log.info("Executing 'DELETE {}'", url);
 
@@ -148,7 +148,7 @@ public class RestService {
 
     public <T> T delete(String uri, Object body, QueryParams params, TypeReference<T> typeRef)
             throws IOException, MollieException {
-        String url = BASE_URL + uri + params.toString();
+        String url = getBaseUrl() + uri + params.toString();
 
         log.info("Executing 'DELETE {}'", url);
 
@@ -193,4 +193,9 @@ public class RestService {
 
         return ObjectMapperService.getInstance().getMapper().readValue(body, typeRef);
     }
+
+    private String getBaseUrl() {
+        return config.getBaseUrl().orElse(REAL_BASE_URL);
+    }
+
 }

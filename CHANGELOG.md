@@ -1,3 +1,6 @@
+## 4.3.1
+- add ability to set a base url for testing - e.g. using wiremock
+
 ## 4.3.0
  - Added Terminals API
  - Added parameters "description" and "countriesOfActivity" to ProfileRequest

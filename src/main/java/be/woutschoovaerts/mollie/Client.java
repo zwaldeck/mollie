@@ -15,6 +15,7 @@ import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.RestService;
 import kong.unirest.Unirest;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 public class Client {
 
@@ -34,6 +35,7 @@ public class Client {
         config.setAccessToken(null);
         config.setTestMode(false);
         config.setIdempotencyKey(null);
+        config.setBaseUrl(null);
 
         restService = new RestService(config);
 
@@ -85,6 +87,22 @@ public class Client {
      */
     public void setUserAgentString(String userAgentString) {
         config.setUserAgentString(userAgentString);
+    }
+
+    /**
+     * Only needed for testing purposes - Overrides base url
+     * @param baseUrl A replacement base url - e. g. the wiremock url
+     */
+    public void setBaseUrl(String baseUrl) {
+        String urlWithNoTrailingSlashes = baseUrl == null ? null : baseUrl.replaceAll("/*$", "");
+        config.setBaseUrl(urlWithNoTrailingSlashes);
+    }
+
+    /**
+     * removes any previously overridden base url and uses the actual mollie url
+     */
+    public void setRealBaseUrl() {
+        config.setBaseUrl(null);
     }
 
     /**
