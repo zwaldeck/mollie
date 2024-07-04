@@ -15,7 +15,6 @@ import be.woutschoovaerts.mollie.util.Config;
 import be.woutschoovaerts.mollie.util.RestService;
 import kong.unirest.Unirest;
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 
 public class Client {
 
