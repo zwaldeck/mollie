@@ -1,3 +1,6 @@
+## 4.3.1
+- Added support for TRUSTLY in payment API
+
 ## 4.3.0
  - Added Terminals API
  - Added parameters "description" and "countriesOfActivity" to ProfileRequest

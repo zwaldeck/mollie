@@ -27,6 +27,7 @@ public enum PaymentMethod {
     PAY_SAFE_CARD("paysafecard"),
     PRZELEWY24("przelewy24"),
     SOFORT("sofort"),
+    TRUSTLY("trustly"),
     TWINT("twint"),
     VOUCHER("voucher"),
     POINT_OFF_SALE("pointofsale");
