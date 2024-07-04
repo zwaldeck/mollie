@@ -85,6 +85,32 @@ class ClientTest {
     }
 
     @Test
+    void setBaseUrl() {
+        Client client = new Client("apiKey");
+        assertEquals(Optional.empty(), client.getConfig().getBaseUrl());
+
+        client.setBaseUrl("http://localhost:1234/");
+
+        assertEquals(Optional.of("http://localhost:1234"), client.getConfig().getBaseUrl());
+
+        Unirest.config().shutDown(true);
+    }
+
+    @Test
+    void unsetBaseUrl() {
+        Client client = new Client("apiKey");
+        client.setBaseUrl("http://localhost:1234");
+
+        assertEquals(Optional.of("http://localhost:1234"), client.getConfig().getBaseUrl());
+
+        client.setRealBaseUrl();
+
+        assertEquals(Optional.empty(), client.getConfig().getBaseUrl());
+
+        Unirest.config().shutDown(true);
+    }
+
+    @Test
     void twoClients() {
         Client client1 = new Client("apiKey1");
         Client client2 = new Client("apiKey2");

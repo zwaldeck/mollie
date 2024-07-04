@@ -1,3 +1,6 @@
+## 4.3.2
+- add ability to set a base url for testing - e.g. using wiremock
+
 ## 4.3.1
 - Added support for TRUSTLY in payment API
 
