@@ -41,7 +41,7 @@ public class OAuthHandler {
      * @return The authorize URL
      */
     public String createAuthorizeUrl(AuthorizeRequest request) {
-        return "https://www.mollie.com/oauth2/authorize" + convertAuthorizeRequestToQueryParams(request).toString();
+        return "https://my.mollie.com/oauth2/authorize" + convertAuthorizeRequestToQueryParams(request).toString();
     }
 
     /**

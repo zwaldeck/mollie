@@ -14,7 +14,7 @@ import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//https://www.mollie.com/oauth2/authorize?client_id=*client_id*&state=random&scope=payments.read&response_type=code&approval_prompt=auto
+//https://my.mollie.com/oauth2/authorize?client_id=*client_id*&state=random&scope=payments.read&response_type=code&approval_prompt=auto
 
 class OAuthHandlerIntegrationTest {
 
@@ -36,7 +36,7 @@ class OAuthHandlerIntegrationTest {
                 .approvalPrompt(ApprovalPrompt.AUTO)
                 .build();
 
-        String expected = "https://www.mollie.com/oauth2/authorize?client_id=client_123" +
+        String expected = "https://my.mollie.com/oauth2/authorize?client_id=client_123" +
                 "&redirect_uri=https%3A%2F%2Fgoogle.be&state=ABC&scope=scope1+scope2" +
                 "&response_type=code&approval_prompt=auto";
 
@@ -53,7 +53,7 @@ class OAuthHandlerIntegrationTest {
                 .approvalPrompt(ApprovalPrompt.AUTO)
                 .build();
 
-        String expected = "https://www.mollie.com/oauth2/authorize?client_id=client_123" +
+        String expected = "https://my.mollie.com/oauth2/authorize?client_id=client_123" +
                 "&state=ABC&scope=scope1+scope2&response_type=code&approval_prompt=auto";
 
         assertEquals(expected, client.oAuth().createAuthorizeUrl(request));
