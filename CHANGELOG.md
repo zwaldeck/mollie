@@ -1,3 +1,6 @@
+## 4.4.1
+- Added "mobileAppCheckout" mapping in PaymentLinks
+
 ## 4.3.1
 - Added support for TRUSTLY in payment API
 

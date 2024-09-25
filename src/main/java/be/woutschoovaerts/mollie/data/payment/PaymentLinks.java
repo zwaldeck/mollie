@@ -41,4 +41,6 @@ public class PaymentLinks {
     private Optional<Link> payOnline = Optional.empty();
 
     private Optional<Link> changePaymentState = Optional.empty();
+
+    private Optional<Link> mobileAppCheckout = Optional.empty();
 }
