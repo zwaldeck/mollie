@@ -25,7 +25,7 @@ class OAuthHandlerTest {
 
     @Test
     void createAuthorizeUrl() {
-        String expected = "https://www.mollie.com/oauth2/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fz-soft.be&state=state&scope=scope1+scope2&response_type=code&approval_prompt=auto";
+        String expected = "https://my.mollie.com/oauth2/authorize?client_id=client_id&redirect_uri=https%3A%2F%2Fz-soft.be&state=state&scope=scope1+scope2&response_type=code&approval_prompt=auto";
 
         AuthorizeRequest request = AuthorizeRequest.builder()
                 .clientId("client_id")
