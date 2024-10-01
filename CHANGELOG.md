@@ -1,3 +1,6 @@
+## 4.4.2
+- Added "email" and "phone" fields to AddressRequest for 3DS validation
+
 ## 4.4.1
 - Added "mobileAppCheckout" mapping in PaymentLinks
 

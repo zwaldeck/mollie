@@ -24,4 +24,8 @@ public class AddressResponse {
     private Optional<String> region = Optional.empty();
 
     private String country;
+
+    private String email;
+
+    private String phone;
 }
