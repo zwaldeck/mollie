@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +19,7 @@ public class BalanceResponse {
 
     private String id;
 
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     private String currency;
 

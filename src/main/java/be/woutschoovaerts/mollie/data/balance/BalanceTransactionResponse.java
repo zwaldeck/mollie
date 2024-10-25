@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Map;
 
 @Data
@@ -28,7 +29,7 @@ public class BalanceTransactionResponse {
 
     private Amount deductions;
 
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     private Map<String, String> context;
 
