@@ -1,3 +1,6 @@
+## 4.4.3
+ - Switched to OffsetDateTime
+
 ## 4.4.2
 - added paypal for mandates API
 - added alma, bacs, bancomatpay, blik, satispay for payments API

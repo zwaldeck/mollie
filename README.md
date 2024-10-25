@@ -20,7 +20,7 @@ This library requires Java 11+.
 <dependency>
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>4.4.2</version>
+    <version>4.4.3</version>
 </dependency>
 ```
 
