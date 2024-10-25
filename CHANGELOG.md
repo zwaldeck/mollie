@@ -2,6 +2,7 @@
 - added paypal for mandates API
 - added alma, bacs, bancomatpay, blik, satispay for payments API
 - added paybybank for payments API, see https://docs.mollie.com/docs/pay-by-bank 
+- Added "email" and "phone" fields to AddressRequest for 3DS validation
 
 ## 4.4.1
 - Added "mobileAppCheckout" mapping in PaymentLinks
