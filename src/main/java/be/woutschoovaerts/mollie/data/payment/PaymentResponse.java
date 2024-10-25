@@ -37,6 +37,8 @@ public class PaymentResponse {
 
     private Optional<OffsetDateTime> canceledAt = Optional.empty();
 
+    private Optional<OffsetDateTime> expiresAt = Optional.empty();
+
     private Optional<OffsetDateTime> expiredAt = Optional.empty();
 
     private Optional<OffsetDateTime> failedAt = Optional.empty();
