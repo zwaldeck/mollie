@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 public enum MandatePaymentMethod {
 
     DIRECTDEBIT,
-    CREDITCARD;
+    CREDITCARD,
+    PAYPAL;
 
     @JsonValue
     public String getJsonValue() {
