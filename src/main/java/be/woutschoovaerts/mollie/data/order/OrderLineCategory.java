@@ -6,7 +6,10 @@ public enum OrderLineCategory {
 
     MEAL,
     ECO,
-    GIFT;
+    GIFT,
+    SPORTS,
+    ADDITIONAL,
+    CONSUME;
 
     @JsonValue
     public String getJsonValue() {

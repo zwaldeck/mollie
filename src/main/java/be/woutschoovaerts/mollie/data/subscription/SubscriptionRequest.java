@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,27 +21,33 @@ public class SubscriptionRequest {
 
     private Amount amount;
 
+    @Builder.Default
     private Optional<Integer> times = Optional.empty();
 
     private String interval;
 
+    @Builder.Default
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Optional<LocalDate> startDate = Optional.empty();
+    private Optional<OffsetDateTime> startDate = Optional.empty();
 
     private String description;
 
     private MandatePaymentMethod method;
 
-    private Optional<String> mandateId = Optional.empty();
-
-    private Optional<String> webhookUrl = Optional.empty();
+    @Builder.Default
+    private Optional<ApplicationFee> applicationFee = Optional.empty();
 
     private Map<String, Object> metadata;
 
     @Builder.Default
-    private Optional<Boolean> testmode = Optional.empty();
+    private Optional<String> webhookUrl = Optional.empty();
 
+    @Builder.Default
+    private Optional<String> mandateId = Optional.empty();
+
+    @Builder.Default
     private Optional<String> profileId = Optional.empty();
 
-    private Optional<ApplicationFee> applicationFee = Optional.empty();
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
 }

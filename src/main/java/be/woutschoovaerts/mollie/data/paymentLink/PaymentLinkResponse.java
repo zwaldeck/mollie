@@ -20,28 +20,31 @@ public class PaymentLinkResponse {
 
     private String id;
 
-    private String description;
-
     private String mode;
 
-    private String profileId;
+    private String description;
 
-    private Amount amount;
+    @Builder.Default
+    private Optional<Amount> amount = Optional.empty();
 
     private boolean archived;
 
-    private String redirectUrl;
+    @Builder.Default
+    private Optional<String> redirectUrl = Optional.empty();
 
     @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> profileId = Optional.empty();
+
+    @Builder.Default
+    private Optional<Boolean> reusable = Optional.empty();
 
     private OffsetDateTime createdAt;
 
     @Builder.Default
     private Optional<OffsetDateTime> paidAt = Optional.empty();
-
-    @Builder.Default
-    private Optional<OffsetDateTime> updatedAt = Optional.empty();
 
     @Builder.Default
     private Optional<OffsetDateTime> expiresAt = Optional.empty();

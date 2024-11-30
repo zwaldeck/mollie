@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.OffsetDateTime;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -23,11 +24,14 @@ public class CustomerResponse {
 
     private String mode;
 
-    private String name;
+    @Builder.Default
+    private Optional<String> name = Optional.empty();
 
-    private String email;
+    @Builder.Default
+    private Optional<String> email = Optional.empty();
 
-    private Locale locale;
+    @Builder.Default
+    private Optional<Locale> locale = Optional.empty();
 
     private Map<String, Object> metadata;
 

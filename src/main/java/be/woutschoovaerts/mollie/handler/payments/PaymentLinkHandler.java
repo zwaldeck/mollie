@@ -1,9 +1,11 @@
 package be.woutschoovaerts.mollie.handler.payments;
 
 import be.woutschoovaerts.mollie.data.common.Pagination;
+import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
 import be.woutschoovaerts.mollie.data.paymentLink.PaymentLinkListResponse;
 import be.woutschoovaerts.mollie.data.paymentLink.PaymentLinkRequest;
 import be.woutschoovaerts.mollie.data.paymentLink.PaymentLinkResponse;
+import be.woutschoovaerts.mollie.data.paymentLink.UpdatePaymentLinkRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
@@ -27,6 +29,8 @@ public class PaymentLinkHandler {
     private static final TypeReference<PaymentLinkResponse> PAYMENT_LINK_RESPONSE_TYPE = new TypeReference<>() {
     };
     private static final TypeReference<Pagination<PaymentLinkListResponse>> PAYMENT_LINK_LIST_RESPONSE_TYPE = new TypeReference<>() {
+    };
+    private static final TypeReference<Pagination<PaymentListResponse>> PAYMENT_LIST_RESPONSE_TYPE = new TypeReference<>() {
     };
 
     private final RestService restService;
@@ -123,4 +127,105 @@ public class PaymentLinkHandler {
             throw new MollieException(ex);
         }
     }
+
+    /**
+     * Certain details of an existing payment link can be updated.
+     *
+     * @param paymentLinkId The payment link ID
+     * @param request       The request body
+     * @return Single payment link response
+     * @throws MollieException when something went wrong
+     */
+    public PaymentLinkResponse updatePaymentLink(String paymentLinkId, UpdatePaymentLinkRequest request) throws MollieException {
+        return updatePaymentLink(paymentLinkId, request, new QueryParams());
+    }
+
+    /**
+     * Certain details of an existing payment link can be updated.
+     *
+     * @param paymentLinkId The payment link ID
+     * @param request       The request body
+     * @param params        The query params
+     * @return Single payment link response
+     * @throws MollieException when something went wrong
+     */
+    public PaymentLinkResponse updatePaymentLink(String paymentLinkId, UpdatePaymentLinkRequest request, QueryParams params) throws MollieException {
+        try {
+            String uri = "/payment-links/" + paymentLinkId;
+            return restService.patch(uri, request, params, PAYMENT_LINK_RESPONSE_TYPE);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    /**
+     * Payment links which have not been opened and no payments have been made yet can be deleted entirely. This can be useful for removing payment links that have been incorrectly configured or that are no longer relevant.
+     * <p>
+     * Once deleted, the payment link will no longer show up in the API or Mollie dashboard.
+     * <p>
+     * To simply disable a payment link without fully deleting it, you can use the archived parameter on the Update payment link endpoint instead.
+     *
+     * @param paymentLinkId The payment link ID
+     * @throws MollieException when something went wrong
+     */
+    public void deletePaymentLink(String paymentLinkId) throws MollieException {
+        deletePaymentLink(paymentLinkId, new QueryParams());
+    }
+
+    /**
+     * Payment links which have not been opened and no payments have been made yet can be deleted entirely. This can be useful for removing payment links that have been incorrectly configured or that are no longer relevant.
+     * <p>
+     * Once deleted, the payment link will no longer show up in the API or Mollie dashboard.
+     * <p>
+     * To simply disable a payment link without fully deleting it, you can use the archived parameter on the Update payment link endpoint instead.
+     *
+     * @param paymentLinkId The payment link ID
+     * @param params        The query params
+     * @throws MollieException when something went wrong
+     */
+    public void deletePaymentLink(String paymentLinkId, QueryParams params) throws MollieException {
+        try {
+            String uri = "/payment-links/" + paymentLinkId;
+            restService.delete(uri, params, new TypeReference<Void>() {
+            });
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    /**
+     * Retrieve the list of payments for a specific payment link.
+     * <p>
+     * The results are paginated.
+     *
+     * @param paymentLinkId The payment link ID
+     * @return Paginated payments
+     * @throws MollieException when something went wrong
+     */
+    public Pagination<PaymentListResponse> listPaymentLinkPayments(String paymentLinkId) throws MollieException {
+        return listPaymentLinkPayments(paymentLinkId, new QueryParams());
+    }
+
+    /**
+     * Retrieve the list of payments for a specific payment link.
+     * <p>
+     * The results are paginated.
+     *
+     * @param paymentLinkId The payment link ID
+     * @param params        The query params
+     * @return Paginated payments
+     * @throws MollieException when something went wrong
+     */
+    public Pagination<PaymentListResponse> listPaymentLinkPayments(String paymentLinkId, QueryParams params) throws MollieException {
+        try {
+            String uri = "/payment-links/" + paymentLinkId + "/payments";
+            return restService.get(uri, params, true, PAYMENT_LIST_RESPONSE_TYPE);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
 }

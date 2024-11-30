@@ -22,18 +22,15 @@ public class SettlementResponse {
 
     private String reference;
 
-    private OffsetDateTime createdAt;
-
     private OffsetDateTime settledAt;
 
     private SettlementStatus status;
 
     private Amount amount;
 
-    private HashMap<Integer, HashMap<Integer, PeriodResponse>> periods;
+    private String balanceId;
 
-    @Deprecated
-    private String invoiceId;
+    private HashMap<Integer, HashMap<Integer, PeriodResponse>> periods;
 
     @JsonProperty("_links")
     private SettlementLinks links;

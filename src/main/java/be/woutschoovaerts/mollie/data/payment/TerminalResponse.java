@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -14,9 +15,9 @@ import java.time.OffsetDateTime;
 @Builder
 public class TerminalResponse {
 
-    private String id;
+    private String resource;
 
-    private String profileId;
+    private String id;
 
     private String description;
 
@@ -30,9 +31,10 @@ public class TerminalResponse {
 
     private String currency;
 
-    private OffsetDateTime createdAt;
+    @Builder.Default
+    private Optional<String> profileId = Optional.empty();
 
-    private OffsetDateTime updatedAt;
+    private OffsetDateTime createdAt;
 
     @JsonProperty("_links")
     private TerminalLinks links;

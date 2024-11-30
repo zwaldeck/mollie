@@ -24,10 +24,9 @@ public class MethodResponse {
     private Amount maximumAmount;
     private Image image;
     private MethodStatus status;
+    private List<MethodPricing> pricing;
+    private List<SimpleMethodResponse> issuers;
 
     @JsonProperty("_links")
     private MethodLinks links;
-
-    private List<SimpleMethodResponse> issuers;
-    private List<MethodPricing> pricing;
 }

@@ -1,6 +1,7 @@
 package be.woutschoovaerts.mollie.handler.payments;
 
 import be.woutschoovaerts.mollie.data.capture.CaptureListResponse;
+import be.woutschoovaerts.mollie.data.capture.CaptureRequest;
 import be.woutschoovaerts.mollie.data.capture.CaptureResponse;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.exception.MollieException;
@@ -96,6 +97,46 @@ public class CaptureHandler {
             String uri = "/payments/" + paymentId + "/captures";
 
             return restService.get(uri, params, true, CAPTURE_LIST_RESPONSE_TYPE);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    /**
+     * Capture an authorized payment.
+     * <p>
+     * Some payment methods allow you to first collect a customer's authorization, and capture the amount at a later point.
+     * <p>
+     * By default, Mollie captures payments automatically. If however you configured your payment with captureMode: manual, you can capture the payment using this endpoint after having collected the customer's authorization.
+     *
+     * @param paymentId a payment id
+     * @param request   Request body
+     * @return paginated list of CaptureResponse objects
+     * @throws MollieException when something went wrong
+     */
+    public CaptureResponse createCapture(String paymentId, CaptureRequest request) throws MollieException {
+        return createCapture(paymentId, request, new QueryParams());
+    }
+
+    /**
+     * Capture an authorized payment.
+     * <p>
+     * Some payment methods allow you to first collect a customer's authorization, and capture the amount at a later point.
+     * <p>
+     * By default, Mollie captures payments automatically. If however you configured your payment with captureMode: manual, you can capture the payment using this endpoint after having collected the customer's authorization.
+     *
+     * @param paymentId a payment id
+     * @param request   Request body
+     * @param params    A map of query parameters
+     * @return paginated list of CaptureResponse objects
+     * @throws MollieException when something went wrong
+     */
+    public CaptureResponse createCapture(String paymentId, CaptureRequest request, QueryParams params) throws MollieException {
+        try {
+            String uri = "/payments/" + paymentId + "/captures";
+
+            return restService.post(uri, request, params, CAPTURE_RESPONSE_TYPE);
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);

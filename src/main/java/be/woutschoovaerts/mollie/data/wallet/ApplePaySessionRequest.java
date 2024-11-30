@@ -23,7 +23,6 @@ public class ApplePaySessionRequest {
      */
     private String domain;
 
-    // OAuth params
     @Builder.Default
     private Optional<String> profileId = Optional.empty();
 }

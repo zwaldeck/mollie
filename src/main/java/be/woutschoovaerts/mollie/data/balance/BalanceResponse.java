@@ -19,9 +19,11 @@ public class BalanceResponse {
 
     private String id;
 
-    private OffsetDateTime createdAt;
+    private String mode;
 
     private String currency;
+
+    private String description;
 
     private BalanceStatus status;
 
@@ -33,9 +35,12 @@ public class BalanceResponse {
 
     private TransferDestination transferDestination;
 
+
     private Amount availableAmount;
 
     private Amount pendingAmount;
+
+    private OffsetDateTime createdAt;
 
     @JsonProperty("_links")
     private BalanceLinks links;

@@ -14,20 +14,27 @@ import java.util.Optional;
 @Builder
 public class MandateDetailsResponse {
 
+    @Builder.Default
     private Optional<String> consumerName = Optional.empty();
 
+    @Builder.Default
     private Optional<String> consumerAccount = Optional.empty();
 
+    @Builder.Default
     private Optional<String> consumerBic = Optional.empty();
 
+    @Builder.Default
     private Optional<String> cardHolder = Optional.empty();
 
+    @Builder.Default
     private Optional<String> cardNumber = Optional.empty();
 
-    private Optional<String> cardLabel = Optional.empty();
-
-    private Optional<String> cardFingerprint = Optional.empty();
-
+    @Builder.Default
     private Optional<LocalDate> cardExpiryDate = Optional.empty();
 
+    @Builder.Default
+    private Optional<String> cardLabel = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> cardFingerprint = Optional.empty();
 }

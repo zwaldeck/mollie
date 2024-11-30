@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Optional;
 
 
 @Data
@@ -23,15 +24,18 @@ public class MandateResponse {
 
     private String mode;
 
-    private MandateStatus status;
-
     private MandatePaymentMethod method;
 
     private MandateDetailsResponse details;
 
+    private LocalDate signatureDate;
+
     private String mandateReference;
 
-    private LocalDate signatureDate;
+    private MandateStatus status;
+
+    @Builder.Default
+    private Optional<String> customerId = Optional.empty();
 
     private OffsetDateTime createdAt;
 

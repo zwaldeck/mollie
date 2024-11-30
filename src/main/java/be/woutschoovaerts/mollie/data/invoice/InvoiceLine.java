@@ -18,7 +18,7 @@ public class InvoiceLine {
 
     private int count;
 
-    private double vatPercentage;
+    private int vatPercentage;
 
     private Amount amount;
 }

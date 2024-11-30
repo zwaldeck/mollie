@@ -7,6 +7,7 @@ import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.customer.CustomerRequest;
 import be.woutschoovaerts.mollie.data.customer.CustomerResponse;
 import be.woutschoovaerts.mollie.data.mandate.MandateListResponse;
+import be.woutschoovaerts.mollie.data.mandate.MandatePaymentMethod;
 import be.woutschoovaerts.mollie.data.mandate.MandateRequest;
 import be.woutschoovaerts.mollie.data.mandate.MandateResponse;
 import be.woutschoovaerts.mollie.exception.MollieException;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -87,7 +88,7 @@ class MandateHandlerIntegrationTest {
         long rand = RandomUtils.nextLong();
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
-                .email(Optional.of("name" + rand + "@feelio.be"))
+                .email(Optional.of("name" + rand + "@z-soft.be"))
                 .locale(Optional.of(Locale.nl_BE))
                 .build();
 
@@ -96,11 +97,11 @@ class MandateHandlerIntegrationTest {
 
     private MandateResponse create(CustomerResponse customer) throws MollieException {
         MandateRequest mandateRequest = MandateRequest.builder()
-                .method("directdebit")
+                .method(MandatePaymentMethod.DIRECTDEBIT)
                 .consumerName("John Doe")
                 .consumerAccount(Optional.of("NL55INGB0000000000"))
                 .consumerBic(Optional.of("INGBNL2A"))
-                .signatureDate(Optional.of(LocalDate.now()))
+                .signatureDate(Optional.of(OffsetDateTime.now()))
                 .mandateReference(Optional.of("YOUR-COMPANY-MD13804"))
                 .build();
 

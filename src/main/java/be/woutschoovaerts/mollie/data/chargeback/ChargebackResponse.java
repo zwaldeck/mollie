@@ -25,13 +25,16 @@ public class ChargebackResponse {
 
     private Amount settlementAmount;
 
-    private OffsetDateTime createdAt;
-
     private ChargebackReason reason;
 
-    private OffsetDateTime reversedAt;
-
     private String paymentId;
+
+    @Builder.Default
+    private Optional<String> settlementId = Optional.empty();
+
+    private OffsetDateTime createdAt;
+
+    private OffsetDateTime reversedAt;
 
     @JsonProperty("_links")
     private ChargebackLinks links;

@@ -43,7 +43,7 @@ class MethodHandlerIntegrationTest {
 
     @Test
     void getMethod() throws MollieException {
-        MethodResponse method = client.methods().getMethod("ideal");
+        MethodResponse method = client.methods().getMethod("bancontact");
 
         assertNotNull(method);
     }
@@ -53,7 +53,7 @@ class MethodHandlerIntegrationTest {
         QueryParams queryParams = new QueryParams();
         queryParams.put("include", "pricing");
 
-        MethodResponse method = client.methods().getMethod("creditcard", queryParams);
+        MethodResponse method = client.methods().getMethod("banktransfer", queryParams);
         List<MethodPricing> pricing = method.getPricing();
 
         assertNotEquals(0, pricing.size());
@@ -67,7 +67,7 @@ class MethodHandlerIntegrationTest {
         QueryParams queryParams = new QueryParams();
         queryParams.put("include", "pricing");
 
-        MethodResponse method = client.methods().getMethod("ideal", queryParams);
+        MethodResponse method = client.methods().getMethod("bancontact", queryParams);
         List<MethodPricing> pricing = method.getPricing();
 
         assertNotEquals(0, pricing.size());

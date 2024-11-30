@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Map;
 
@@ -29,9 +28,9 @@ public class BalanceTransactionResponse {
 
     private Amount deductions;
 
-    private OffsetDateTime createdAt;
-
     private Map<String, String> context;
+
+    private OffsetDateTime createdAt;
 
     @JsonProperty("_links")
     private BalanceLinks links;

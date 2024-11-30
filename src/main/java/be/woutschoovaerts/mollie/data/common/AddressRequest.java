@@ -19,12 +19,15 @@ public class AddressRequest {
 
     private String streetAndNumber;
 
+    @Builder.Default
     private Optional<String> streetAdditional = Optional.empty();
 
-    private Optional<String> postalCode;
+    @Builder.Default
+    private Optional<String> postalCode = Optional.empty();
 
     private String city;
 
+    @Builder.Default
     private Optional<String> region = Optional.empty();
 
     private String country;

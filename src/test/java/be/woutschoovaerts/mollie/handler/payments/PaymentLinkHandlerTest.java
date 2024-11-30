@@ -1,6 +1,7 @@
 package be.woutschoovaerts.mollie.handler.payments;
 
 import be.woutschoovaerts.mollie.data.paymentLink.PaymentLinkRequest;
+import be.woutschoovaerts.mollie.data.paymentLink.UpdatePaymentLinkRequest;
 import be.woutschoovaerts.mollie.util.QueryParams;
 import be.woutschoovaerts.mollie.util.RestService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -50,6 +51,37 @@ class PaymentLinkHandlerTest {
         String uri = "/payment-links";
 
         handler.listPaymentLinks();
+
+        verify(restService).get(eq(uri), any(QueryParams.class), eq(true), any(TypeReference.class));
+    }
+
+
+    @Test
+    void updatePaymentLink() throws Exception {
+        UpdatePaymentLinkRequest request = UpdatePaymentLinkRequest.builder()
+                .archived(false)
+                .build();
+        String uri = "/payment-links/payment_link_id";
+
+        handler.updatePaymentLink("payment_link_id", request);
+
+        verify(restService).patch(eq(uri), eq(request), any(QueryParams.class), any(TypeReference.class));
+    }
+
+    @Test
+    void deletePaymentLink() throws Exception {
+        String uri = "/payment-links/payment_link_id";
+
+        handler.deletePaymentLink("payment_link_id");
+
+        verify(restService).delete(eq(uri), any(QueryParams.class), any(TypeReference.class));
+    }
+
+    @Test
+    void listPaymentLinkPayments() throws Exception {
+        String uri = "/payment-links/payment_link_id/payments";
+
+        handler.listPaymentLinkPayments("payment_link_id");
 
         verify(restService).get(eq(uri), any(QueryParams.class), eq(true), any(TypeReference.class));
     }

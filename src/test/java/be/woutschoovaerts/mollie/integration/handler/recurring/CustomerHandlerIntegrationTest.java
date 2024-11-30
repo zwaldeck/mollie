@@ -118,7 +118,7 @@ class CustomerHandlerIntegrationTest {
         long rand = RandomUtils.nextLong();
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
-                .email(Optional.of("name" + rand + "@feelio.be"))
+                .email(Optional.of("name" + rand + "@z-soft.be"))
                 .locale(Optional.of(Locale.nl_BE))
                 .build();
 

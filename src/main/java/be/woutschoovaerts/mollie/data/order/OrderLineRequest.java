@@ -18,12 +18,12 @@ public class OrderLineRequest implements OrderLineOperationDataRequest {
     @Builder.Default
     private Optional<OrderLineType> type = Optional.empty();
 
-    @Builder.Default
-    private Optional<OrderLineCategory> category = Optional.empty();
-
     private String name;
 
     private int quantity;
+
+    @Builder.Default
+    private Optional<String> quantityUnit = Optional.empty();
 
     private Amount unitPrice;
 
@@ -40,11 +40,14 @@ public class OrderLineRequest implements OrderLineOperationDataRequest {
     private Optional<String> sku = Optional.empty();
 
     @Builder.Default
+    private Optional<OrderLineCategory> category = Optional.empty();
+
+    @Builder.Default
+    private Optional<Map<String, Object>> metadata = Optional.empty();
+
+    @Builder.Default
     private Optional<String> imageUrl = Optional.empty();
 
     @Builder.Default
     private Optional<String> productUrl = Optional.empty();
-
-    @Builder.Default
-    private Optional<Map<String, Object>> metadata = Optional.empty();
 }

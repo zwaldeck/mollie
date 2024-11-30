@@ -20,5 +20,6 @@ public class MethodPricing {
 
     private String variable;
 
+    @Builder.Default
     private Optional<String> feeRegion = Optional.empty();
 }

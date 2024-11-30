@@ -20,14 +20,14 @@ This library requires Java 11+.
 <dependency>
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>4.4.3</version>
+    <version>4.5.0</version>
 </dependency>
 ```
 
 2. Build a client
 ```
 Client client = new ClientBuilder()
-                       .withApiKey("test_hW7trRMaJphr8feGzMNtd5SwShQSwg")
+                       .withApiKey("test_plsW7trRMaJphr8feGzMNtd5SwShQSwg")
                        .build();
 ```
 

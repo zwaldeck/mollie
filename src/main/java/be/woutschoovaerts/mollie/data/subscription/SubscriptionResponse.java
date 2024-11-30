@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.Optional;
@@ -27,8 +26,6 @@ public class SubscriptionResponse {
 
     private String mode;
 
-    private OffsetDateTime createdAt;
-
     private SubscriptionStatus status;
 
     private Amount amount;
@@ -39,23 +36,34 @@ public class SubscriptionResponse {
 
     private String interval;
 
-    private LocalDate startDate;
+    private OffsetDateTime startDate;
 
-    private Optional<LocalDate> nextPaymentDate = Optional.empty();
+    @Builder.Default
+    private Optional<OffsetDateTime> nextPaymentDate = Optional.empty();
 
     private String description;
 
-    private MandatePaymentMethod method;
+    @Builder.Default
+    private Optional<MandatePaymentMethod> method = Optional.empty();
 
-    private Optional<String> mandateId = Optional.empty();
-
-    private OffsetDateTime canceledAt;
-
-    private String webhookUrl;
+    private ApplicationFee applicationFee;
 
     private Map<String, Object> metadata;
 
-    private ApplicationFee applicationFee;
+    private String webhookUrl;
+
+    @Builder.Default
+    private Optional<String> customerId = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> mandateId = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> profileId = Optional.empty();
+
+    private OffsetDateTime createdAt;
+
+    private OffsetDateTime canceledAt;
 
     @JsonProperty("_links")
     private SubscriptionLinks links;

@@ -26,12 +26,6 @@ public class InvoiceResponse {
 
     private InvoiceStatus status;
 
-    private LocalDate issuedAt;
-
-    private LocalDate paidAt;
-
-    private LocalDate dueAt;
-
     private Amount netAmount;
 
     private Amount vatAmount;
@@ -39,6 +33,12 @@ public class InvoiceResponse {
     private Amount grossAmount;
 
     private List<InvoiceLine> lines;
+
+    private LocalDate issuedAt;
+
+    private LocalDate paidAt;
+
+    private LocalDate dueAt;
 
     @JsonProperty("_links")
     private InvoiceLinks links;

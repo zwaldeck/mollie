@@ -2,6 +2,7 @@ package be.woutschoovaerts.mollie.integration.handler.orders;
 
 import be.woutschoovaerts.mollie.Client;
 import be.woutschoovaerts.mollie.ClientBuilder;
+import be.woutschoovaerts.mollie.data.common.AddressRequest;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.Locale;
 import be.woutschoovaerts.mollie.data.common.Pagination;
@@ -261,14 +262,14 @@ class OrderHandlerIntegrationTest {
                         .currency("EUR")
                         .value(new BigDecimal("10.00"))
                         .build())
-                .orderNumber(RandomStringUtils.randomNumeric(5))
+                .orderNumber(RandomStringUtils.secure().nextNumeric(5))
                 .lines(Collections.singletonList(createOrderLineRequest()))
-                .billingAddress(Optional.of(OrderAddressRequest.builder()
+                .billingAddress(Optional.of(AddressRequest.builder()
                         .givenName("John")
                         .familyName("Doe")
-                        .email("john.doe@feelio.be")
+                        .email("john.doe@z-soft.be")
                         .streetAndNumber("wetstraat 1")
-                        .postalCode("1000")
+                        .postalCode(Optional.of("1000"))
                         .city("Brussels")
                         .country("BE")
                         .build()))
@@ -294,7 +295,7 @@ class OrderHandlerIntegrationTest {
                         .currency("EUR")
                         .value(new BigDecimal("1.74"))
                         .build())
-                .sku(Optional.of(RandomStringUtils.randomAlphabetic(5)))
+                .sku(Optional.of(RandomStringUtils.secure().nextNumeric(5)))
                 .build();
     }
 }

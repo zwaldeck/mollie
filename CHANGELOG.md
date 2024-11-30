@@ -1,3 +1,13 @@
+## 4.5.0
+
+- Updated request objects to add missing properties
+- Updated response objects to add missing properties
+- Added beta voucher properties
+- Removed QueryParams.EMPTY
+- Deprecated OrderHandler
+- Deprecated ShipmentHandler
+- Added Client links API
+
 ## 4.4.3
  - Switched to OffsetDateTime
 

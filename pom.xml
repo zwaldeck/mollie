@@ -6,7 +6,7 @@
 
     <groupId>be.woutschoovaerts</groupId>
     <artifactId>mollie</artifactId>
-    <version>4.4.3</version>
+    <version>4.5.0</version>
 
     <name>Mollie with Java</name>
     <description>Java framework to consume the Mollie API</description>
@@ -15,7 +15,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
 
@@ -35,18 +35,18 @@
     </scm>
 
     <properties>
-        <commons-lang3.version>3.13.0</commons-lang3.version>
-        <jackson.version>2.15.2</jackson.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <jackson.version>2.18.2</jackson.version>
         <java.version>11</java.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <jaxb-core.version>4.0.3</jaxb-core.version>
-        <junit-jupiter-engine.version>5.10.0</junit-jupiter-engine.version>
-        <log4j.version>2.20.0</log4j.version>
-        <lombok.version>1.18.28</lombok.version>
+        <junit-jupiter-engine.version>5.11.3</junit-jupiter-engine.version>
+        <log4j.version>2.24.2</log4j.version>
+        <lombok.version>1.18.36</lombok.version>
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <maven-jdk-tools-wrapper.version>0.1</maven-jdk-tools-wrapper.version>
-        <mockito-core.version>5.5.0</mockito-core.version>
-        <slf4j-api.version>2.0.9</slf4j-api.version>
+        <mockito-core.version>5.14.2</mockito-core.version>
+        <slf4j-api.version>2.0.16</slf4j-api.version>
         <unirest-java.version>3.14.5</unirest-java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -104,31 +104,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-api.version}</version>
-        </dependency>
-
-        <!-- Needed for Java 9+ -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>${jaxb-api.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>${jaxb-core.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>${jaxb-core.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.olivergondza</groupId>
-            <artifactId>maven-jdk-tools-wrapper</artifactId>
-            <version>${maven-jdk-tools-wrapper.version}</version>
         </dependency>
 
         <!-- Test dependencies -->
@@ -226,7 +201,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>3.3.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -240,7 +215,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.5.0</version>
+                        <version>3.11.1</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -260,7 +235,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.2.7</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

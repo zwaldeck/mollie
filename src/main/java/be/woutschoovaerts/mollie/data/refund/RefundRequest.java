@@ -17,19 +17,20 @@ import java.util.Optional;
 @Builder
 public class RefundRequest {
 
-    private Amount amount;
-
     @Builder.Default
     private Optional<String> description = Optional.empty();
 
-    private HashMap<String, Object> metadata;
+    private Amount amount;
 
-    @Builder.Default
-    private Optional<Boolean> testmode = Optional.empty();
+    private HashMap<String, Object> metadata;
 
     @Builder.Default
     private Optional<Boolean> reverseRouting = Optional.empty();
 
     @Builder.Default
     private Optional<List<RoutingReversalRequest>> routingReversals = Optional.empty();
+
+    @Builder.Default
+    private Optional<Boolean> testmode = Optional.empty();
+
 }

@@ -21,35 +21,14 @@ public class OrderLineResponse {
 
     private String id;
 
-    private String orderId;
-
     private OrderLineType type;
 
     private String name;
 
-    private OrderStatus status;
-
-    private boolean isCancelable;
-
     private int quantity;
 
-    private int quantityShipped;
-
-    private Amount amountShipped;
-
-    private int quantityRefunded;
-
-    private Amount amountRefunded;
-
-    private int quantityCanceled;
-
-    private Amount amountCanceled;
-
-    private int shippableQuantity;
-
-    private int refundableQuantity;
-
-    private int cancelableQuantity;
+    @Builder.Default
+    private Optional<String> quantityUnit = Optional.empty();
 
     private Amount unitPrice;
 
@@ -65,12 +44,21 @@ public class OrderLineResponse {
     @Builder.Default
     private Optional<String> sku = Optional.empty();
 
+    @Builder.Default
+    private Optional<OrderLineCategory> category = Optional.empty();
+
+    private OrderStatus status;
+
+    private boolean isCancelable;
+
+    @Builder.Default
+    private Optional<Map<String, Object>> metadata = Optional.empty();
+
+    private String orderId;
+
     private OffsetDateTime createdAt;
 
     @JsonProperty("_links")
     private OrderLineLinks links;
-
-    @Builder.Default
-    private Optional<Map<String, Object>> metadata = Optional.empty();
 
 }

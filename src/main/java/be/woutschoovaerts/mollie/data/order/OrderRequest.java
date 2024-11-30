@@ -1,5 +1,6 @@
 package be.woutschoovaerts.mollie.data.order;
 
+import be.woutschoovaerts.mollie.data.common.AddressRequest;
 import be.woutschoovaerts.mollie.data.common.Amount;
 import be.woutschoovaerts.mollie.data.common.Locale;
 import be.woutschoovaerts.mollie.data.payment.PaymentMethod;
@@ -21,20 +22,11 @@ import java.util.Optional;
 @Builder
 public class OrderRequest {
 
-    private Amount amount;
-
     private String orderNumber;
 
     private List<OrderLineRequest> lines;
 
-    @Builder.Default
-    private Optional<OrderAddressRequest> billingAddress = Optional.empty();
-
-    @Builder.Default
-    private Optional<OrderAddressRequest> shippingAddress = Optional.empty();
-
-    @Builder.Default
-    private Optional<LocalDate> consumerDateOfBirth = Optional.empty();
+    private Amount amount;
 
     @Builder.Default
     private Optional<String> redirectUrl = Optional.empty();
@@ -45,25 +37,30 @@ public class OrderRequest {
     @Builder.Default
     private Optional<String> webhookUrl = Optional.empty();
 
+    @Builder.Default
+    private Optional<AddressRequest> billingAddress = Optional.empty();
+
+    @Builder.Default
+    private Optional<AddressRequest> shippingAddress = Optional.empty();
+
     private Locale locale;
 
     @Builder.Default
     @JsonSerialize(using = PaymentMethodSerializer.class)
     private Optional<List<PaymentMethod>> method = Optional.empty();
 
-    private Map<String, Object> payment;
-
-    private Map<String, Object> metadata;
-
-    @Builder.Default
-    private Optional<LocalDate> expiresAt = Optional.empty();
-
     @Builder.Default
     private Optional<Boolean> shopperCountryMustMatchBillingCountry = Optional.empty();
 
-    // OAuth Params
+    private Map<String, Object> metadata;
+
+    private Map<String, Object> payment;
+
     @Builder.Default
     private Optional<String> profileId = Optional.empty();
+
+    @Builder.Default
+    private Optional<LocalDate> expiresAt = Optional.empty();
 
     @Builder.Default
     private Optional<Boolean> testmode = Optional.empty();

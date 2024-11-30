@@ -25,22 +25,19 @@ public class UpdateProfileRequest {
     @Builder.Default
     private Optional<String> phone = Optional.empty();
 
-    /**
-     * @deprecated This parameter is deprecated and will be (is ?) removed in 2022. Use the businessCategory parameter instead.
-     */
-    @Builder.Default
-    @Deprecated
-    private Optional<Integer> categoryCode = Optional.empty();
-
-    @Builder.Default
-    private Optional<BusinessCategory> businessCategory = Optional.empty();
-
-    @Builder.Default
-    private Optional<String> mode = Optional.empty();
-
     @Builder.Default
     private Optional<String> description = Optional.empty();
 
     @Builder.Default
     private Optional<String[]> countriesOfActivity = Optional.empty();
+
+    @Builder.Default
+    private Optional<BusinessCategory> businessCategory = Optional.empty();
+
+    @Builder.Default
+    private Optional<Integer> categoryCode = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> mode = Optional.empty();
+
 }

@@ -25,36 +25,45 @@ public class RefundResponse {
 
     private String id;
 
+    private String mode;
+
+    private String description;
+
     private Amount amount;
 
     @Builder.Default
-    private Optional<String> settlementId = Optional.empty();
-
-    @Builder.Default
     private Optional<Amount> settlementAmount = Optional.empty();
-
-    private String description;
 
     private HashMap<String, Object> metadata;
 
     private RefundStatus status;
 
     @Builder.Default
-    private Optional<List<OrderLineResponse>> lines = Optional.empty();
+    private Optional<Boolean> reverseRouting = Optional.empty();
+
+    @Builder.Default
+    private Optional<RoutingReversalRequest> routingReversals = Optional.empty();
 
     private String paymentId;
 
     @Builder.Default
-    private Optional<String> orderId = Optional.empty();
+    private Optional<String> settlementId = Optional.empty();
 
     private OffsetDateTime createdAt;
-
-    @JsonProperty("_embedded")
-    private Optional<RefundEmbedded> embedded = Optional.empty();
 
     @JsonProperty("_links")
     private RefundLinks links;
 
     @Builder.Default
-    private Optional<RoutingReversalRequest> routingReversals = Optional.empty();
+    private Optional<List<OrderLineResponse>> lines = Optional.empty();
+
+    @Builder.Default
+    private Optional<String> orderId = Optional.empty();
+
+
+    @Builder.Default
+    @JsonProperty("_embedded")
+    private Optional<RefundEmbedded> embedded = Optional.empty();
+
+
 }

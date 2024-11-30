@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 @Data
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Builder
 public class MandateRequest {
 
-    private String method;
+    private MandatePaymentMethod method;
 
     private String consumerName;
 
@@ -29,7 +29,8 @@ public class MandateRequest {
     private Optional<String> consumerEmail = Optional.empty();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Optional<LocalDate> signatureDate = Optional.empty();
+    @Builder.Default
+    private Optional<OffsetDateTime> signatureDate = Optional.empty();
 
     @Builder.Default
     private Optional<String> mandateReference = Optional.empty();

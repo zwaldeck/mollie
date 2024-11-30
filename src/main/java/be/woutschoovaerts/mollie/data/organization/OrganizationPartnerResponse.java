@@ -6,8 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -17,17 +18,17 @@ public class OrganizationPartnerResponse {
 
     private String resource;
 
-    private String id;
+    @Builder.Default
+    private Optional<PartnerType> partnerType = Optional.empty();
 
-    private PartnerType partnerType;
-
-    private Boolean isCommissionPartner;
+    private boolean isCommissionPartner;
 
     private List<UserAgentTokenResponse> userAgentTokens;
 
-    private LocalDate partnerContractSignedAt;
+    @Builder.Default
+    private Optional<OffsetDateTime> partnerContractSignedAt = Optional.empty();
 
-    private Boolean partnerContractUpdateAvailable;
+    private boolean partnerContractUpdateAvailable;
 
     @JsonProperty("_links")
     private OrganizationPartnerLinks links;

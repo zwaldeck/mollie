@@ -16,15 +16,13 @@ import java.util.Optional;
 @Builder
 public class OrderRefundRequest {
 
-    @JsonInclude(JsonInclude.Include.ALWAYS)
-    private List<OrderRefundLineRequest> lines;
-
     @Builder.Default
     private Optional<String> description = Optional.empty();
 
-    private Map<String, Object> metadata;
+    @JsonInclude(JsonInclude.Include.ALWAYS)
+    private List<OrderRefundLineRequest> lines;
 
-    // OAuth Params
+    private Map<String, Object> metadata;
 
     @Builder.Default
     private Optional<Boolean> testmode = Optional.empty();

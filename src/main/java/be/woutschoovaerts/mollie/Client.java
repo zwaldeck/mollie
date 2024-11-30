@@ -4,6 +4,7 @@ import be.woutschoovaerts.mollie.handler.business.BalanceHandler;
 import be.woutschoovaerts.mollie.handler.business.InvoiceHandler;
 import be.woutschoovaerts.mollie.handler.business.SettlementHandler;
 import be.woutschoovaerts.mollie.handler.client.ClientHandler;
+import be.woutschoovaerts.mollie.handler.client.ClientLinkHandler;
 import be.woutschoovaerts.mollie.handler.connect.*;
 import be.woutschoovaerts.mollie.handler.orders.OrderHandler;
 import be.woutschoovaerts.mollie.handler.orders.ShipmentHandler;
@@ -155,6 +156,7 @@ public class Client {
      *
      * @return OrderHandler object
      */
+    @Deprecated
     public OrderHandler orders() {
         return new OrderHandler(restService);
     }
@@ -164,6 +166,7 @@ public class Client {
      *
      * @return ShipmentHandler object
      */
+    @Deprecated
     public ShipmentHandler shipments() {
         return new ShipmentHandler(restService);
     }
@@ -283,6 +286,15 @@ public class Client {
      */
     public TerminalHandler terminals() {
         return new TerminalHandler(restService);
+    }
+
+    /**
+     * Handles client link actions
+     *
+     * @return ClientLinkHandler object
+     */
+    public ClientLinkHandler clientLinks() {
+        return new ClientLinkHandler(restService);
     }
 
     private void initUniRest(ClientProxy proxy) {

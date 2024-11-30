@@ -39,7 +39,7 @@ class OnboardingHandlerIntegrationTest {
     void submitOnboardingData() throws MollieException{
         client.onboarding().submitOnboardingData(OnboardingRequest.builder()
                 .profile(Optional.of(OnboardingProfileRequest.builder()
-                        .name(Optional.of("Update_name" + RandomStringUtils.randomAlphabetic(5)))
+                        .name(Optional.of("Update_name" + RandomStringUtils.secure().nextNumeric(5)))
                         .build()))
                 .build());
     }

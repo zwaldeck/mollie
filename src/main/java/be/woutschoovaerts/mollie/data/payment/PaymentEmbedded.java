@@ -1,5 +1,6 @@
 package be.woutschoovaerts.mollie.data.payment;
 
+import be.woutschoovaerts.mollie.data.capture.CaptureResponse;
 import be.woutschoovaerts.mollie.data.chargeback.ChargebackResponse;
 import be.woutschoovaerts.mollie.data.refund.RefundResponse;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PaymentEmbedded {
+
+    private List<CaptureResponse> captures;
 
     private List<RefundResponse> refunds;
 

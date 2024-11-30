@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,15 +23,19 @@ public class OrganizationResponse {
 
     private String name;
 
+    private String email;
+
     private Locale locale;
 
     private AddressResponse address;
 
     private String registrationNumber;
 
-    private String vatNumber;
+    @Builder.Default
+    private Optional<String> vatNumber = Optional.empty();
 
-    private String vatRegulation;
+    @Builder.Default
+    private Optional<String> vatRegulation = Optional.empty();
 
     @JsonProperty("_links")
     private OrganizationLinks links;

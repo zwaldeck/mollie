@@ -7,13 +7,6 @@ import java.util.StringJoiner;
 public class QueryParams extends LinkedHashMap<String, String> {
 
     /**
-     * This field is deprecated because this can trigger unwanted side effects if you are using access tokens
-     * We now use 'new QueryParams()'
-     */
-    @Deprecated
-    public static final QueryParams EMPTY = new QueryParams();
-
-    /**
      * Generate the query string from all the [key, value] pairs
      *
      * @return the query string starting with ?

@@ -21,6 +21,7 @@ import java.io.IOException;
  * @author Wout Schoovaerts
  */
 @RequiredArgsConstructor
+@Deprecated
 public class OrderHandler {
 
     private static final Logger log = LoggerFactory.getLogger(OrderHandler.class);

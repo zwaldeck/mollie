@@ -15,23 +15,28 @@ import java.util.Optional;
 @Builder
 public class UpdatePaymentRequest {
 
-   private Optional<String> description;
+    @Builder.Default
+    private Optional<String> description = Optional.empty();
 
-    private Optional<String> redirectUrl;
+    @Builder.Default
+    private Optional<String> redirectUrl = Optional.empty();
 
-    private Optional<String> cancelUrl;
+    @Builder.Default
+    private Optional<String> cancelUrl = Optional.empty();
 
-    private Optional<String> webhookUrl;
+    @Builder.Default
+    private Optional<String> webhookUrl = Optional.empty();
 
-    private Optional<Map<String, Object>> metadata;
+    @Builder.Default
+    private Optional<Map<String, Object>> metadata = Optional.empty();
 
-    private Optional<Locale> locale;
+    @Builder.Default
+    private Optional<PaymentMethod> method = Optional.empty();
 
-    private Optional<String> restrictPaymentMethodsToCountry;
+    @Builder.Default
+    private Optional<Locale> locale = Optional.empty();
 
-    private Optional<String> billingEmail;
+    @Builder.Default
+    private Optional<String> restrictPaymentMethodsToCountry = Optional.empty();
 
-    private Optional<String> dueDate;
-
-    private Optional<String> issuer;
 }

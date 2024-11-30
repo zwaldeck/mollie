@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -23,9 +24,17 @@ public class CaptureResponse {
 
     private String mode;
 
-    private Amount amount;
+    private String description;
 
-    private Amount settlementAmount;
+    @Builder.Default
+    private Optional<Amount> amount = Optional.empty();
+
+    @Builder.Default
+    private Optional<Amount> settlementAmount = Optional.empty();
+
+    private CaptureStatus status;
+
+    private Map<String, Object> metadata;
 
     private String paymentId;
 
@@ -39,4 +48,8 @@ public class CaptureResponse {
 
     @JsonProperty("_links")
     private CaptureLinks links;
+
+    @JsonProperty("_embedded")
+    @Builder.Default
+    private Optional<CaptureEmbedded> embedded = Optional.empty();
 }

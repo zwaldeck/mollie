@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -28,14 +29,17 @@ public class ProfileResponse {
 
     private String phone;
 
-    @Deprecated
-    private int categoryCode;
+    @Builder.Default
+    private Optional<String> description = Optional.empty();
+
+    private String[] countriesOfActivity;
 
     private BusinessCategory businessCategory;
 
     private ProfileStatus status;
 
-    private ProfileReviewResponse review;
+    @Builder.Default
+    private Optional<ProfileReviewResponse> review = Optional.empty();
 
     private OffsetDateTime createdAt;
 

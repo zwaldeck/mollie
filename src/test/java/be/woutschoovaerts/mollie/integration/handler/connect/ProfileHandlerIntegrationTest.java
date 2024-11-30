@@ -114,7 +114,6 @@ class ProfileHandlerIntegrationTest {
                 .email("info@thisdoesnotexists123456789azerty.be")
                 .phone("+32499999999")
                 .businessCategory(Optional.of(BusinessCategory.HOME_IMPROVEMENT))
-                .mode(Optional.of("test"))
                 .build();
 
         return client.profiles().createProfile(body);

@@ -26,11 +26,13 @@ public class PaymentLinkRequest {
     private Optional<String> webhookUrl = Optional.empty();
 
     @Builder.Default
-    private Optional<OffsetDateTime> expiresAt = Optional.empty();
-
-    // OAuth params
-    @Builder.Default
     private Optional<String> profileId = Optional.empty();
+
+    @Builder.Default
+    private Optional<Boolean> reusable = Optional.empty();
+
+    @Builder.Default
+    private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
     @Builder.Default
     private Optional<Boolean> testmode = Optional.empty();

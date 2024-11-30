@@ -7,6 +7,7 @@ import be.woutschoovaerts.mollie.data.common.Locale;
 import be.woutschoovaerts.mollie.data.common.Pagination;
 import be.woutschoovaerts.mollie.data.customer.CustomerRequest;
 import be.woutschoovaerts.mollie.data.customer.CustomerResponse;
+import be.woutschoovaerts.mollie.data.mandate.MandatePaymentMethod;
 import be.woutschoovaerts.mollie.data.mandate.MandateRequest;
 import be.woutschoovaerts.mollie.data.payment.PaymentListResponse;
 import be.woutschoovaerts.mollie.data.subscription.SubscriptionListResponse;
@@ -16,15 +17,18 @@ import be.woutschoovaerts.mollie.data.subscription.UpdateSubscriptionRequest;
 import be.woutschoovaerts.mollie.exception.MollieException;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Disabled // TODO: Wait until direct debit is enabled
 class SubscriptionHandlerIntegrationTest {
 
     private Client client;
@@ -137,19 +141,21 @@ class SubscriptionHandlerIntegrationTest {
         long rand = RandomUtils.nextLong();
         CustomerRequest customerRequest = CustomerRequest.builder()
                 .name(Optional.of("name" + rand))
-                .email(Optional.of("name" + rand + "@feelio.be"))
+                .email(Optional.of("name" + rand + "@z-soft.be"))
                 .locale(Optional.of(Locale.nl_BE))
                 .build();
 
         CustomerResponse customer = client.customers().createCustomer(customerRequest);
 
         MandateRequest mandateRequest = MandateRequest.builder()
-                .method("directdebit")
+                .method(MandatePaymentMethod.DIRECTDEBIT)
                 .consumerName("John Doe")
                 .consumerAccount(Optional.of("NL55INGB0000000000"))
                 .consumerBic(Optional.of("INGBNL2A"))
-                .signatureDate(Optional.of(LocalDate.now()))
+                .consumerEmail(Optional.of("johndoe@example.com"))
+                .signatureDate(Optional.of(OffsetDateTime.now()))
                 .mandateReference(Optional.of("YOUR-COMPANY-MD13804"))
+                .paypalBillingAgreementId(Optional.of(UUID.randomUUID().toString()))
                 .build();
 
         client.mandates().createMandate(customer.getId(), mandateRequest);

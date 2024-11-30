@@ -14,6 +14,5 @@ public class PeriodCostRateResponse {
 
     private Amount fixed;
 
-
     private String variable;
 }

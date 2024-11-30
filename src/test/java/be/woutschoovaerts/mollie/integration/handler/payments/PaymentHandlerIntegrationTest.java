@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -37,6 +38,7 @@ public class PaymentHandlerIntegrationTest {
                 .description("My first payment")
                 .redirectUrl("https://webshop.example.org/order/12345/")
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
+                .method(Optional.of(List.of(PaymentMethod.BANCONTACT)))
                 .build();
         PaymentResponse response = client.payments().createPayment(request);
 

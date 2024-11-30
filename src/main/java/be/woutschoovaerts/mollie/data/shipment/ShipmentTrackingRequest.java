@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Optional;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +15,6 @@ public class ShipmentTrackingRequest {
 
     private String code;
 
-    @Builder.Default
-    private Optional<String> url = Optional.empty();
+    private String url;
 
 }
