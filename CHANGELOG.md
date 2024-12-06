@@ -1,3 +1,7 @@
+## 4.5.1
+
+- Added remainderDetails and vouchers to PaymentDetailsResponse
+
 ## 4.5.0
 
 - Updated request objects to add missing properties

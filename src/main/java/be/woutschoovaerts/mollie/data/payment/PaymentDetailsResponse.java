@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -84,11 +85,16 @@ public class PaymentDetailsResponse {
 
     private List<GiftCardResponse> giftcards;
 
+    private Optional<List<Map<String, Object>>> vouchers = Optional.empty();
+
     @Builder.Default
     private Optional<Amount> remainderAmount = Optional.empty();
 
     @Builder.Default
     private Optional<String> remainderMethod = Optional.empty();
+
+    @Builder.Default
+    private Optional<Map<String, Object>> remainderDetails = Optional.empty();
 
     @Builder.Default
     private Optional<String> paypalReference = Optional.empty();
