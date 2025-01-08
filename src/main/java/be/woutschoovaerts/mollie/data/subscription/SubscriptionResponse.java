@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.Optional;
@@ -36,10 +37,10 @@ public class SubscriptionResponse {
 
     private String interval;
 
-    private OffsetDateTime startDate;
+    private LocalDate startDate;
 
     @Builder.Default
-    private Optional<OffsetDateTime> nextPaymentDate = Optional.empty();
+    private Optional<LocalDate> nextPaymentDate = Optional.empty();
 
     private String description;
 
