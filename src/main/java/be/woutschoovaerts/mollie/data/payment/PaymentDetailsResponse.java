@@ -85,6 +85,7 @@ public class PaymentDetailsResponse {
 
     private List<GiftCardResponse> giftcards;
 
+    @Builder.Default
     private Optional<List<Map<String, Object>>> vouchers = Optional.empty();
 
     @Builder.Default
