@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * Handles the Payments API <a href="https://docs.mollie.com/reference/v2/payments-api/create-payment">Mollie docs</a>
@@ -84,7 +83,7 @@ public class PaymentHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse getPayment(String paymentId, QueryParams params)
-            throws MollieException {
+        throws MollieException {
         try {
             String uri = "/payments/" + paymentId;
 
@@ -117,7 +116,7 @@ public class PaymentHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse updatePayment(String paymentId, UpdatePaymentRequest request, QueryParams params)
-            throws MollieException {
+        throws MollieException {
         try {
             String uri = "/payments/" + paymentId;
 
@@ -195,7 +194,7 @@ public class PaymentHandler {
         try {
             String uri = "/payments/" + paymentId + "/release-authorization";
 
-            restService.post(uri, new HashMap<>(), params, new TypeReference<>() {});
+            restService.postWithoutBody(uri, params, new TypeReference<Void>(){});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
