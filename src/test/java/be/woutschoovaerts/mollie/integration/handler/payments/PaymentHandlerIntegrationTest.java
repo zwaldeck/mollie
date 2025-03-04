@@ -194,4 +194,27 @@ public class PaymentHandlerIntegrationTest {
         assertTrue(responseList.getLinks().getSelf().getHref().contains("limit=10"));
         assertTrue(responseList.getLinks().getSelf().getHref().contains("from=" + response.getId()));
     }
+
+    @Test
+    void releasePaymentAuthorization_not_authorized() throws MollieException {
+        PaymentRequest request = PaymentRequest.builder()
+            .amount(Amount.builder()
+                .currency("EUR")
+                .value(new BigDecimal("10.00"))
+                .build())
+            .description("My first payment")
+            .redirectUrl("https://webshop.example.org/order/12345/")
+            .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
+            .captureMode(Optional.of(PaymentCaptureMode.MANUAL))
+            .build();
+        final PaymentResponse response = client.payments().createPayment(request);
+
+        assertNotNull(response);
+
+        MollieException ex = assertThrows(MollieException.class, () -> client.payments().releasePaymentAuthorization(response.getId()));
+
+        assertNotNull(ex);
+        assertEquals(422, ex.getDetails().get("status"));
+        assertEquals("Unprocessable Entity", ex.getDetails().get("title"));
+    }
 }
