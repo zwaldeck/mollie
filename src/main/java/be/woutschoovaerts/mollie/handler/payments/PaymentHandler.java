@@ -83,7 +83,7 @@ public class PaymentHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse getPayment(String paymentId, QueryParams params)
-            throws MollieException {
+        throws MollieException {
         try {
             String uri = "/payments/" + paymentId;
 
@@ -116,7 +116,7 @@ public class PaymentHandler {
      * @throws MollieException when something went wrong
      */
     public PaymentResponse updatePayment(String paymentId, UpdatePaymentRequest request, QueryParams params)
-            throws MollieException {
+        throws MollieException {
         try {
             String uri = "/payments/" + paymentId;
 
@@ -159,6 +159,42 @@ public class PaymentHandler {
             String uri = "/payments/" + paymentId;
 
             return restService.delete(uri, params, true, PAYMENT_RESPONSE_TYPE);
+        } catch (UnirestException | IOException ex) {
+            log.error("An unexpected exception occurred", ex);
+            throw new MollieException(ex);
+        }
+    }
+
+    /**
+     * Releases the full remaining authorized amount. Call this endpoint when you will not be making any additional captures. Payment authorizations may also be released manually from the Mollie Dashboard.
+     * <p>
+     * Mollie will do its best to process release requests, but it is not guaranteed that it will succeed. It is up to the issuing bank if and when the hold will be released.
+     * <p>
+     * If the request does succeed, the payment status will change to canceled for payments without captures. If there is a successful capture, the payment will transition to paid.
+     *
+     * @param paymentId payment token
+     * @throws MollieException when something went wrong
+     */
+    public void releasePaymentAuthorization(String paymentId) throws MollieException {
+        releasePaymentAuthorization(paymentId, new QueryParams());
+    }
+
+    /**
+     * Releases the full remaining authorized amount. Call this endpoint when you will not be making any additional captures. Payment authorizations may also be released manually from the Mollie Dashboard.
+     * <p>
+     * Mollie will do its best to process release requests, but it is not guaranteed that it will succeed. It is up to the issuing bank if and when the hold will be released.
+     * <p>
+     * If the request does succeed, the payment status will change to canceled for payments without captures. If there is a successful capture, the payment will transition to paid.
+     *
+     * @param paymentId payment token
+     * @param params    A map of query parameters
+     * @throws MollieException when something went wrong
+     */
+    public void releasePaymentAuthorization(String paymentId, QueryParams params) throws MollieException {
+        try {
+            String uri = "/payments/" + paymentId + "/release-authorization";
+
+            restService.postWithoutBody(uri, params, new TypeReference<Void>(){});
         } catch (UnirestException | IOException ex) {
             log.error("An unexpected exception occurred", ex);
             throw new MollieException(ex);
