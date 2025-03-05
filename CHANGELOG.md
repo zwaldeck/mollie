@@ -1,3 +1,9 @@
+## 4.6.0
+
+- Added support for releasing payment authorization
+- Fixed invalid datatypes in SubscriptionResponse
+- Fixed serialization issue for JPY currency
+
 ## 4.5.1
 
 - Added remainderDetails and vouchers to PaymentDetailsResponse
