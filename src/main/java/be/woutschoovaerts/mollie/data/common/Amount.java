@@ -1,6 +1,6 @@
 package be.woutschoovaerts.mollie.data.common;
 
-import be.woutschoovaerts.mollie.serializer.MoneySerializer;
+import be.woutschoovaerts.mollie.serializer.AmountSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,10 +13,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonSerialize(using = AmountSerializer.class)
 public class Amount {
 
     private String currency;
 
-    @JsonSerialize(using = MoneySerializer.class)
     private BigDecimal value;
 }
