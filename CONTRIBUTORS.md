@@ -12,3 +12,4 @@
 - [Jan Allenberg](https://github.com/JanAllenberg)
 - [Lukas Deterts](https://github.com/lukasdeterts)
 - [Daniel Krax](https://github.com/sharktoon)
+- [Yiannis Sfinias](https://github.com/sfinias)

@@ -8,6 +8,7 @@ public enum RefundStatus {
 
     QUEUED,
     PENDING,
+    CANCELED,
     PROCESSING,
     REFUNDED,
     FAILED;

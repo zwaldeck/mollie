@@ -1,3 +1,7 @@
+## 4.6.1
+
+- Added canceled status for refunds
+
 ## 4.6.0
 
 - Added support for releasing payment authorization
