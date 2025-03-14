@@ -13,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import static be.woutschoovaerts.mollie.IntegrationTestConstants.API_KEY;
@@ -35,6 +37,7 @@ public class PaymentLinkHandlerIntegrationTest {
                         .value(new BigDecimal("10.00"))
                         .build())
                 .description("My first payment")
+                .expiresAt(Optional.of(OffsetDateTime.now().plusDays(1).truncatedTo(ChronoUnit.SECONDS)))
                 .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
                 .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
                 .build();
@@ -42,6 +45,27 @@ public class PaymentLinkHandlerIntegrationTest {
 
         assertNotNull(response);
     }
+
+    @Test
+    void createPaymentLink_fail_not_truncated_expires_at() {
+        PaymentLinkRequest request = PaymentLinkRequest.builder()
+                .amount(Amount.builder()
+                        .currency("EUR")
+                        .value(new BigDecimal("10.00"))
+                        .build())
+                .description("My first payment")
+                .expiresAt(Optional.of(OffsetDateTime.now().plusDays(1)))
+                .redirectUrl(Optional.of("https://webshop.example.org/order/12345/"))
+                .webhookUrl(Optional.of("https://webshop.example.org/payments/webhook/"))
+                .build();
+        MollieException ex = assertThrows(MollieException.class, () -> client.paymentLinks().createPaymentLink(request));
+
+        assertNotNull(ex);
+        assertEquals(422, ex.getDetails().get("status"));
+        assertEquals("Unprocessable Entity", ex.getDetails().get("title"));
+        assertEquals("expiresAt", ex.getDetails().get("field"));
+    }
+
 
     @Test
     void createPaymentLink_wrong_body() {

@@ -12,3 +12,4 @@
 - [Jan Allenberg](https://github.com/JanAllenberg)
 - [Lukas Deterts](https://github.com/lukasdeterts)
 - [Daniel Krax](https://github.com/sharktoon)
+- [Rudy Bruns](https://github.com/brunsman)

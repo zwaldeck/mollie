@@ -1,3 +1,7 @@
+## 4.6.1
+
+- Added test for demonstrating expiresAt needs truncating for creating PaymentLinks
+
 ## 4.6.0
 
 - Added support for releasing payment authorization
