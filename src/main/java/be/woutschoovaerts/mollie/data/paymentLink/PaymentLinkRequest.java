@@ -1,6 +1,7 @@
 package be.woutschoovaerts.mollie.data.paymentLink;
 
 import be.woutschoovaerts.mollie.data.common.Amount;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class PaymentLinkRequest {
     private Optional<Boolean> reusable = Optional.empty();
 
     @Builder.Default
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     private Optional<OffsetDateTime> expiresAt = Optional.empty();
 
     @Builder.Default
