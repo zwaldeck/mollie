@@ -1,3 +1,9 @@
+## 4.6.1
+
+- Format expiresAt as yyyy-MM-dd'T'HH:mm:ssXXX in PaymentLinkRequest
+- Replaced HashMap with Map
+- Replaced owner field with email in ClientLinkOwnerRequest
+
 ## 4.6.0
 
 - Added support for releasing payment authorization
