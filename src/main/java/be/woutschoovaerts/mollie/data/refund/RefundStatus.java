@@ -10,6 +10,7 @@ public enum RefundStatus {
     PENDING,
     PROCESSING,
     REFUNDED,
+    CANCELED,
     FAILED;
 
     @JsonValue
