@@ -14,7 +14,7 @@ import java.util.Optional;
 @Builder
 public class ClientLinkOwnerRequest {
 
-    private String owner;
+    private String email;
     private String givenName;
     private String familyName;
 
