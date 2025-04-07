@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
-import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -30,7 +30,7 @@ public class SettlementResponse {
 
     private String balanceId;
 
-    private HashMap<Integer, HashMap<Integer, PeriodResponse>> periods;
+    private Map<Integer, Map<Integer, PeriodResponse>> periods;
 
     @JsonProperty("_links")
     private SettlementLinks links;

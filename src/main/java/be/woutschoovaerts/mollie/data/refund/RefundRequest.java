@@ -7,8 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -22,7 +22,7 @@ public class RefundRequest {
 
     private Amount amount;
 
-    private HashMap<String, Object> metadata;
+    private Map<String, Object> metadata;
 
     @Builder.Default
     private Optional<Boolean> reverseRouting = Optional.empty();

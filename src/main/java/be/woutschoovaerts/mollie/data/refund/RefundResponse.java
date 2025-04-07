@@ -11,8 +11,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Data
@@ -34,7 +34,7 @@ public class RefundResponse {
     @Builder.Default
     private Optional<Amount> settlementAmount = Optional.empty();
 
-    private HashMap<String, Object> metadata;
+    private Map<String, Object> metadata;
 
     private RefundStatus status;
 
