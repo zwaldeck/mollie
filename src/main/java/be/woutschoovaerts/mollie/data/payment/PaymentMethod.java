@@ -28,6 +28,7 @@ public enum PaymentMethod {
     PAYPAL("paypal"),
     PAY_SAFE_CARD("paysafecard"),
     PRZELEWY24("przelewy24"),
+    RIVERTY("riverty"),
     SATISPAY("satispay"),
     SOFORT("sofort"),
     TRUSTLY("trustly"),
