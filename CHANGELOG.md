@@ -1,3 +1,8 @@
+## 4.6.2
+
+- Added payment method KLARNA
+- Added payment method RIVERTY
+
 ## 4.6.1
 
 - Format expiresAt as yyyy-MM-dd'T'HH:mm:ssXXX in PaymentLinkRequest
