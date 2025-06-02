@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Locale {
 
+    en_GB,
     en_US,
     nl_NL,
     nl_BE,
