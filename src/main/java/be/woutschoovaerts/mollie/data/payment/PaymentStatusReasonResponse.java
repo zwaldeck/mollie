@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PaymentStatusReasonResponse {
 
-    private String statusCode;
+    private String code;
 
-    private String statusMessage;
+    private String message;
 }
