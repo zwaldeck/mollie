@@ -18,6 +18,9 @@ import java.util.Optional;
 public class PaymentDetailsResponse {
 
     @Builder.Default
+    private Optional<String> terminalId = Optional.empty();
+
+    @Builder.Default
     private Optional<String> cardNumber = Optional.empty();
 
     @Builder.Default
