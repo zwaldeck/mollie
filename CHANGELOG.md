@@ -1,3 +1,10 @@
+## 4.6.3
+
+- Due date is a LocalDate
+- PaymentStatusResponse has correct fields
+- Added terminalId to PaymentDetailsResponse
+- Added Locale en_GB
+
 ## 4.6.2
 
 - Added payment method KLARNA
