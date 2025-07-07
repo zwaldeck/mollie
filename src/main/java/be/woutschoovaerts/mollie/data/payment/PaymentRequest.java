@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -86,7 +86,7 @@ public class PaymentRequest {
     private Optional<String> applePayPaymentToken = Optional.empty();
 
     @Builder.Default
-    private Optional<OffsetDateTime> dueDate = Optional.empty();
+    private Optional<LocalDate> dueDate = Optional.empty();
 
     @Builder.Default
     private Optional<String> company = Optional.empty();
