@@ -35,7 +35,7 @@
     </scm>
 
     <properties>
-        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
         <jackson.version>2.18.2</jackson.version>
         <java.version>11</java.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
