@@ -13,3 +13,4 @@
 - [Lukas Deterts](https://github.com/lukasdeterts)
 - [Daniel Krax](https://github.com/sharktoon)
 - [Yiannis Sfinias](https://github.com/sfinias)
+- [Sushank Sakthivel Nagarajan](https://github.com/Sushank34)

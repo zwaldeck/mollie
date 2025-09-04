@@ -1,3 +1,7 @@
+## 4.6.4
+
+- Added Bancontact support to MandatePaymentMethod enum for Get Mandate API
+
 ## 4.6.3
 
 - Due date is a LocalDate
