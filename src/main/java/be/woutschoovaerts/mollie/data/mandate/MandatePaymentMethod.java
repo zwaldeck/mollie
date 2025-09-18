@@ -8,7 +8,8 @@ public enum MandatePaymentMethod {
 
     DIRECTDEBIT,
     CREDITCARD,
-    PAYPAL;
+    PAYPAL,
+    BANCONTACT;
 
     @JsonValue
     public String getJsonValue() {
