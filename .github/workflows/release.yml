@@ -20,10 +20,10 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
       - name: Publish package
         run: mvn -P ci_cd --batch-mode clean deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+          MAVEN_OPTS: "-Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}"
