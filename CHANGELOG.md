@@ -1,3 +1,8 @@
+## 4.6.5
+
+- Added "processing-at-bank" to SettlementStatus enum for Settlements API
+- SettlementStatus declares JSON values explicitly
+
 ## 4.6.4
 
 - Added Bancontact support to MandatePaymentMethod enum for Get Mandate API
